@@ -1,0 +1,70 @@
+/* Login Page css */
+.login_img{
+    max-height: 52px !important;
+}
+
+
+/* Header css */
+#notifi_cross{
+    cursor: pointer;
+    font-size: 15px;
+    float: right;
+}
+.notifi_body:hover {
+    cursor: pointer;
+}
+
+
+
+.img-thumb {
+    max-height: 75px;
+    border: 2px solid none;
+     border-radius:3px;
+    padding: 1px;
+    cursor: pointer;
+  }
+  .img-thumb-wrapper {
+    display: inline-block;
+    margin: 10px 10px 0 0;
+  }
+  .remove {
+    display: block;
+    background: #444;
+    border: 1px solid none;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+  }
+  .remove:hover {
+    background: white;
+    color: black;
+  }
+
+
+
+
+
+  /* new project css */
+
+  /* all user tab css */
+  .ts-control {
+    border: none !important;
+    padding: 0px !important;
+  }
+  .ts-wrapper.multi.has-items .ts-control{
+    padding: 0px !important;
+  }
+  
+  .roles{
+    background-color: lightblue;
+    padding: 3px 5px;
+    margin-right: 3px;
+  }
+  .user_delete{
+    display: inline-block;
+  }
+  .user_delete button{
+    border: none;
+    color: red;
+    background-color: transparent;
+  }
