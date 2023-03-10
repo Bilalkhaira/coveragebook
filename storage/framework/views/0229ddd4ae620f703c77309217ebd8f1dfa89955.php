@@ -1,47 +1,36 @@
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title>"SAP Partner | S/4 Hana Implementation &amp; Migration | Mesprosoft"</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-
-    <!-- Favicons -->
-    <link href="<?php echo e(asset('img/favicon.ico')); ?>" rel="icon">
-    <link href="<?php echo e(asset('css/admin/img/apple-touch-icon.png')); ?>" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="<?php echo e(asset('css/admin/vendor/bootstrap.min.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/admin/vendor/bootstrap-icons.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/admin/vendor/boxicons.min.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/admin/vendor/quill.snow.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/admin/vendor/quill.bubble.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/admin/vendor/remixicon.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/admin/vendor/style.css')); ?>" rel="stylesheet">
-
-
-    <!-- Template Main CSS File -->
-    <link href="<?php echo e(asset('css/admin/style.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/admin/custom_style.css')); ?>" rel="stylesheet">
-    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>" />
+<meta charset="UFT-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <title>CoverageBook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    
     
 
+    <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>" />
+    <link rel="stylesheet" href="<?php echo e(asset('css/custom_style.css')); ?>" />
+    <link rel="stylesheet" href="<?php echo e(asset('css/app.css')); ?>" />
+    <!-- <link rel="stylesheet" href="<?php echo e(asset('css/bootstrap.css')); ?>" /> -->
+    <link rel="icon" type="image/png" href="<?php echo e(asset('img/book.png')); ?>" />
+    <?php echo $__env->yieldContent('css'); ?>
+    
 
-    <!-- new products links -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+  
+
+   
+
 
     <link
       href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css"
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
-    <?php echo $__env->yieldContent('css'); ?>
+
+    
 </head><?php /**PATH /Users/zubairmohsin/code/sites/coveragebook/resources/views/admin/layouts/partials/_head.blade.php ENDPATH**/ ?>

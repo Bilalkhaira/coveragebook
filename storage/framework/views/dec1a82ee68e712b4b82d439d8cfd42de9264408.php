@@ -3,13 +3,18 @@
 <?php echo $__env->make('layouts.partials._head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 <body>
-    <div class="content-wrapper">
+    <main id="main">
         <?php echo $__env->make('layouts.partials._header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-        <!-- ====== page-content-wrapper start ====== -->
-        <?php echo $__env->yieldContent('content'); ?>
+        <!-- ===== sidebar-wrapper start ====== -->
+        <?php echo $__env->make('layouts.partials._sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        <!-- ====== sidebar-wrapper end ====== -->
+    </main>
 
-    </div>
+    <!-- ====== page-content-wrapper start ====== -->
+    <?php echo $__env->yieldContent('content'); ?>
+    <!-- End #main -->
+
     <!-- ====== footer ====== -->
     <?php echo $__env->make('layouts.partials._footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 

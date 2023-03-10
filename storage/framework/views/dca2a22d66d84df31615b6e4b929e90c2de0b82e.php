@@ -3,16 +3,16 @@
 <?php echo $__env->make('admin.layouts.partials._head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 <body>
-    <?php echo $__env->make('admin.layouts.partials._header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <main id="main">
+        <?php echo $__env->make('admin.layouts.partials._header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-    <!-- ===== sidebar-wrapper start ====== -->
-    <?php echo $__env->make('admin.layouts.partials._sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-    <!-- ====== sidebar-wrapper end ====== -->
-
-    <main id="main" class="main">
-        <!-- ====== page-content-wrapper start ====== -->
-        <?php echo $__env->yieldContent('content'); ?>
+        <!-- ===== sidebar-wrapper start ====== -->
+        <?php echo $__env->make('admin.layouts.partials._sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        <!-- ====== sidebar-wrapper end ====== -->
     </main>
+
+    <!-- ====== page-content-wrapper start ====== -->
+    <?php echo $__env->yieldContent('content'); ?>
     <!-- End #main -->
 
     <!-- ====== footer ====== -->

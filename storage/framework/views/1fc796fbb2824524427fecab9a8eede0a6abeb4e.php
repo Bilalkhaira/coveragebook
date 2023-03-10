@@ -1,5 +1,6 @@
 <?php $__env->startSection('content'); ?>
-
+<section class="bodyc">
+    <div class="container-fluid">
 <div class="pagetitle">
     <h1>Roles</h1>
     <nav>
@@ -54,6 +55,8 @@
 
         </div>
     </div>
+</section>
+</div>
 </section>
 <?php $__env->stopSection(); ?>
 

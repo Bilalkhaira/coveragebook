@@ -1,0 +1,27 @@
+<svg width="121" height="81" viewBox="0 0 121 81" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <path d="M20 5v5c0 .5-.333.833-.833.833-.5 0-.834-.333-.834-.833V7l-6.5 6.5a.806.806 0 0 1-1.166 0L7.083 9.917l-5.666 5.666a.757.757 0 0 1-.584.25.757.757 0 0 1-.583-.25.806.806 0 0 1 0-1.166l6.25-6.25a.806.806 0 0 1 1.167 0l3.583 3.583 5.917-5.917h-3c-.5 0-.834-.333-.834-.833 0-.5.334-.833.834-.833h5c.083 0 .25 0 .333.083.167.083.333.25.417.417C20 4.75 20 4.917 20 5Z" id="path-1"/>
+  </defs>
+  <g transform="translate(0 1)" id="csv-spreadsheet" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <path id="page-shadow" fill="#EEEFF0" fill-rule="nonzero" d="M0 11h111v68H0z"/>
+    <rect id="page-border" stroke="#000" stroke-width="2" fill-rule="nonzero" x="9" y="1" width="111" height="69" rx="4"/>
+    <g id="horizontal-borders" transform="translate(8 10)" fill-rule="nonzero" stroke="#000" stroke-linecap="square">
+      <path id="Line" d="M.491.5h111.018M.491 10.5h111.018M.491 20.5h111.018M.491 30.5h111.018M.491 40.5h111.018M.491 50.5h111.018"/>
+    </g>
+    <g id="vertical-borders" transform="translate(44)" fill-rule="nonzero">
+      <path id="Line-2" stroke="#000" stroke-linecap="square" d="M.5.493v70.014M40.5.493v70.014"/>
+      <path id="icon-chart-background" fill="#FFF" d="M1 21h39v29H1z"/>
+    </g>
+    <g id="icon-/-link-chart" transform="translate(53 25.5)">
+      <mask id="mask-2" fill="#fff">
+        <use xlink:href="#path-1"/>
+      </mask>
+      <use id="Mask" fill="#EEC7C4" fill-rule="nonzero" xlink:href="#path-1"/>
+      <g id="Group" mask="url(#mask-2)" fill="#EEC7C4">
+        <g id="Icon-Color">
+          <path id="Shape" d="M0 0h20v20H0z"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

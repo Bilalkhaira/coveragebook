@@ -1,69 +1,34 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Login </title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <link href="<?php echo e(asset('css/admin/vendor/bootstrap.min.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/admin/vendor/bootstrap-icons.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/admin/vendor/boxicons.min.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/admin/vendor/quill.snow.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/admin/vendor/quill.bubble.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/admin/vendor/remixicon.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/admin/vendor/style.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/admin/style.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/admin/custom_style.css')); ?>" rel="stylesheet">
-
+    <title>CoverageBook</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('css/custom_style.css')); ?>" />
+    <link rel="icon" type="image/png" href="<?php echo e(asset('img/book.png')); ?>" />
 </head>
 
 <body>
 
-  <main>
-    <div class="container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 login_form">
+                <div class="col-md-12">
+                    <img src="<?php echo e(asset('img/book.png')); ?>" width="40" height="40">
+                </div>
+                <div class="col-md-12">
 
-      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
-              <div class="d-flex justify-content-center py-4">
-                <a href="index.html" class="logo d-flex align-items-center w-auto">
-                  <img class="login_img" src="<?php echo e(asset('img/logo-dark.png')); ?>" srcset="<?php echo e(asset('img/logo-dark@2x.png 2x')); ?>">
-                  
-                </a>
-              </div><!-- End Logo -->
-
-              <div class="card mb-3">
-
-                <div class="card-body">
-
-                  <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your username & password to login</p>
-                  </div>
-
-                  <form class="row g-3 needs-validation" novalidate method="POST" action="<?php echo e(route('login')); ?>">
-                  <?php echo csrf_field(); ?>
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <!-- <input type="text" name="username" class="form-control" id="yourUsername" required> -->
-                        <input id="email" type="email" class="form-control <?php $__errorArgs = ['email'];
+                    <form method="POST" action="<?php echo e(route('login')); ?>">
+                        <?php echo csrf_field(); ?>
+                        <h1 class="font-weight-bold">Sign In</h1>
+                        <div class="form-group">
+                            <label for="email" class="font-weight-bold">Email address:</label>
+                            <input id="email" type="email" class="form-control <?php $__errorArgs = ['email'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -71,14 +36,26 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" name="email" value="<?php echo e(old('email')); ?>" required autocomplete="email" autofocus>
-                        <div class="invalid-feedback">Please enter your username.</div>
-                      </div>
-                    </div>
 
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <!-- <input type="password" name="password" class="form-control" id="yourPassword" required> -->
-                      <input id="password" type="password" class="form-control <?php $__errorArgs = ['password'];
+                            <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <span class="invalid-feedback" role="alert">
+                                <strong><?php echo e($message); ?></strong>
+                            </span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd" class="font-weight-bold">Password:</label>
+                            <?php if(Route::has('password.request')): ?>
+                            <a class="float-right" href="<?php echo e(route('password.request')); ?>">Forgot password?</a>
+                            <?php endif; ?>
+                            <input id="password" type="password" class="form-control <?php $__errorArgs = ['password'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -86,51 +63,59 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" name="password" required autocomplete="current-password">
-                      <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
 
-                    <div class="col-12">
-                      <div class="form-check">
-                        <!-- <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe"> -->
-                        <input class="form-check-input" type="checkbox" name="remember" id="remember" <?php echo e(old('remember') ? 'checked' : ''); ?>>
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
-                    </div>
-                    <div class="col-12">
-                      <!-- <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p> -->
-                    </div>
-                  </form>
+                            <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <span class="invalid-feedback" role="alert">
+                                <strong><?php echo e($message); ?></strong>
+                            </span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+                        <div class="form-group form-check">
+                            <label class="form-check-label font-weight-bold">
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember" <?php echo e(old('remember') ? 'checked' : ''); ?>> Remember me
+                            </label>
+                        </div>
 
+                        <button type="submit" class="btn btn-success">Sign In</button>
+
+                        <p>Don't have an account yet? <a href="<?php echo e(route('register')); ?>">Start a free trial</a> </p>
+                        <p>Signed up for a trial but can't sign in? <a href="#">Resend activation email</a> </p>
+                    </form>
                 </div>
-              </div>
-
-             
 
             </div>
-          </div>
+
+            <div class="col-md-4 img_col">
+
+                <div class="col-md-12 d-flex justify-content-center">
+                    <img src="<?php echo e(asset('img/signin.png')); ?>" width="150px" height="150px" alt="">
+                </div>
+
+                <div class="col-md-12 ">
+                    <blockquote class="font-serif text-xl text-center text-green-darker leading-snug">
+                        <p>“
+                            This is by far the best new app I've used this year. It's like the Canva for PR reports.
+                            It took about 60 seconds to build the report and not only does it look fantastic, but the data insights are really valuable.
+                            ”</p>
+                    </blockquote>
+                    <p class="text-green-darker"><cite class=" not-italic"><strong>Cassie Anderson</strong>, Account Manager, MD Consulting</cite></p>
+                </div>
+
+                <div class="col-md-12">
+                    <img width="100%" src="<?php echo e(asset('img/signin1.png')); ?>" alt="">
+                </div>
+
+            </div>
+
         </div>
-
-      </section>
-
     </div>
-  </main><!-- End #main -->
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-<script src="<?php echo e(asset('js/admin/vendor/apexcharts.min.js')); ?>"></script>
-<script src="<?php echo e(asset('js/admin/vendor/bootstrap.bundle.min.js')); ?>"></script>
-<script src="<?php echo e(asset('js/admin/vendor/chart.umd.js')); ?>"></script>
-<script src="<?php echo e(asset('js/admin/vendor/echarts.min.js')); ?>"></script>
-<script src="<?php echo e(asset('js/admin/vendor/quill.min.js')); ?>"></script>
-<script src="<?php echo e(asset('js/admin/vendor/simple-datatables.js')); ?>"></script>
-<script src="<?php echo e(asset('js/admin/vendor/tinymce.min.js')); ?>"></script>
-<script src="<?php echo e(asset('js/admin/vendor/php-email-form/validate.js')); ?>"></script>
-
-<!-- Template Main JS File -->
-<script src="<?php echo e(asset('js/admin/main.js')); ?>"></script>
 
 </body>
 

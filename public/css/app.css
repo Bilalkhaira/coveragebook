@@ -1,0 +1,250 @@
+/* popup css start */
+
+#form {
+    background: rgba(233, 231, 231, 0.951);
+}
+
+#bttn {
+    width: 380px;
+    background: rgb(64, 199, 158);
+    color: white;
+}
+
+#bttn:hover {
+    background: rgb(5, 146, 125);
+}
+
+#bttnn {
+    background: rgb(64, 199, 158);
+    color: black;
+}
+
+#bttnn:hover {
+    background: rgb(5, 146, 125);
+}
+
+#main {
+    color: white;
+    background: #00c5a3;
+}
+
+#main:hover {
+    background: rgb(5, 146, 125);
+}
+
+#text {
+    color: black;
+}
+
+#clsebtn {
+    color: gray;
+    font-size: 20px;
+    text-decoration-line: underline;
+}
+
+.head {
+    margin-top: 20px;
+    width: 100%;
+    height: 40px;
+}
+
+.label {
+    float: left;
+    font-weight: bold;
+}
+
+.anchor {
+    text-align: center;
+    color: rgb(6, 174, 155);
+    text-decoration-line: underline;
+}
+
+.anchor:hover {
+    color: rgb(6, 174, 155);
+}
+
+
+/* popup css end */
+
+
+/* start adit age */
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+
+/* main start */
+
+#header {
+    height: 60px;
+}
+
+
+/* sidebar start */
+
+.sidebar {
+    width: 120px;
+    height: 100%;
+    color: gray;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    text-align: center;
+    background: #424b54;
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* overflow-x: hidden; */
+    padding-top: 16px;
+    z-index: 9999;
+}
+
+.sidebar ul li a {
+    color: rgb(218, 216, 216);
+    padding: 13px 8px 12px 12px;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+}
+
+.sidebar a:hover {
+    background: #31383f;
+    color: white;
+}
+
+.sidebar ul li a i {
+    font-size: 45px;
+}
+
+
+/* sidebar end */
+
+
+/* submenu sidebar start */
+
+#dropdown {
+    background: #424b54;
+}
+
+#cardwth {
+    width: 330px;
+    height: auto;
+    border-bottom: 1px solid rgb(49, 50, 51);
+    /* background: rgb(78, 79, 81); */
+    color: white;
+}
+
+#cardwth:hover {
+    background: rgb(57, 55, 55);
+    color: white;
+}
+
+.lii {
+    z-index: 1;
+}
+
+.lii:hover {
+    background: rgb(57, 55, 55);
+    color: white;
+}
+
+.textp {
+    color: rgb(163, 161, 161);
+    font-weight: bolder;
+    font-size: x-small;
+}
+
+
+/* submenu sidebar end */
+
+
+/* main end */
+
+
+/* start body */
+
+#rws {
+    background: #eeeff0
+}
+
+#crd {
+    height: 300px;
+    border-radius: 10px;
+}
+
+#crd:hover {
+    box-shadow: 0 1px 3px 0 #888888;
+}
+
+#crds {
+    height: 150px;
+    color: black;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px 0 #888888;
+}
+
+#crrds {
+    color: black;
+    height: 70px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px 0 #888888;
+}
+
+#shadow {
+    margin-top: -50px;
+    border-radius: 15px;
+    box-shadow: 0 1px 7px 0 #888888;
+}
+
+#shadow:hover {
+    box-shadow: 0 1px 4px 0 #888888;
+}
+
+#prviw {
+    border-color: black;
+    color: black;
+    background: none;
+}
+
+#hover {
+    width: 100%;
+    height: 300px;
+    padding-top: 100px;
+    border-radius: 16px;
+}
+
+#hover:hover {
+    box-shadow: 0 1px 9px 0 #888888;
+}
+
+.body {
+    margin-left: 120px;
+    margin-top: 0px;
+}
+
+#achrcrd {
+    width: auto;
+    height: 50px;
+    background: rgb(237, 237, 237);
+    border-radius: 10px;
+}
+
+.new {
+    font-weight: lighter;
+    font-size: 60px;
+}
+
+.neww {
+    margin-top: 40px;
+    font-size: 25px;
+}
+
+.clr {
+    color: gray;
+}
+.mtrics_h{
+    margin-bottom: 65px;
+}

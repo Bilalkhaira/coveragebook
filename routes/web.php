@@ -2,13 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
-use App\Http\Controllers\ContactusController;
-use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\UsersController;
-use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\UsersRoleController;
-use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Admin\UsersPermissionsController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Book\BookController;
+use App\Http\Controllers\User\UsersController;
+use App\Http\Controllers\Book\ShareBookController;
+use App\Http\Controllers\User\UsersRoleController;
+use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Book\PreviewBookController;
+use App\Http\Controllers\Book\BookLighlightController;
+use App\Http\Controllers\Book\BookFountCoverController;
+use App\Http\Controllers\User\UsersPermissionsController;
+use App\Http\Controllers\Book\MatricsSummaryBookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,66 +44,40 @@ Route::get('/migrate', function () {
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 })->name('home');
 
-Auth::routes();
 
-Route::get('contactUs', function () {
-    return view('pages.contactUs');
-})->name('contactUs');
-
-Route::get('about', function () {
-    return view('pages.about');
-})->name('about');
-
-Route::get('applicationMigrationConversion', function () {
-    return view('pages.services.applicationMigrationConversion');
-})->name('applicationMigrationConversion');
-
-Route::post('saveMsg', [ContactusController::class, 'save'])->name('saveMsg');
-
-
+Auth::routes(['verify' => true]);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::prefix('admin')->group(function () {
-
-    Route::get('/', function () {
-        return view('auth.login');
-    })->name('admin');
+Route::prefix('user')->group(function () {
 
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::post('/updateprofile', [ProfileController::class, 'updateprofile'])->name('updateprofile');
-    Route::get('deleteProfilePhoto', [ProfileController::class, 'deleteProfilePhoto'])->name('delete.profilePhoto');
     Route::post('passwordReset', [ProfileController::class, 'passwordReset'])->name('reset.password');
 
-    Route::get('homeSetting', [HomeController::class, 'homeSetting'])->name('home.setting');
-    Route::post('updateSatisfiedSection', [HomeController::class, 'updateSatisfiedSection'])->name('update.satisfiedSection');
+    Route::get('/', [UsersController::class, 'index'])->name('users');
+    Route::get('/create', [UsersController::class, 'create'])->name('user.create');
+    Route::get('edit/{id}', [UsersController::class, 'edit'])->name('user.edit');
+    Route::put('update/{id}', [UsersController::class, 'update'])->name('user.update');
+    Route::delete('delete/{id}', [UsersController::class, 'delete'])->name('user.delete');
 
-    Route::prefix('users')->group(function () {
-        Route::get('/', [UsersController::class, 'index'])->name('users');
-        Route::get('/create', [UsersController::class, 'create'])->name('user.create');
-        Route::get('edit/{id}', [UsersController::class, 'edit'])->name('user.edit');
-        Route::put('update/{id}', [UsersController::class, 'update'])->name('user.update');
-        Route::delete('delete/{id}', [UsersController::class, 'delete'])->name('user.delete');
+    Route::post('/store', [UsersController::class, 'store'])->name('user.store');
+    Route::get('/roles', [UsersRoleController::class, 'index'])->name('roles');
+    Route::get('roles/edit/{id}', [UsersRoleController::class, 'edit'])->name('roles.edit');
+    Route::put('roles/update/{id}', [UsersRoleController::class, 'update'])->name('roles.update');
+    Route::get('permissions', [UsersPermissionsController::class, 'index'])->name('permissions');
 
-        Route::post('/store', [UsersController::class, 'store'])->name('user.store');
-        Route::get('/roles', [UsersRoleController::class, 'index'])->name('roles');
-        Route::get('roles/edit/{id}', [UsersRoleController::class, 'edit'])->name('roles.edit');
-        Route::put('roles/update/{id}', [UsersRoleController::class, 'update'])->name('roles.update');
-        Route::get('permissions', [UsersPermissionsController::class, 'index'])->name('permissions');
+    Route::prefix('book')->group(function () {
+        Route::get('/', [BookController::class, 'index'])->name('book.index');
+        Route::get('/share', [ShareBookController::class, 'index'])->name('book.share');
+        Route::get('/preview', [PreviewBookController::class, 'index'])->name('book.preview');
+        Route::get('/matrics_summary', [MatricsSummaryBookController::class, 'index'])->name('book.matrics_summary');
+        Route::get('/highlights', [BookLighlightController::class, 'index'])->name('book.highlights');
+        Route::get('/fount_cover', [BookFountCoverController::class, 'index'])->name('book.fount_cover');
     });
 
-    
 });
-
-
-// Notification Routes
-Route::get('/allNotifiMarkAsRead', [NotificationController::class, 'allNotifiMarkAsRead'])->name('allNotifiMarkAsRead');
-Route::post('/notifiMarkAsRead', [NotificationController::class, 'notifiMarkAsRead'])->name('notifiMarkAsRead');
-Route::post('/deleteNotification', [NotificationController::class, 'deleteNotification'])->name('deleteNotification');
-Route::get('/deleteAllNotification', [NotificationController::class, 'deleteAllNotification'])->name('deleteAllNotification');
-Route::get('/notificationDetail/{id}', [NotificationController::class, 'notificationDetail'])->name('notificationDetail');

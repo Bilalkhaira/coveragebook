@@ -1,31 +1,84 @@
-/* .navbar-expand-lg .navbar-nav .nav-link {
-    padding-right: 10px;
-    padding-left: 10px;
-    font-size: 12px;
-    font-weight: 700;
+
+
+
+
+
+/* for this project */
+body{
+    font-family: merriweather, ui-serif, Georgia, Cambria, "Times New Roman", Times, serif !important;
 }
-.dropdown-mega{
-    padding-top: 5px;
+.img_col{
+    background-color: #f4eee6;
+    min-height: 100% !important;
+    text-align: center;
+}
+.img_col blockquote{
+    font-size: 22px;
+    padding: 40px 50px 0 50px;
+}
+.img_col .justify-content-center{
+    padding-top: 100px;
+}
+.login_form img{
+    margin-top: 20px;
+}
+.login_form form{
+    width: 40%;
+    margin: auto;
+    padding-top: 200px;
+}
+.login_form button{
+    margin-bottom: 30px;
+}
+.login_form p{
+    margin-bottom: 10px;
+}
+.login_form h1{
+    margin-bottom: 15px;
+}
+.login_form a:hover{
+    text-decoration: none;
+}
+.user_sidebar span{
+    margin-left: 15px;
+    margin-right: 5px;
+    font-weight: 600;
+}
+.user_delete button{
+    border: none;
+    color: red;
+    margin-left: 10px;
+}
+.user_delete{
+    display: inline-block;
 }
 
-.dropdown-item {
-    padding-right: 10px;
-    padding-left: 10px;
-    font-size: 12px;
-    font-weight: 700;
-} */
 
-/* .brand_img img{
-     width: 100% !important; 
-    max-width: 129% !important;
-    height: auto!important; 
-} */
-.nav-link{
-    color: black !important;
-}
-.nav-link .dropdown-toggle{
-    color: black !important;
-}
-img {
-    width: -webkit-fill-available !important;
-}
+  .ts-control {
+    border: none !important;
+    padding: 0px !important;
+  }
+  .ts-wrapper.multi.has-items .ts-control{
+    padding: 0px !important;
+  }
+  #example_filter{
+    float: right;
+  }
+  .pagination{
+    float: right;
+  }
+ .update_pswrd_cncl{
+    margin-bottom: 5px;
+ }
+ .update_pswrd_btns button{
+    margin-bottom: 0px !important;
+ }
+ .update_pswrd_btns a{
+    margin-left: 20px;
+ }
+ .sidebar_menu{
+    left: 22% !important;
+ }
+ #cardwth:hover{
+    cursor: pointer;
+ }

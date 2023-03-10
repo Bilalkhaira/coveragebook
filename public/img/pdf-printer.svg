@@ -1,0 +1,27 @@
+<svg width="124" height="84" viewBox="0 0 124 84" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <path d="M17.417 7.167c-.084-.084-.084-.167-.167-.25l-5.833-5.834c-.084-.083-.167-.166-.25-.166-.084-.084-.25-.084-.334-.084H5c-1.417 0-2.5 1.084-2.5 2.5v13.334c0 1.416 1.083 2.5 2.5 2.5h10c1.417 0 2.5-1.084 2.5-2.5V7.5c0-.083 0-.25-.083-.333Zm-5.75-3.5 3 3h-3v-3ZM15 17.5H5c-.5 0-.833-.333-.833-.833V3.333c0-.5.333-.833.833-.833h5v5c0 .5.333.833.833.833h5v8.334c0 .5-.333.833-.833.833Z" id="path-1"/>
+  </defs>
+  <g id="pdf-printer" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <path id="paper-in-shadow" fill="#EEEFF0" fill-rule="nonzero" d="M27 10h59v15H27z"/>
+    <path id="paper-in" stroke="#000" stroke-width="2" fill-rule="nonzero" d="M38 1h57.234v23H38z"/>
+    <rect id="printer-body-shadow" fill="#EEEFF0" fill-rule="nonzero" x="0" y="32.914" width="114" height="50.627" rx="6.56"/>
+    <rect id="printer-body" stroke="#000" stroke-width="2" fill-rule="nonzero" x="11" y="24" width="112" height="48.627" rx="6.56"/>
+    <path id="paper-hole" stroke="#000" stroke-width="2" fill-rule="nonzero" d="M33 38h67.106v5.371H33z"/>
+    <path id="paper-out" stroke="#000" stroke-width="2" fill="#FFF" fill-rule="nonzero" d="M38 38h57.234v38.952H38z"/>
+    <g id="Group" transform="translate(57 47)">
+      <g id="pdf-icon" transform="matrix(0 -1 -1 0 20 20)">
+        <mask id="mask-2" fill="#fff">
+          <use xlink:href="#path-1"/>
+        </mask>
+        <use id="Mask" fill="#EEC7C4" fill-rule="nonzero" xlink:href="#path-1"/>
+        <g id="Group" mask="url(#mask-2)" fill="#EEC7C4">
+          <g id="Icon-Color">
+            <path id="Shape" d="M0 0h20v20H0z"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <ellipse id="power-button" stroke="#000" stroke-width="2" fill-rule="nonzero" cx="112.305" cy="33.371" rx="2.291" ry="2.276"/>
+  </g>
+</svg>

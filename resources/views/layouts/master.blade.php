@@ -3,13 +3,18 @@
 @include('layouts.partials._head')
 
 <body>
-    <div class="content-wrapper">
+    <main id="main">
         @include('layouts.partials._header')
 
-        <!-- ====== page-content-wrapper start ====== -->
-        @yield('content')
+        <!-- ===== sidebar-wrapper start ====== -->
+        @include('layouts.partials._sidebar')
+        <!-- ====== sidebar-wrapper end ====== -->
+    </main>
 
-    </div>
+    <!-- ====== page-content-wrapper start ====== -->
+    @yield('content')
+    <!-- End #main -->
+
     <!-- ====== footer ====== -->
     @include('layouts.partials._footer')
 

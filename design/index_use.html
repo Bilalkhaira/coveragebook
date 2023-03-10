@@ -1,0 +1,248 @@
+<html>
+
+<head>
+    <meta charset="UFT-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>CoverageBook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <main id="main">
+        <!-- main start -->
+        <header id="header">
+            <!-- header start -->
+            <nav class="navbar  navbar-default navbar-fixed-top  navbar-expand-lg" style="position: fixed; left:0; right: 0; z-index: 1; height: 60px;
+            background: #427484;display: inline-block;vertical-align: middle;">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="images/book.png" alt="" width="40" height="40" class="hidden ml-1 mt-0">
+                        <a class="navbar-brand text-white" href="#">CoverageBook</a>
+                    </div>
+
+                    <div class="col-md-5">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="coeragebook.html"><i class="fa-solid mr-1 fa-book"></i>BOOKS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="#"><img src="images/box.png" alt="" width="24" height="24" class="mb-1">CONVERAGE VOLT</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-5" style="vertical-align: middle;">
+                        <ul class="navbar-nav">
+                            <li class="nav-item ml-5 justify-content-center">
+                                <a class="nav-link" href="#" style="color: rgb(254 197 122)"><i class="fa-solid fa-heart mr-1"></i>Upgrade Now</a>
+                            </li>
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <a type="" class="nav-link text-white dropdown-toggle" data-toggle="dropdown" href="#"><img src="images/qstmrk.png" alt="" width="18" height="18"> Help & Advice
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="">FAQs</a>
+                                        <a class="dropdown-item" href="">What's New</a>
+                                        <a class="dropdown-item" href="">Guides & Tutorials</a>
+                                        <a class="dropdown-item" href="">Example Reorts</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <div class="dropdown dropdown-menu-right">
+                                    <a type="" class="nav-link text-white ml-5 dropdown-toggle" data-toggle="dropdown" href="#"><img src="images/g circle.png" alt="" width="21" height="21"> My Acount
+                                    </a>
+                                    <div class="dropdown-menu">
+
+                                        <a class="dropdown-item" style="color: #626060;" href=""><img src="images/setting.png" alt="" class="mr-1" width="18" height="18">Account Settings</a>
+
+                                        <a class="dropdown-item" style="color: #626060;" style="color: #626060;" href=""><img src="images/team.png" alt="" class="mr-1" width="21" height="21">My Team</a>
+
+                                        <a class="dropdown-item" style="color: #626060;" href=""><img src="images/bdge.png" alt="" class="mr-1" width="21" height="21">Switch Plan</a>
+
+                                        <a class="dropdown-item" style="color: #626060;" href="change paswrd.html"><img src="images/key.png" alt="" class="mr-1" width="21" height="21">Edit My Password</a>
+
+                                        <a class="dropdown-item" style="color: #626060;" href="sign out.html"><img src="images/signout.png" alt="" class="mr-1" width="21" height="21">Sign Out</a>
+
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav><br><br><br><br>
+            <!-- header end -->
+        </header>
+        <!-- sidebar start -->
+        <sidebar id="sidebar">
+            <div class="sidebarc">
+                <p class="mt-5 ml-4" style="color: rgb(147, 146, 146)
+                ;font-weight: inherit;">COLLECTIONS</p>
+                <ul>
+                    <li>
+                        <a href="" class="text-success" type="button" data-toggle="modal" data-target="#modal">
+                            <i class="fa-solid fa-folder-plus mr-1" style="font-size: 20px;"></i> New Collection</a>
+                    </li>
+                    <li>
+                        <a href="#" style="font-weight: bold;">
+                            <i class="fa-solid fa-folder mr-2" style="font-size: 20px; color: rgb(178, 175, 175);"></i>All Books</a>
+                    </li>
+                </ul>
+            </div>
+        </sidebar>
+
+        <!-- modal new collection -->
+        <div class="container">
+            <div class="modal fade" id="modal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="head" id="text">Create a new Collection</h>
+                                <button type="buttom" class="close" data-dismiss="modal">
+                                &times;
+                            </button>
+
+                        </div>
+                        <div class="modal-body" id="form">
+                            <form action="" class="form">
+                                <h6 id="text">Organise your books into clients or brands. Or whatever kind of collection that makes sense to you…</h6><br>
+                                <label for="" class="label" id="text">Name</label><br>
+                                <input type="text" class="form-control">
+
+                                <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="bttnn">
+                                Create Collection
+                            </button>
+                                <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Close</a>
+                            </form>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- modal new collection end-->
+
+
+        <!-- sidebar end -->
+    </main>
+    <!-- main end -->
+
+    <section class="bodyc">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-9 mb-0">
+                    <p class="new ml-5 font-weight-lighter" style="margin-top: 60px;">All Books</p>
+                </div>
+
+                <div class="col-md-3 mt-5">
+                    <div class="container">
+                        <button type="button" class="btn mt-5 ml-5 p-1" id="main" data-toggle="modal" data-target="#modal1">
+                            <i class="fa-solid fa-book"></i>
+                            Create new Book
+                        </button>
+
+                        <div class="modal fade" id="modal1">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="head">Create a new Book</h4>
+                                        <button type="buttom" class="close" data-dismiss="modal">
+                                            &times;
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" id="form">
+                                        <form action="" class="form text-center">
+                                            <label for="" class="label">Name your book</label><br>
+                                            <input type="text" class="form-control">
+
+                                            <label for="" class="label">Collections</label><br>
+                                            <select name="" id="" class="form-control">
+                                                <option value="No Collection">No Collection</option>
+                                                <option value="Collection1">Collection1</option>
+                                                <option value="Collection2">Collection2</option>
+                                            </select>
+
+                                            <button class="btn mt-4 mb-3" type="submit" name="" value="yes" data-component="button-element" id="bttn">
+                                                Create book &amp; add coverage
+                                            </button><br>
+                                            <a href="" class="anchor">
+                                                Go to book and add coverage later
+                                            </a>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr style="width:1080px; height: 0.4 px;background: rgb(193, 187, 187);margin-top: 25px; margin-left: 40px;">
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-9 text-left">
+                    <form class="example ml-2" action="/action_page.php" style="margin:auto;max-width:390px;">
+                        <input type="text" class="bg-white border-outline-secondary focus:border-succees" placeholder="Search books by title..." name="search2">
+                        <button type="submit"><i class="fa fa-search text-dark font-weight-lighter"></i></button>
+                    </form>
+                </div>
+                <div class="col-md-3">
+                    <select name="" class="borderb bg-white p-2 rounded" style="height: 38px;">
+                        <option value="By Name (A-Z)">By Name (A-Z)</option>
+                        <option value="By Name (Z-A)">By Name (Z-A)</option>
+                        <option value="Created Recently Created">Created Recently Created</option>
+                        <option value="Created Recently Updated">Created Recently Updated</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row pt-4">
+                <div class="col-md-4">
+                    <div class="row">
+
+                        <a href="">
+                            <div class="card mt-2 ml-4" style="height: 260px;width: 330px;border-radius: 14px;">
+                                <img src="images/_20230131194939.jpg" alt="" style="height: 100%;width: 100%; border-radius: 14px;">
+                            </div>
+                        </a>
+                        <div class="col-md-10">
+                            <a href="" style="text-decoration: none;">
+                                <h5 id="text" class="ml-4 mt-3">New Book 2023</h5>
+                                <div class="text-xs text-secondary opacity-60 ml-4">
+                                    Created: Jan 31, 2023 ・ 1 item
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-1 mt-0">
+                            <div class="dropdown">
+                                <a href="" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
+                                    <b>...</b>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="Edit.html">Edit</a>
+                                    <a class="dropdown-item" href="#">Share</a>
+                                    <a class="dropdown-item" href="#">Copy</a>
+                                    <a class="dropdown-item" href="#">Archive</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
