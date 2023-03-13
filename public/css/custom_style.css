@@ -82,3 +82,98 @@ body{
  #cardwth:hover{
     cursor: pointer;
  }
+ .modal{
+    color: black;
+ }
+
+
+
+
+
+ #images_fram {
+    outline: 2px dashed #92b0b3;
+    padding: 119px 0px 100px 16%;
+    margin: auto;
+    width: 50% !important;
+    background-color: #edeff0;
+    border: none;
+}
+
+#images_fram:before {
+    position: absolute;
+    bottom: 10px;
+    left: 0;  pointer-events: none;
+    width: 100%;
+    right: 0;
+    height: 57px;
+    content: " or drag it here. ";
+    display: block;
+    margin: 0 auto;
+    color: #2ea591;
+    font-weight: 600;
+    text-transform: capitalize;
+    text-align: center;
+}
+#add_slide_imgs{
+    outline: 2px dashed #92b0b3;
+    padding: 100px 0px 100px 37%;
+    margin: auto;
+    width: 100% !important;
+    background-color: #edeff0;
+    border: none;
+}
+#add_slide_imgs:before {
+    position: absolute;
+    bottom: 110px;
+    left: 0;  pointer-events: none;
+    width: 100%;
+    right: 0;
+    height: 57px;
+    content: " or drag it here. ";
+    display: block;
+    margin: 0 auto;
+    color: #2ea591;
+    font-weight: 600;
+    text-transform: capitalize;
+    text-align: center;
+}
+.upload_covargeFile{
+    padding-top: 70px;
+    padding-bottom: 30px;
+
+}
+.upload_covargeFile h1{
+    font-size: 3rem;
+    color: rgb(66 75 84 / var(--tw-text-opacity));
+}
+.upload_covargeFile p{
+    color:#2ea591;;
+}
+
+.coverage_icon i{
+    font-size: 25px;
+    margin-left: 10px;
+    color: gray;
+}
+.coverage_select{
+    margin-top: 100px;
+}
+.coverage_select .dv{
+    padding: 5px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+.coverage_select .dv p{
+    margin-bottom: 0px;
+    display: inline-block;
+    border-right: 1px solid lightgray;
+    margin-left: 7px;
+    padding-right: 10px;
+}
+.coverage_select .dropdown{
+    display: inline-block;
+}
+.coverage_select .dropdown button{
+    border: none;
+    background-color: transparent;
+}

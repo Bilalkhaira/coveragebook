@@ -11,10 +11,9 @@
                     <div class="dropdown-menu sidebar_menu" id="dropdown">
 
 
-                        <div class="rounded-top" id="cardwth">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createJobModel"> Add New Card</button>
-                            
-                            <!-- <div class="row">
+                        <a class="rounded-top" id="cardwth" data-toggle="modal" data-target="#myModal">
+
+                            <div class="row" style="flex-wrap: initial;">
                                 <div class="col-md-1 pt-2">
                                     <img class="card-img-left example-card-img-responsive" src="{{ asset('img/sharicon.png') }}" alt="" width="30" height="30" />
                                 </div>
@@ -25,11 +24,11 @@
                                         <p class="textp card-text">Paste in links to online articals, Instagram, Twitter, Facebook, Youtube Vedios etc...</p>
                                     </div>
                                 </div>
-                            </div> -->
-                        </div>
+                            </div>
+                        </a>
 
-                        <div class="" id="cardwth">
-                            <div class="row">
+                        <a class="" id="cardwth" href="{{ route('book.upload_covarage_file') }}">
+                            <div class="row" style="flex-wrap: initial;">
                                 <div class="col-md-1 pt-1">
                                     <img class="card-img-left example-card-img-responsive" src="{{ asset('img/sharicon.png') }}" alt="" width="30" height="30" />
                                 </div>
@@ -41,10 +40,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
 
-                        <div class="" id="cardwth">
-                            <div class="row">
+                        <a class="" id="cardwth" data-toggle="modal" data-target="#addSlide">
+                            <div class="row" style="flex-wrap: initial;">
                                 <div class="col-md-1 pt-1">
                                     <img class="card-img-left example-card-img-responsive" src="{{ asset('img/sharicon.png') }}" alt="" width="30" height="30" />
                                 </div>
@@ -56,10 +55,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
 
-                        <div class="rounded-bottom" id="cardwth">
-                            <div class="row">
+                        <a class="rounded-bottom" id="cardwth" data-toggle="modal" data-target="#addSection">
+                            <div class="row" style="flex-wrap: initial;">
                                 <div class="col-md-1 pt-1">
                                     <img class="card-img-left example-card-img-responsive" src="{{ asset('img/sharicon.png') }}" alt="" width="30" height="30" />
                                 </div>
@@ -71,7 +70,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
 
@@ -106,31 +105,29 @@
 
                     <div class="dropdown-menu sidebar_menu" id="dropdown">
                         <div class="cards">
-                            <div class="" id="cardwth">
+                            <a class="" href="{{ route('book.coverage') }}" id="cardwth">
                                 <div class="row">
                                     <div class="col-md-11">
                                         <div class="card-body mt-0 mr-3 pt-2">
-                                            <h6 class="card-title">Add Custom Slides</h6>
+                                            <h6 class="card-title">Coverge</h6>
                                         </div>
                                     </div>
-                                    <div class="col-md-1 pt-1">
+                                    <!-- <div class="col-md-1 pt-1">
                                         <img class="card-img-left example-card-img-responsive" src="{{ asset('img/sharicon.png') }}" alt="" width="30" height="30" />
-                                    </div>
+                                    </div> -->
                                 </div>
-                            </div>
+                            </a>
 
-                            <div class="rounded-bottom" id="cardwth">
+                            <a class="rounded-bottom" id="cardwth" data-toggle="modal" data-target="#addSection">
                                 <div class="row">
                                     <div class="col-md-11">
-                                        <div class="card-body mt-0 mr-3 pt-2">
-                                            <h6 class="card-title">Add New Section</h6>
-                                        </div>
+                                        <h6 class="card-title">Add New Section</h6>
                                     </div>
-                                    <div class="col-md-1 pt-1">
+                                    <!-- <div class="col-md-1 pt-1">
                                         <img class="card-img-left example-card-img-responsive" src="{{ asset('img/sharicon.png') }}" alt="" width="30" height="30" />
-                                    </div>
+                                    </div> -->
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -148,32 +145,114 @@
 </sidebar>
 
 
-<div class="modal fade" id="createJobModel" tabindex="-1" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-xl">
+
+
+<div class="modal" id="addSection">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
+
+            <!-- Modal Header -->
             <div class="modal-header">
-                <h5 class="modal-title">Create New Job</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title">Add a Section</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="" method="POST">
-                @csrf
-                <div class="modal-body">
-                    <div class="pt-3 setting_main">
 
-                        <div class="row mb-3">
-                            <div class="col-md-12 col-lg-12">
-                                <textarea class="summernote" name="exp" cols="30" rows="4"></textarea>
-                                <input type="hidden" value="" name="parent_id">
-                            </div>
-                        </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="/action_page.php">
 
+                    <div class="form-group">
+                        <p>Sections can be used to<b> organise your coverage</b>. Each section will have its <b> own page </b> (and URL) in the book and you can move coverage between sections at any time.</p>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-            </form>
+
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="email">Section name<br> <small>e.g. 'Autumn coverage' or 'On the socials'</small></label>
+
+                        <input type="text" class="form-control">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Section</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="addSlide">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add slides</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="/action_page.php">
+
+                    <div class="form-group text-center">
+                        <p>Add your own brand images, graphics and analysis to your book. Each file or page will be added as an individual slide. You can move and reorder them after upload.</p>
+                        <p> <small> Supported file types: JPG, PNG, GIF, PDF </small></p>
+                        <input id="add_slide_imgs" type="file" class="form-control" multiple="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add Coverage Links</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="/action_page.php">
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="email">Paste the URLs to your coverage in here:</label>
+                        <p>Add your links to online articles, social media posts, YouTube videos... Maximum 250 at a time. 199 remaining in your plan</p>
+                        <textarea class="form-control" name="" id="" cols="30" rows="4" placeholder="awesomewebsite.com/yourcoverage"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd" class="font-weight-bold">Choose which section to import your coverage into:</label>
+                        <p>Divide your coverage into sections for easy grouping, sorting and presentation e.g. by media type or location.</p>
+                        <select class="form-control" name="" id="">
+                            <option value="">Coverage</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Coverage</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+
+
         </div>
     </div>
 </div>

@@ -1,1 +1,0 @@
-<?php /**PATH /Users/zubairmohsin/code/sites/coveragebook/resources/views/layouts/partials/_footer.blade.php ENDPATH**/ ?>
