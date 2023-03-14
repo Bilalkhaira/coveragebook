@@ -108,33 +108,26 @@
             <div class="container-fluid">
                 <div class="row coverage_select">
                     <div class="col-md-6">
-                        <div class="dv">
-                            <p>
-                                <input type="checkbox" name="" id="">
-                                <span>Select</span>
-                            </p>
+                        <div class="inlineBlock">
+                            <input type="checkbox" name="" id="select_all">
+                            <span>Select</span>
+                        </div>
 
-                            <p>
-                                <i class="fa fa-trash"></i>
-                                <span>Remove Item</span>
-                            </p>
+                        <div class="inlineBlock select_all_hide no_display">
+                            <i class="fa fa-trash"></i>
+                            <span>Remove Item</span>
+                        </div>
 
-                            <p>
-                                <!-- <i class="fa-solid fa-up-down-left-right"></i>
-                                <select name="" id="">
-                                    <option value=""><i class="fa fa-arrow-up"></i>Start of this section</option>
-                                    <option value=""><i class="fa fa-arrow-down"></i>End of this section</option>
-                                    <option value=""><i class="fa fa-arrow-down"></i>Move to this position </option>
-                                </select> -->
+                        <div class="inlineBlock select_all_hide no_display">
                             <div class="dropdown">
                                 <button class="dropdown-toggle" data-toggle="dropdown">
                                     Dropdown button
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Start of this section</a>
-                                    <a class="dropdown-item" href="#">End of this section</a>
+                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-arrow-up"></i> Start of this section</a>
+                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-arrow-down"></i>End of this section</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Move to position:</a>
+                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-arrow-right"></i>Move to position:</a>
                                     <a class="dropdown-item" href="#">
                                         <select name="" id="" class="form-control">
                                             <option value="">1</option>
@@ -142,9 +135,9 @@
                                         </select>
                                     </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Add new section</a>
+                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-plus"></i>Add new section</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Move to section:</a>
+                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-arrow-right"></i>Move to section:</a>
                                     <a class="dropdown-item" href="#">
                                         <select name="" id="" class="form-control">
                                             <option value="">new section</option>
@@ -153,10 +146,67 @@
                                     </a>
                                 </div>
                             </div>
-                            </p>
+                        </div>
 
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-outline-secondary grid_view_btn"><i class="fa fa-bars"></i>Grid View</button>
+                            <button type="button" class="btn btn-outline-secondary list_view_btn"><i class="fa fa-bars"></i>List View</button>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="coverage_grid_view">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="col-md-8 text-right">
+                                    <a href="#"><i class="fa fa-copy"></i></a>
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    <a href="#"><i class="fa fa-trash"></i></a>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <img src="{{ asset('img/bbooks.jpg') }}" alt="">
+                                </div>
+                            </div>
+                            <div class="row edit">
+                                <div class="col-md-8">
+                                    This is Heading
+                                </div>
+                                <div class="col-md-4 text-right">
+                                    <a href="#"><i class="fa fa-edit"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="coverage_list_view no_display">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="checkbox" name="lang">
+                                    <a href="#" class="edit_btn"><i class="fa fa-edit"></i></a>
+                                    <img src="{{ asset('img/bbooks.jpg') }}" alt="" width="100px" height="100px">
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <a href="#"><i class="fa fa-copy"></i></a>
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    <a href="#"><i class="fa fa-trash"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -381,19 +431,35 @@
     </div>
 </div>
 <!-- modal cover {{ asset('img end-->
-<!-- <script>
-        function openCity(evt, cityName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(cityName).style.display = "block";
-            evt.currentTarget.className += " active";
+
+@endsection
+@section('scripts')
+<script>
+    $(document).on("click", ".grid_view_btn", function(e) {
+        e.preventDefault();
+        $("body").find(".coverage_list_view").addClass("no_display");
+        $("body").find('.coverage_grid_view').removeClass("no_display");
+    });
+
+    $(document).on("click", ".list_view_btn", function(e) {
+        e.preventDefault();
+        $("body").find(".coverage_grid_view").addClass("no_display");
+        $("body").find('.coverage_list_view').removeClass("no_display");
+    });
+
+    $(document).on("click", "#select_all", function(e) {
+
+        if (this.checked) {
+            $(':checkbox').each(function() {
+                this.checked = true;
+                $("body").find('.select_all_hide').removeClass("no_display");
+            });
+        } else {
+            $(':checkbox').each(function() {
+                this.checked = false;
+                $("body").find('.select_all_hide').addClass("no_display");
+            });
         }
-    </script> -->
+    });
+</script>
 @endsection
