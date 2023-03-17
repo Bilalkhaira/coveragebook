@@ -16,7 +16,7 @@
           <img src="{{ asset('img/edit.png') }}" alt="" width="44" height="44" style="margin-left: 12; margin-bottom: 18px;">
         </a>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 text-right">
         <a href="{{ route('book.preview') }}" target="_blank">
           <button type="button" class="btn mt-5 pr-5" id="prviw" data-toggle="modal" data-target="#">
             <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 3px;">
@@ -35,7 +35,7 @@
               <h6 class="ml-2 mt-1 font-weight-bold">Banner Logo</h6>
               <h6 class="clr ml-2">Add Your Logo</h5>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 text-right">
               <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal1" id="achrcrd">
                 <img src="{{ asset('img/book.png') }}" alt="" width="30" height="30" class="mt-0">
               </a>
@@ -51,7 +51,7 @@
               <h6 class="ml-2 mt-1 font-weight-bold">Accent color</h6>
               <h6 class="text-success ml-2">#abb2ba</h6>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 text-right">
               <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal2" id="achrcrd">
                 <img src="{{ asset('img/circle.png') }}" alt="" width="30" height="30" class="mt-1">
               </a>
@@ -60,19 +60,19 @@
         </div>
       </div>
 
-      <div class="col-md-3" href="" type="button" data-toggle="modal" data-target="book matrics.html">
+      <div class="col-md-3"type="button">
         <div class="card p-2" id="shadow">
+        <a href="{{ route('book.matrics') }}" class="anchorTag">
           <div class="row">
             <div class="col-md-8">
               <h6 class="ml-2 mt-1 font-weight-bold">Matrics & Links</h6>
               <h6 class="clr ml-2">Rfresh/hide/show</h6>
             </div>
-            <div class="col-md-4">
-              <a href="book matrics.html" class="btn mt-1" id="achrcrd">
-                <img src="{{ asset('img/level.png') }}" alt="" width="30" height="30" class="mt-1">
-              </a>
+            <div class="col-md-4 text-right">
+                <img id="achrcrd" src="{{ asset('img/level.png') }}" alt="" width="30" height="30" class="mt-1">
             </div>
           </div>
+        </a>
         </div>
       </div>
 
@@ -87,7 +87,7 @@
     <div class="row mb-2">
       <div class="col-md-4">
 
-        <a href="front cover.html" class="text-decoration-none">
+        <a href="{{ route('book.fount_cover') }}" class="text-decoration-none">
           <div class="card" id="crd">
             <img src="{{ asset('img/_20230131194939.jpg') }}" alt="" width="100%" height="100%">
             <p style="color: black;margin-top: 6px;">Front Cover</p>
@@ -106,7 +106,7 @@
       </div>
       <div class="col-md-4">
 
-        <a href="matric summary.html" class="text-decoration-none">
+        <a href="{{ route('book.matrics_summary') }}" class="text-decoration-none">
           <div class="card p-2" id="crd">
             <div class="row">
               <div class="col-md-6">
@@ -148,10 +148,10 @@
       </div>
       <div class="col-md-4">
 
-        <a href="highlights.html" class="text-decoration-none">
+        <a href="{{ route('book.highlights') }}" class="text-decoration-none">
           <div class="card text-center p-3" id="crd">
-            <img src="{{ asset('img/star (2).png') }}" alt="" width="90" height="90" style="margin-left: 140px; margin-top: 30px;">
-            <p class="mt-3" style="color: black;">Showcase your best bits by clicking the star icons on each piece of coverage </p>
+            <i class="fa fa-star" style="font-size: 40px;margin-top: 60px;color: #fec878"></i>
+            <p class="mt-3" style="color: black;">Showcase your best bits by clicking the star <br> icons on each piece of coverage </p>
           </div>
           <span class="mt-3" style="color: black;">Highlights</span>
           <span class="text-secondary font-weight-bold">(0 itoms)</span>
@@ -174,13 +174,11 @@
       <div class="col-md-9">
         <p class="neww ml-1">BOOK CONTENTS</p>
       </div>
-      <div class="col-md-3">
-        <a href="#">
-          <button type="button" class="btn mt-4 mb-3 pr-2 text-secondary" id="prviw" data-toggle="modal" data-target="#">
+      <div class="col-md-3 text-right">
+          <button type="button" class="btn mt-4 mb-3 pr-2 text-secondary" id="prviw" data-toggle="modal" data-target="#addNewSection">
             <img src="{{ asset('img/p box.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 2px;">
             Add a New Section
           </button>
-        </a>
       </div>
     </div>
     <div class="row mt-3">
@@ -232,7 +230,43 @@
   </div>
 </section>
 
+<div class="modal" id="addNewSection">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
 
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add a Section</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="/action_page.php">
+
+                    <div class="form-group">
+                        <p>Sections can be used to<b> organise your coverage</b>. Each section will have its <b> own page </b> (and URL) in the book and you can move coverage between sections at any time.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="email">Section name<br> <small>e.g. 'Autumn coverage' or 'On the socials'</small></label>
+
+                        <input type="text" class="form-control">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Section</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+
+
+        </div>
+    </div>
+</div>
 <!-- modal banner logo -->
 <div class="container">
   <div class="modal fade" id="modal1">
@@ -249,13 +283,38 @@
           <form action="" class="form">
             <div class="row">
               <div class="col-md-3">
-                <input type="file" accept="image/*" class="fsp-drop-pane__input form-control" style="width: 180px;height: 200px; border: 1px dashed gray; background: rgb(199, 198, 198);">
+                <label class="cabinet center-block">
+                  <figure>
+                    <img src="" class="gambar img-responsive img-thumbnail" id="item-img-output" />
+                    <figcaption><i class="fa fa-camera"></i></figcaption>
+                  </figure>
+                  <input type="file" id="img_preview" class="item-img file center-block" name="file_photo" />
+                </label>
+
+                <div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <div id="upload-demo" class="center-block"></div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="cropImageBtn" class="btn btn-primary">Crop</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="col-md-8">
                 <p class="text-sm text-gray-600">
                   This logo appears in the top banner of your shared book. Agencies might put their own logo here. To see how it looks in place,
                   <a href="#" class="link link-success underline" data-component="link">preview your book</a>.
                 </p>
+                <a type="button" class="btn btn-outline-danger"> <i class="fa fa-trash"></i> Remove</a>
               </div>
             </div>
           </form>
@@ -338,4 +397,65 @@
 
 
 
+@endsection
+@section('scripts')
+<script>
+  // Start upload preview image
+  $(".gambar").attr("src", "https://user.gadjian.com/static/images/personnel_boy.png");
+  var $uploadCrop,
+    tempFilename,
+    rawImg,
+    imageId;
+
+  function readFile(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $('.upload-demo').addClass('ready');
+        $('#cropImagePop').modal('show');
+        rawImg = e.target.result;
+      }
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      swal("Sorry - you're browser doesn't support the FileReader API");
+    }
+  }
+
+  $uploadCrop = $('#upload-demo').croppie({
+    viewport: {
+      width: 150,
+      height: 200,
+    },
+    enforceBoundary: false,
+    enableExif: true
+  });
+  $('#cropImagePop').on('shown.bs.modal', function() {
+    $uploadCrop.croppie('bind', {
+      url: rawImg
+    }).then(function() {
+      console.log('jQuery bind complete');
+    });
+  });
+
+  $('.item-img').on('change', function() {
+    imageId = $(this).data('id');
+    tempFilename = $(this).val();
+    $('#cancelCropBtn').data('id', imageId);
+    readFile(this);
+  });
+  $('#cropImageBtn').on('click', function(ev) {
+    $uploadCrop.croppie('result', {
+      type: 'base64',
+      format: 'jpeg',
+      size: {
+        width: 150,
+        height: 200
+      }
+    }).then(function(resp) {
+      $('#item-img-output').attr('src', resp);
+      $('#cropImagePop').modal('hide');
+    });
+  });
+  // End upload preview image
+</script>
 @endsection

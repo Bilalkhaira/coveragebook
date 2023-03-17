@@ -10,6 +10,7 @@ use App\Http\Controllers\Book\ShareBookController;
 use App\Http\Controllers\Book\UploadeCoverageFile;
 use App\Http\Controllers\User\UsersRoleController;
 use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Book\BookMatricsController;
 use App\Http\Controllers\Book\PreviewBookController;
 use App\Http\Controllers\Book\BookLighlightController;
 use App\Http\Controllers\Book\BookFountCoverController;
@@ -82,6 +83,7 @@ Route::prefix('user')->group(function () {
         Route::get('/fount_cover', [BookFountCoverController::class, 'index'])->name('book.fount_cover');
         Route::get('/upload_covarage_file', [UploadeCoverageFile::class, 'index'])->name('book.upload_covarage_file');
         Route::get('/coverage', [CoverageController::class, 'index'])->name('book.coverage');
+        Route::get('/matrics', [BookMatricsController::class, 'index'])->name('book.matrics');
     });
 
 });

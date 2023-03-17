@@ -1,96 +1,112 @@
-
-
-
-
-
 /* for this project */
-body{
+body {
     font-family: merriweather, ui-serif, Georgia, Cambria, "Times New Roman", Times, serif !important;
 }
-.img_col{
+
+.img_col {
     background-color: #f4eee6;
     min-height: 100% !important;
     text-align: center;
 }
-.img_col blockquote{
+
+.img_col blockquote {
     font-size: 22px;
     padding: 40px 50px 0 50px;
 }
-.img_col .justify-content-center{
+
+.img_col .justify-content-center {
     padding-top: 100px;
 }
-.login_form img{
+
+.login_form img {
     margin-top: 20px;
 }
-.login_form form{
+
+.login_form form {
     width: 40%;
     margin: auto;
     padding-top: 200px;
 }
-.login_form button{
+
+.login_form button {
     margin-bottom: 30px;
 }
-.login_form p{
+
+.login_form p {
     margin-bottom: 10px;
 }
-.login_form h1{
+
+.login_form h1 {
     margin-bottom: 15px;
 }
-.login_form a:hover{
+
+.login_form a:hover {
     text-decoration: none;
 }
-.user_sidebar span{
+
+.user_sidebar span {
     margin-left: 15px;
     margin-right: 5px;
     font-weight: 600;
 }
-.user_delete button{
+
+.user_delete button {
     border: none;
     color: red;
     margin-left: 10px;
 }
-.user_delete{
+
+.user_delete {
     display: inline-block;
 }
 
 
-  .ts-control {
+.ts-control {
     border: none !important;
     padding: 0px !important;
-  }
-  .ts-wrapper.multi.has-items .ts-control{
+}
+
+.ts-wrapper.multi.has-items .ts-control {
     padding: 0px !important;
-  }
-  #example_filter{
+}
+
+#example_filter {
     float: right;
-  }
-  .pagination{
+}
+
+.pagination {
     float: right;
-  }
- .update_pswrd_cncl{
+}
+
+.update_pswrd_cncl {
     margin-bottom: 5px;
- }
- .update_pswrd_btns button{
+}
+
+.update_pswrd_btns button {
     margin-bottom: 0px !important;
- }
- .update_pswrd_btns a{
+}
+
+.update_pswrd_btns a {
     margin-left: 20px;
- }
- .sidebar_menu{
+}
+
+.sidebar_menu {
     left: 22% !important;
- }
- #cardwth:hover{
+}
+
+#cardwth:hover {
     cursor: pointer;
- }
- .modal{
+}
+
+.modal {
     color: black;
- }
+}
 
 
 
 
 
- #images_fram {
+#images_fram {
     outline: 2px dashed #92b0b3;
     padding: 119px 0px 100px 16%;
     margin: auto;
@@ -102,7 +118,8 @@ body{
 #images_fram:before {
     position: absolute;
     bottom: 10px;
-    left: 0;  pointer-events: none;
+    left: 0;
+    pointer-events: none;
     width: 100%;
     right: 0;
     height: 57px;
@@ -114,7 +131,8 @@ body{
     text-transform: capitalize;
     text-align: center;
 }
-#add_slide_imgs{
+
+#add_slide_imgs {
     outline: 2px dashed #92b0b3;
     padding: 100px 0px 100px 37%;
     margin: auto;
@@ -122,10 +140,12 @@ body{
     background-color: #edeff0;
     border: none;
 }
+
 #add_slide_imgs:before {
     position: absolute;
     bottom: 110px;
-    left: 0;  pointer-events: none;
+    left: 0;
+    pointer-events: none;
     width: 100%;
     right: 0;
     height: 57px;
@@ -137,31 +157,38 @@ body{
     text-transform: capitalize;
     text-align: center;
 }
-.upload_covargeFile{
+
+.upload_covargeFile {
     padding-top: 70px;
     padding-bottom: 30px;
 
 }
-.upload_covargeFile h1{
+
+.upload_covargeFile h1 {
     font-size: 3rem;
     color: rgb(66 75 84 / var(--tw-text-opacity));
 }
-.upload_covargeFile p{
-    color:#2ea591;;
+
+.upload_covargeFile p {
+    color: #2ea591;
+    ;
 }
 
-.coverage_icon i{
+.coverage_icon i {
     font-size: 25px;
     margin-left: 10px;
     color: gray;
 }
-.coverage_select{
+
+.coverage_select {
     margin-top: 100px;
 }
-.inlineBlock{
+
+.inlineBlock {
     display: inline-block;
 }
-.coverage_select .inlineBlock{
+
+.coverage_select .inlineBlock {
     margin-bottom: 0px;
     display: inline-block;
     border-right: 1px solid lightgray;
@@ -170,53 +197,143 @@ body{
     border: 1px solid lightgray;
 
 }
-.coverage_select .dropdown{
+
+.coverage_select .dropdown {
     display: inline-block;
 }
-.coverage_select .dropdown button{
+
+.coverage_select .dropdown button {
     border: none;
     background-color: transparent;
 }
-.coverage_grid_view{
+
+.coverage_grid_view {
     margin-top: 50px;
     border: 1px solid lightgray;
     border-radius: 5px;
     padding: 15px;
 }
-.coverage_grid_view i{
+
+.coverage_grid_view i {
     margin-left: 5px;
 }
-.coverage_grid_view img{
+
+.coverage_grid_view img {
     width: 100%;
     height: 300px;
     margin-top: 15px;
 }
-.coverage_grid_view .edit{
+
+.coverage_grid_view .edit {
     border-top: 1px solid lightgray;
     padding: 15px;
 }
-.coverage_list_view{
+
+.coverage_list_view {
     background-color: white;
     margin-top: 50px;
     padding: 15px;
     border: 1px solid lightgray;
     border-radius: 5px;
 }
-.coverage_list_view .edit_btn{
+
+.coverage_list_view .edit_btn {
     position: absolute;
     top: 0;
     left: 16%;
 }
-.coverage_list_view i{
+
+.coverage_list_view i {
     margin-left: 5px;
 }
-.coverage_list_view .text-right{
+
+.coverage_list_view .text-right {
     margin-top: 40px;
 }
-.coverage_list_view input{
+
+.coverage_list_view input {
     margin-right: 10px;
 }
 
-.no_display{
+.no_display {
     display: none !important;
 }
+
+.coverageSecDetailTab p {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 30px 20px;
+}
+
+.coverageSecDetailTab span {
+    border: 1px solid lightgray;
+    border-radius: 100%;
+    padding: 0px 9px;
+    margin-bottom: 10px;
+}
+
+.coverageSecDetailTab_active {
+    border: 1px solid #41c3ad !important;
+    background-color: #e3efee;
+}
+.cover_layout_new{
+    background-color: #41c3ad;
+    padding: 1px 4px;
+    border-radius: 10px;
+}
+.anchorTag {
+    color: black;
+}
+.anchorTag:hover{
+    text-decoration: none;
+    color: black;
+}
+.color_layout_dv{
+    border: 1px solid lightgray !important;
+    background-color: #e3efee;
+    padding-top: 15px;
+    padding-left: 15px;
+}
+.color_layout_dv i{
+    margin-right: 5px;
+    color: #41c3ad;
+}
+.color_layout_dv a{
+    color: #41c3ad;
+}
+
+
+
+/* img preview css */
+label.cabinet {
+    display: block;
+    cursor: pointer;
+}
+
+label.cabinet input.file {
+    position: relative;
+    height: 100%;
+    width: auto;
+    opacity: 0;
+    -moz-opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+    margin-top: -30px;
+}
+
+#upload-demo {
+    width: 250px;
+    height: 250px;
+    padding-bottom: 25px;
+}
+
+figure figcaption {
+    position: absolute;
+    bottom: 20%;
+    color: #fff;
+    width: 100%;
+    padding-left: 9px;
+    padding-bottom: 5px;
+    text-shadow: 0 0 10px #000;
+}
+
+/* end img preview css */
