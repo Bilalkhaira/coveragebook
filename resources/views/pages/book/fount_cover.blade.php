@@ -75,14 +75,14 @@
             </div>
 
             <div class="col-md-2 mr-3">
-                <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#modal4">
+                <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#backgrountColor">
                     <div class="row">
                         <div class="col-md-7">
                             <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Bg Color</h6>
                             <p class="clr ml-1 mb-0 text-success">#eeeff0</p>
                         </div>
                         <div class="col-md-4">
-                            <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal4" id="achrcrd">
+                            <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#backgrountColor" id="achrcrd">
                                 <img src="{{ asset('img/circle.png') }}" alt="" width="24" height="27" class="">
                             </a>
                         </div>
@@ -91,14 +91,14 @@
             </div>
 
             <div class="col-md-2">
-                <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#modal5">
+                <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#hideShow">
                     <div class="row">
                         <div class="col-md-7">
                             <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Show/hide</h6>
                             <p class="clr ml-1 mb-0 text-success">Visible</p>
                         </div>
                         <div class="col-md-4">
-                            <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal5" id="achrcrd">
+                            <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#hideShow" id="achrcrd">
                                 <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="27" class="">
                             </a>
                         </div>
@@ -115,6 +115,83 @@
         </div>
 </section>
 
+<div class="modal" id="hideShow">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Show/hide cover</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/action_page.php">
+
+                    <div class="form-group text-center">
+                        <p>If you would prefer to not have a front cover for your book you can hide this area from public view.</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4 text-center">
+                            <p><b>Show front cover</b></p>
+                            <div class="coverageSecDetailTab">
+                                <p class="coverageSecDetailTab_active"><i class="fa fa-eye"></i></p>
+                                <span class="coverageSecDetailTab_active"></span>
+                            </div>
+                            <p>Display a front cover in your book.</p>
+                        </div>
+
+                        <div class="col-md-4 text-center">
+                            <p><b>Hide front cover</b></p>
+                            <div class="coverageSecDetailTab">
+                                <p><i class="fa fa-eye-slash"></i></p>
+                                <span></span>
+                            </div>
+                            <p>The front cover will not be shown in your book.</p>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="backgrountColor">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="head" id="text">Background color</h>
+                    <button type="buttom" class="close" data-dismiss="modal">
+                        &times;
+                    </button>
+
+            </div>
+            <div class="modal-body" id="form">
+                <form action="" class="form">
+                    <p id="text"><b>Background color</b><br> accent colour is used on links, buttons, certain text and icons to add a customised brand flavour to the books you share.</p>
+                    <div>
+                        <input type="color" id="head" name="head" value="#e66465" class="form-control">
+                    </div>
+                    <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="bttnn">
+                        Save
+                    </button>
+                    <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Close</a>
+                </form>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
 <!-- modal layout -->
 <div class="modal" id="modal1">
     <div class="modal-dialog modal-lg">
@@ -233,54 +310,93 @@
                 </div>
                 <div class="modal-body" id="form">
                     <form action="" class="form">
-                        <label class="tablinks" onclick="openCity(event, 'London')" data-controller="radio-button-set" data-action="radio-button:checked->radio-button-set#handleCheckedStates" data-component="radio-button-set">
-                            <label style="flex: 1 1 0;width: 230px;" data-controller="radio-button" data-radio-button-set-target="radio" data-component="radio-button">
-                                <div class="px-4 py-3 rounded border flex items-center bg-light bg-opacity-30 border-green" data-radio-button-bind-class="{'bg-green-light bg-opacity-30 border-green': checked, 'bg-gray-100 border-gray-400': !checked }">
-                                    <input type="radio" name="front_cover[visual]" id="front_cover_visual_montage" value="montage" class="focus:ring-0 h-4 w-4 text-green border-gray-400" data-radio-button-target="control" checked="checked">
-                                    <strong class="ml-3 text-gray-900">Montage</strong>
-                                </div>
-                            </label>
-                            <label style="flex: 1 1 0;width: 230px;" class="tablinks" onclick="openCity(event, 'Paris')" data-controller="radio-button" data-radio-button-set-target="radio" data-component="radio-button">
-                                <div class="px-4 py-3 rounded border flex items-center bg-light border-gray-400" data-radio-button-bind-class="{'bg-green-light bg-opacity-30 border-green': checked, 'bg-gray-100 border-gray-400': !checked }">
-                                    <input type="radio" name="front_cover[visual]" id="front_cover_visual_image" value="image" class="focus:ring-0 h-4 w-4 text-green border-gray-400" data-radio-button-target="control">
-                                    <strong class="ml-3 text-gray-900">Custom image</strong>
-                                </div>
-                            </label>
-                            <label style="flex: 1 1 0;width: 230px;" class="tablinks" onclick="openCity(event, 'Tokyo')" data-controller="radio-button" data-radio-button-set-target="radio" data-component="radio-button">
-                                <div class="px-4 py-3 rounded border flex items-center bg-light border-gray-400" data-radio-button-bind-class="{'bg-green-light bg-opacity-30 border-green': checked, 'bg-gray-100 border-gray-400': !checked }">
-                                    <input type="radio" name="front_cover[visual]" id="front_cover_visual_none" value="none" class="focus:ring-0 h-4 w-4 text-green border-gray-400" data-radio-button-target="control">
-                                    <strong class="ml-3 text-gray-900">None</strong>
-                                </div>
-                            </label>
-                        </label>
-                        <div id="London" class="tabcontent">
-                            <h3>London</h3>
-                            <p>London is the capital city of England.</p>
+                        <ul class="nav nav-tabs font_cover_tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#home">
+                                    <p><span class="circle"></span><b>Montage</b></p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#menu1">
+                                    <p><span class="circle"></span><b>Custome Image</b></p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#menu2">
+                                    <p><span class="circle"></span><b>None</b></p>
+                                </a>
+                            </li>
+                        </ul>
 
-                            <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="bttnn">
-                                Save
-                            </button>
-                            <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
+                        <!-- Tab panes -->
+                        <div class="tab-content font_cover_tabContent">
+                            <div id="home" class="container tab-pane active"><br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Screenshots and images from your coverage will be used to create a montage image.</p>
+                                        <label for=""><b>Use Images From</b></label>
+                                        <select name="" id="" class="form-control">
+                                            <option value="">Random selection</option>
+                                            <option value="">First items in book</option>
+                                            <option value="">Highlights</option>
+                                            <option value="">Recently published items</option>
+                                            <option value="">Recently added items</option>
+                                            <option value="">Items in a section</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img src="{{ asset('img/123.png') }}" alt="" width="100%" height="200px">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="menu1" class="container tab-pane fade"><br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Upload your own custom front cover image. E.g. brand/campaign imagery, graphic etc...</p>
+                                        <input type="radio"> Size image to fit (stylised) <br>
+                                        <input type="radio"> Size image to fill (edge to edge)
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="cabinet center-block">
+                                            <figure>
+                                                <img src="" class="gambar img-responsive img-thumbnail" id="item-img-output" width="100%" style="height: 200px !important;" />
+                                                <figcaption><i class="fa fa-camera"></i></figcaption>
+                                            </figure>
+                                            <input type="file" id="img_preview" class="item-img file center-block" name="file_photo" />
+                                        </label>
+
+                                        <div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel"></h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div id="upload-demo" class="center-block"></div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" id="cropImageBtn" class="btn btn-success">Crop</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="menu2" class="container tab-pane fade text-center"><br>
+                                <p>No cover image will be shown.</p>
+                            </div>
                         </div>
-
-                        <div id="Paris" class="tabcontent">
-                            <h3>Paris</h3>
-                            <p>Paris is the capital of France.</p>
-
-                            <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="bttnn">
-                                Save
-                            </button>
-                            <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
-                        </div>
-
-                        <div id="Tokyo" class="tabcontent">
-                            <h3>Tokyo</h3>
-                            <p>Tokyo is the capital of Japan.</p>
-
-                            <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="bttnn">
-                                Save
-                            </button>
-                            <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="bttnn">
+                                    Save
+                                </button>
+                                <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
+                            </div>
                         </div>
 
                     </form>
@@ -298,18 +414,62 @@
 
     });
 
-    function openCity(evt, cityName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
+    // Start upload preview image
+    $(".gambar").attr("src", "https://user.gadjian.com/static/images/personnel_boy.png");
+    var $uploadCrop,
+        tempFilename,
+        rawImg,
+        imageId;
+
+    function readFile(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('.upload-demo').addClass('ready');
+                $('#cropImagePop').modal('show');
+                rawImg = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            swal("Sorry - you're browser doesn't support the FileReader API");
         }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
     }
+
+    $uploadCrop = $('#upload-demo').croppie({
+        viewport: {
+            width: 150,
+            height: 200,
+        },
+        enforceBoundary: false,
+        enableExif: true
+    });
+    $('#cropImagePop').on('shown.bs.modal', function() {
+        $uploadCrop.croppie('bind', {
+            url: rawImg
+        }).then(function() {
+            console.log('jQuery bind complete');
+        });
+    });
+
+    $('.item-img').on('change', function() {
+        imageId = $(this).data('id');
+        tempFilename = $(this).val();
+        $('#cancelCropBtn').data('id', imageId);
+        readFile(this);
+    });
+    $('#cropImageBtn').on('click', function(ev) {
+        $uploadCrop.croppie('result', {
+            type: 'base64',
+            format: 'jpeg',
+            size: {
+                width: 150,
+                height: 200
+            }
+        }).then(function(resp) {
+            $('#item-img-output').attr('src', resp);
+            $('#cropImagePop').modal('hide');
+        });
+    });
+    // End upload preview image
 </script>
 @endsection

@@ -108,13 +108,9 @@
                             <a class="" href="{{ route('book.coverage') }}" id="cardwth">
                                 <div class="row">
                                     <div class="col-md-11">
-                                        <div class="card-body mt-0 mr-3 pt-2">
                                             <h6 class="card-title">Coverge</h6>
-                                        </div>
                                     </div>
-                                    <!-- <div class="col-md-1 pt-1">
-                                        <img class="card-img-left example-card-img-responsive" src="{{ asset('img/sharicon.png') }}" alt="" width="30" height="30" />
-                                    </div> -->
+                                    
                                 </div>
                             </a>
 
@@ -123,9 +119,6 @@
                                     <div class="col-md-11">
                                         <h6 class="card-title">Add New Section</h6>
                                     </div>
-                                    <!-- <div class="col-md-1 pt-1">
-                                        <img class="card-img-left example-card-img-responsive" src="{{ asset('img/sharicon.png') }}" alt="" width="30" height="30" />
-                                    </div> -->
                                 </div>
                             </a>
                         </div>
@@ -173,7 +166,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add Section</button>
+                        <button type="submit" class="btn btn-success">Add Section</button>
                     </div>
                 </form>
             </div>
@@ -206,7 +199,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-success">Save</button>
                     </div>
                 </form>
             </div>
@@ -243,9 +236,12 @@
                             <option value="">Coverage</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <a href="#">Create a new section</a>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add Coverage</button>
+                        <button type="submit" class="btn btn-success">Add Coverage</button>
                     </div>
                 </form>
             </div>

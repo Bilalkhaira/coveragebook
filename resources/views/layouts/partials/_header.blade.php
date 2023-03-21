@@ -4,8 +4,10 @@
             background: #427484;display: inline-block;vertical-align: middle;">
         <div class="row">
             <div class="col-md-2">
-                <img src="{{ asset('img/book.png') }}" alt="" width="40" height="40" class="hidden ml-1 mt-0">
-                <a class="navbar-brand text-white" href="{{ route('dashboard') }}">CoverageBook</a>
+                <a href="{{ route('dashboard') }}">
+                <img src="{{ asset('img/logo.png') }}" alt="" width="80%" height="40" class="hidden ml-1 mt-0">
+                <!-- <a class="navbar-brand text-white" href="{{ route('dashboard') }}">CoverageBook</a> -->
+                </a>
             </div>
 
             <div class="col-md-5">

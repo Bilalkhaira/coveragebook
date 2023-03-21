@@ -1,6 +1,6 @@
 /* for this project */
 body {
-    font-family: merriweather, ui-serif, Georgia, Cambria, "Times New Roman", Times, serif !important;
+    font-family: proxima-nova, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
 }
 
 .img_col {
@@ -302,8 +302,6 @@ body {
     color: #41c3ad;
 }
 
-
-
 /* img preview css */
 label.cabinet {
     display: block;
@@ -337,3 +335,48 @@ figure figcaption {
 }
 
 /* end img preview css */
+
+
+
+.font_cover_tab .nav-link{
+    padding: 0px;
+    color: black;
+}
+
+.font_cover_tab > .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+    padding-bottom: 0px;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.font_cover_tab .nav-link.active p{
+    border-color: 1px solid #41c3ad !important;
+    background-color: #e3efee !important;
+}
+.font_cover_tab .circle{
+    border: 1px solid lightgray;
+    border-radius: 50px;
+    padding: 0px 8px;
+    margin-right: 10px;
+}
+.font_cover_tab p{
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 16px 25px;
+    margin-right: 10px;
+    background-color: white;
+}
+.font_cover_tabContent img{
+    border-radius: 10px;
+}
+.modal-content{
+    border-radius: 25px;
+    /* padding-left: 15px; */
+    /* padding-right: 15px; */
+    /* background-color: #f5f5f5; */
+}
+.modal-body{
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: #f5f5f5 !important;
+}

@@ -6,7 +6,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-9 mb-0">
-        <p class="new ml-5 font-weight-lighter" style="margin-top: 60px;">All Books</p>
+        <p class="new ml-5" style="margin-top: 60px;font-weight:300">All Books</p>
       </div>
 
       <div class="col-md-3 mt-5">
@@ -50,7 +50,7 @@
           </div>
         </div>
       </div>
-      <hr style="width:1080px; height: 0.4 px;background: rgb(193, 187, 187);margin-top: 25px; margin-left: 40px;">
+      <hr style="width:87%; height: 0.4 px;background: rgb(193, 187, 187);margin-top: 25px; margin-left: 40px;">
     </div>
 
     <div class="row mt-4">
