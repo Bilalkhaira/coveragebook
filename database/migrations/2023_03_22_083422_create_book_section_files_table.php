@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('book_section_files', function (Blueprint $table) {
+            $table->id();
+            $table->tinyInteger('book_sections_id')->nullable();
+            $table->tinyInteger('book_id')->nullable();
+            $table->string('filter')->nullable();
+            $table->string('file')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('book_section_files');
+    }
+};
