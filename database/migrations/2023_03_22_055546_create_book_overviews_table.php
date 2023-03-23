@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('backLinks_audience_hide')->default('false');
             $table->string('fontCoverSec_hide')->default('false');
             $table->string('matricsSummarySec_hide')->default('false');
-            $table->string('matricsSummarySec_hide')->default('false');
             $table->string('highlightsSec_hide')->default('false');
             $table->timestamps();
         });

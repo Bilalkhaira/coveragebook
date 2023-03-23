@@ -58,7 +58,11 @@ Auth::routes(['verify' => true]);
 
 Route::prefix('user')->group(function () {
 
+    Route::post('/filterBooks', [HomeController::class, 'filterBooks'])->name('filterBooks');
+    Route::get('/collectionBooks/{id}', [HomeController::class, 'collectionBooks'])->name('collectionBooks');
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::post('/storeCollection', [HomeController::class, 'storeCollection'])->name('storeCollection');
+    Route::post('/storeBook', [HomeController::class, 'storeBook'])->name('storeBook');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('passwordReset', [ProfileController::class, 'passwordReset'])->name('reset.password');
 

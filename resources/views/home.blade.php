@@ -26,15 +26,19 @@
                   </button>
                 </div>
                 <div class="modal-body" id="form">
-                  <form action="" class="form text-center">
+                  <form action="{{ route('storeBook') }}" method="POST" class="form text-center">
+                    @csrf
                     <label for="" class="label">Name your book</label><br>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="name" required>
 
                     <label for="" class="label">Collections</label><br>
-                    <select name="" id="" class="form-control">
-                      <option value="No Collection">No Collection</option>
-                      <option value="Collection1">Collection1</option>
-                      <option value="Collection2">Collection2</option>
+                    <select name="parentId" id="" class="form-control">
+                      @if(!empty($collections))
+                      @foreach($collections as $collection)
+                      <option value="{{ $collection->id }}">{{ $collection->name }}</option>
+                      @endforeach
+                      @endif
+
                     </select>
 
                     <button class="btn mt-4 mb-3" type="submit" name="" value="yes" data-component="button-element" id="bttn">
@@ -52,28 +56,36 @@
       </div>
       <hr style="width:87%; height: 0.4 px;background: rgb(193, 187, 187);margin-top: 25px; margin-left: 40px;">
     </div>
+    <form class="example ml-2" action="{{ route('filterBooks') }}" method="POST">
+      @csrf
+      <div class="row mt-4">
+        <div class="col-md-6" >
+          <div style="max-width:390px;">
+            <input type="text" class="bg-white border-outline-secondary focus:border-succees" placeholder="Search books by title..." name="name">
+            
+            <button type="submit"><i class="fa fa-search text-dark font-weight-lighter"></i></button>
+            <input type="hidden" name="is_allBook" value="{{ (request()->is('user/dashboard')) ? 'yes' : '' }}">
+            <input type="hidden" name="parent_id" value="{{ $parent_id ?? ''}}">
+            <input type="hidden" name="identify" value="{{ $identify ?? ''}}">
+          </div>
 
-    <div class="row mt-4">
-      <div class="col-md-9 text-left">
-        <form class="example ml-2" action="/action_page.php" style="margin:auto;max-width:390px;">
-          <input type="text" class="bg-white border-outline-secondary focus:border-succees" placeholder="Search books by title..." name="search2">
-          <button type="submit"><i class="fa fa-search text-dark font-weight-lighter"></i></button>
-        </form>
-      </div>
-      <div class="col-md-3">
-        <select name="" class="borderb bg-white p-2 rounded" style="height: 38px;">
-          <option value="By Name (A-Z)">By Name (A-Z)</option>
-          <option value="By Name (Z-A)">By Name (Z-A)</option>
-          <option value="Created Recently Created">Created Recently Created</option>
-          <option value="Created Recently Updated">Created Recently Updated</option>
-        </select>
-      </div>
-    </div>
+        </div>
+        <div class="col-md-5 text-right">
+          <select name="filter" class="borderb bg-white p-2 rounded" style="height: 38px;margin-right: 22px;" onchange="this.form.submit()">
+            <option value="assec" @if($filter_name == 'assec') selected ?? '' @endif>By Name (A-Z)</option>
+            <option value="desec" @if($filter_name == 'desec') selected ?? '' @endif>By Name (Z-A)</option>
+            <option value="recentlyCreated" @if($filter_name == 'recentlyCreated') selected ?? '' @endif>Created Recently Created</option>
+            <option value="recentlyUpdated" @if($filter_name == 'recentlyUpdated') selected ?? '' @endif>Created Recently Updated</option>
+          </select>
+        </div>
 
+      </div>
+    </form>
     <div class="row pt-4">
-      <div class="col-md-4">
+      @if(!empty($allBooks))
+      @foreach($allBooks as $allBook)
+      <div class="col-md-3">
         <div class="row">
-
           <a href="{{ route('book.index') }}">
             <div class="card mt-2 ml-4" style="height: 260px;width: 330px;border-radius: 14px;">
               <img src="{{ asset('img/_20230131194939.jpg') }}" alt="" style="height: 100%;width: 100%; border-radius: 14px;">
@@ -81,9 +93,9 @@
           </a>
           <div class="col-md-10">
             <a href="" style="text-decoration: none;">
-              <h5 id="text" class="ml-4 mt-3">New Book 2023</h5>
+              <h5 id="text" class="ml-4 mt-3">{{ $allBook->name ?? ''}}</h5>
               <div class="text-xs text-secondary opacity-60 ml-4">
-                Created: Jan 31, 2023 ・ 1 item
+                {{ $allBook->created_at->format('M d, Y') }} ・ 1 item
               </div>
             </a>
           </div>
@@ -103,7 +115,10 @@
         </div>
 
       </div>
+      @endforeach
+      @endif
     </div>
+
   </div>
 </section>
 
@@ -119,10 +134,11 @@
 
         </div>
         <div class="modal-body" id="form">
-          <form action="" class="form">
+          <form action="{{ route('storeCollection') }}" method="POST" class="form">
+            @csrf
             <h6 id="text">Organise your books into clients or brands. Or whatever kind of collection that makes sense to you…</h6><br>
             <label for="" class="label" id="text">Name</label><br>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" name="name" required>
 
             <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="bttnn">
               Create Collection
@@ -139,3 +155,4 @@
   </div>
 </div>
 @endsection
+

@@ -8,14 +8,21 @@
           <i class="fa-solid fa-folder-plus mr-1" style="font-size: 20px;"></i> New Collection</a>
       </li>
       <li>
-        <a href="#" style="font-weight: bold;">
-          <i class="fa-solid fa-folder mr-2" style="font-size: 20px; color: rgb(178, 175, 175);"></i>All Books</a>
+        <a href="{{ route('dashboard') }}" style="font-weight: bold;">
+          <i class="fa-solid fa-folder mr-2" style="font-size: 20px; color: rgb(178, 175, 175);"></i>All Books
+        </a>
+
+        @if(!empty(App\Models\CollectionsAndBooks::whereNull('parent_id')->get()))
+        @foreach(App\Models\CollectionsAndBooks::whereNull('parent_id')->get() as $collection)
+        <a href="{{ route('collectionBooks', $collection->id) }}" style="font-weight: bold;">
+          <i class="fa-solid fa-folder mr-2" style="font-size: 20px; color: rgb(178, 175, 175);"></i> {{$collection->name}}
+        </a>
+        @endforeach
+        @endif
       </li>
-
-
       <li>
         <a class="user_sidebar" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        <i class="fa fa-user"></i><span> Users </span> <i class="fa-solid fa-caret-down"></i>
+          <i class="fa fa-user"></i><span> Users </span> <i class="fa-solid fa-caret-down"></i>
         </a>
         <div class="collapse" id="collapseExample">
           <div class="card card-body">

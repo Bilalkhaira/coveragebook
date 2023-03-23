@@ -13,7 +13,7 @@ class CollectionsAndBooks extends Model
 
     public function children()
     {
-        return $this->hasMany(CollectionsAndBooks::class, 'parent_id')->where('archived', 'false');
+        return $this->hasMany(CollectionsAndBooks::class, 'parent_id');
     }
 
     public function parent()
