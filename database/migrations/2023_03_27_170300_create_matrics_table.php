@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('book_section_files', function (Blueprint $table) {
+        Schema::create('matrics', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('book_sections_id')->nullable();
-            $table->tinyInteger('book_id')->nullable();
-            $table->string('filter')->nullable();
-            $table->string('file')->nullable();
+            $table->string('name')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('book_section_files');
+        Schema::dropIfExists('matrics');
     }
 };

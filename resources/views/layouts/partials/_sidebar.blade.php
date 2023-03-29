@@ -14,6 +14,9 @@
 
         @if(!empty(App\Models\CollectionsAndBooks::whereNull('parent_id')->get()))
         @foreach(App\Models\CollectionsAndBooks::whereNull('parent_id')->get() as $collection)
+        @php
+        $count = App\Models\CollectionsAndBooks::where('parent_id')->get();
+        @endphp
         <a href="{{ route('collectionBooks', $collection->id) }}" style="font-weight: bold;">
           <i class="fa-solid fa-folder mr-2" style="font-size: 20px; color: rgb(178, 175, 175);"></i> {{$collection->name}}
         </a>

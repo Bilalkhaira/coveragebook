@@ -72,10 +72,10 @@
         </div>
         <div class="col-md-5 text-right">
           <select name="filter" class="borderb bg-white p-2 rounded" style="height: 38px;margin-right: 22px;" onchange="this.form.submit()">
-            <option value="assec" @if($filter_name == 'assec') selected ?? '' @endif>By Name (A-Z)</option>
-            <option value="desec" @if($filter_name == 'desec') selected ?? '' @endif>By Name (Z-A)</option>
-            <option value="recentlyCreated" @if($filter_name == 'recentlyCreated') selected ?? '' @endif>Created Recently Created</option>
-            <option value="recentlyUpdated" @if($filter_name == 'recentlyUpdated') selected ?? '' @endif>Created Recently Updated</option>
+            <option value="assec" @if(isset($filter_name) && $filter_name == 'assec') selected ?? '' @endif>By Name (A-Z)</option>
+            <option value="desec" @if(isset($filter_name) && $filter_name == 'desec') selected ?? '' @endif>By Name (Z-A)</option>
+            <option value="recentlyCreated" @if(isset($filter_name) && $filter_name == 'recentlyCreated') selected ?? '' @endif>Created Recently Created</option>
+            <option value="recentlyUpdated" @if(isset($filter_name) && $filter_name == 'recentlyUpdated') selected ?? '' @endif>Created Recently Updated</option>
           </select>
         </div>
 
@@ -108,7 +108,7 @@
                 <a class="dropdown-item" href="Edit.html">Edit</a>
                 <a class="dropdown-item" href="#">Share</a>
                 <a class="dropdown-item" href="#">Copy</a>
-                <a class="dropdown-item" href="#">Archive</a>
+                <a class="dropdown-item" href="{{ route('archived', $allBook->id) }}">Archive</a>
               </div>
             </div>
           </div>

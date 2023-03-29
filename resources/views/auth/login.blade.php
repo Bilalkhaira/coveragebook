@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-md-8 login_form">
                 <div class="col-md-12">
-                    <img src="{{ asset('img/book.png') }}" width="40" height="40">
+                    <img src="{{ asset('img/logo.png') }}" width="20%">
                 </div>
                 <div class="col-md-12">
 
@@ -57,8 +57,8 @@
 
                         <button type="submit" class="btn btn-success">Sign In</button>
 
-                        <p>Don't have an account yet? <a href="{{ route('register') }}">Start a free trial</a> </p>
-                        <p>Signed up for a trial but can't sign in? <a href="#">Resend activation email</a> </p>
+                        <!-- <p>Don't have an account yet? <a href="{{ route('register') }}">Start a free trial</a> </p> -->
+                        <!-- <p>Signed up for a trial but can't sign in? <a href="#">Resend activation email</a> </p> -->
                     </form>
                 </div>
 
@@ -67,17 +67,14 @@
             <div class="col-md-4 img_col">
 
                 <div class="col-md-12 d-flex justify-content-center">
-                    <img src="{{ asset('img/signin.png') }}" width="150px" height="150px" alt="">
+                    <img src="{{ asset('img/signin.jpeg') }}" width="150px" height="150px" alt="">
                 </div>
 
                 <div class="col-md-12 ">
                     <blockquote class="font-serif text-xl text-center text-green-darker leading-snug">
-                        <p>“
-                            This is by far the best new app I've used this year. It's like the Canva for PR reports.
-                            It took about 60 seconds to build the report and not only does it look fantastic, but the data insights are really valuable.
-                            ”</p>
+                        <p>“Leadership traits matter a lot, whether on a business or a personal level!”</p>
                     </blockquote>
-                    <p class="text-green-darker"><cite class=" not-italic"><strong>Cassie Anderson</strong>, Account Manager, MD Consulting</cite></p>
+                    <p class="text-green-darker"><cite class=" not-italic"><strong>Rachana Chowdhary</strong><br>, Founder - MediaValueWorks- Digital Communications Agency</cite></p>
                 </div>
 
                 <div class="col-md-12">

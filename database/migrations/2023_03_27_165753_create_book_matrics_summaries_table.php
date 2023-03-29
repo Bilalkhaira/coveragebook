@@ -15,9 +15,22 @@ return new class extends Migration
     {
         Schema::create('book_matrics_summaries', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('book_id')->nullable();
-            $table->tinyInteger('matrics_summaries_id')->nullable();
+            $table->tinyInteger('book_id');
+            $table->tinyInteger('matric_id');
+            $table->tinyInteger('metric_option_id');
+            $table->tinyInteger('created_by')->nullable();
+            $table->tinyInteger('updated_by')->nullable();
             $table->timestamps();
         });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('book_matrics_summaries');
     }
 };

@@ -57,7 +57,7 @@ Auth::routes(['verify' => true]);
 
 
 Route::prefix('user')->group(function () {
-
+    Route::get('archived/{id}', [HomeController::class, 'archived'])->name('archived');
     Route::post('/filterBooks', [HomeController::class, 'filterBooks'])->name('filterBooks');
     Route::get('/collectionBooks/{id}', [HomeController::class, 'collectionBooks'])->name('collectionBooks');
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
@@ -88,6 +88,7 @@ Route::prefix('user')->group(function () {
         Route::get('/upload_covarage_file', [UploadeCoverageFile::class, 'index'])->name('book.upload_covarage_file');
         Route::get('/coverage', [CoverageController::class, 'index'])->name('book.coverage');
         Route::get('/matrics', [BookMatricsController::class, 'index'])->name('book.matrics');
+       
     });
 
 });

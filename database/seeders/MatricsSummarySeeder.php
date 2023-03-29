@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Matric;
+use App\Models\MatricsOption;
 use Illuminate\Database\Seeder;
-use App\Models\MatricsSummary;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class MatricsSummarySeeder extends Seeder
@@ -15,7 +16,7 @@ class MatricsSummarySeeder extends Seeder
      */
     public function run()
     {
-        $coverage_counts_id = MatricsSummary::create([
+        $coverage_counts_id = Matric::create([
             'name' => 'Coverage Counts',
         ]);
 
@@ -32,11 +33,11 @@ class MatricsSummarySeeder extends Seeder
             ['name' => 'Spotify Clips', 'value' => 0 , 'parent_id' => $coverage_counts_id->id],
         ];
 
-        MatricsSummary::insert($coverage_counts_data);
+        MatricsOption::insert($coverage_counts_data);
 
 
 
-        $coverage_views_id = MatricsSummary::create([
+        $coverage_views_id = Matric::create([
             'name' => 'Coverage Views',
         ]);
 
@@ -47,10 +48,10 @@ class MatricsSummarySeeder extends Seeder
             ['name' => 'YouTube Views', 'value' => 0 , 'parent_id' => $coverage_views_id->id],
             ['name' => 'TikTok Plays', 'value' => 0 , 'parent_id' => $coverage_views_id->id],
         ]; 
-        MatricsSummary::insert($coverage_views_data);
+        MatricsOption::insert($coverage_views_data);
 
 
-        $engagements_id = MatricsSummary::create([
+        $engagements_id = Matric::create([
             'name' => 'Engagements',
         ]);
 
@@ -73,10 +74,10 @@ class MatricsSummarySeeder extends Seeder
             ['name' => 'TikTok Comments', 'value' => 0 , 'parent_id' => $engagements_id->id],
             ['name' => 'TikTok Likes', 'value' => 0 , 'parent_id' => $engagements_id->id],
         ]; 
-        MatricsSummary::insert($engagements_data);
+        MatricsOption::insert($engagements_data);
 
 
-        $audiences_id = MatricsSummary::create([
+        $audiences_id = Matric::create([
             'name' => 'Audiences',
         ]);
 
@@ -94,10 +95,10 @@ class MatricsSummarySeeder extends Seeder
             ['name' => 'TV Audience', 'value' => 0 , 'parent_id' => $audiences_id->id],
             ['name' => 'Radio Listenership', 'value' => 0 , 'parent_id' => $audiences_id->id],
         ]; 
-        MatricsSummary::insert($audiences_data);
+        MatricsOption::insert($audiences_data);
 
 
-        $domain_authority_id = MatricsSummary::create([
+        $domain_authority_id = Matric::create([
             'name' => 'domain_authority',
         ]);
 
@@ -105,6 +106,6 @@ class MatricsSummarySeeder extends Seeder
             ['name' => 'Avg. Domain Authority', 'value' => 0 , 'parent_id' => $domain_authority_id->id],
             ['name' => 'Max. Domain Authority', 'value' => 0 , 'parent_id' => $domain_authority_id->id],
         ]; 
-        MatricsSummary::insert($domain_authority_data);
+        MatricsOption::insert($domain_authority_data);
     }
 }

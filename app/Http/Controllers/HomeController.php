@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\Collection;
 use Illuminate\Http\Request;
 use App\Models\CollectionsAndBooks;
 use Illuminate\Database\Eloquent\Builder;
@@ -25,30 +27,28 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $collections = CollectionsAndBooks::whereNull('parent_id')->get();
+        $collections = Collection::whereNull('parent_id')->get();
 
-        $allBooks = CollectionsAndBooks::whereNotNull('parent_id')->get();
+        $allBooks = Collection::whereNotNull('parent_id')->where('archived', 'false')->orderBy('name')->get();
 
         return view('home', ['collections' => $collections, 'allBooks' => $allBooks]);
     }
 
     public function collectionBooks($id)
     {
-        $collections = CollectionsAndBooks::whereNull('parent_id')->get();
+        $collections = Collection::whereNull('parent_id')->get();
 
-        $allBooks = CollectionsAndBooks::where('parent_id', $id)->where('archived', 'false')->get();
+        $allBooks = Collection::where('parent_id', $id)->where('archived', 'false')->orderBy('name')->get();
 
         return view('home', ['collections' => $collections, 'allBooks' => $allBooks, 'parent_id' => $id]);
     }
 
     public function filterBooks(Request $request)
     {
-        // dd(request('parent_id'));
-        $collections = CollectionsAndBooks::whereNull('parent_id')->get();
+        $collections = Collection::whereNull('parent_id')->get();
 
         if (!empty($request->is_allBook) OR $request->identify == 'allBook') {
-            // dd('allbook');
-            $allBooks = CollectionsAndBooks::query()
+            $allBooks = Collection::query()
                 ->when($request->name, function (Builder $query, string $search) {
                     $query->where('name', 'LIKE', '%'.$search.'%')->whereNotNull('parent_id');
                 })
@@ -64,14 +64,13 @@ class HomeController extends Controller
                 ->when(($request->filter == 'recentlyUpdated'), function (Builder $query) {
                     $query->whereNotNull('parent_id')->orderBy('updated_at', 'DESC');
                 })
+                ->where('archived', 'false')
                 ->get();
 
                 $identify = 'allBook';
                 $parent_id = '';
         } else {
-            // dd('not');
-            // dd($request->all());
-            $allBooks = CollectionsAndBooks::query()
+            $allBooks = Collection::query()
                 ->when($request->name, function (Builder $query, string $search) {
                     $query->where('name', 'LIKE', '%'.$search.'%')->where('parent_id', request('parent_id'));
                 })
@@ -87,6 +86,7 @@ class HomeController extends Controller
                 ->when(($request->filter == 'recentlyUpdated'), function (Builder $query) {
                     $query->where('parent_id', request('parent_id'))->orderBy('updated_at', 'DESC');
                 })
+                ->where('archived', 'false')
                 ->get();
 
                 $identify = 'notAllBook';
@@ -98,14 +98,12 @@ class HomeController extends Controller
             $filter_name = '';
         }
 
-        // dd($request->all());
-
         return view('home', ['collections' => $collections, 'allBooks' => $allBooks, 'identify' => $identify, 'parent_id' => $parent_id, 'filter_name' => $filter_name]);
     }
 
     public function storeCollection(Request $request)
     {
-        CollectionsAndBooks::create([
+        Collection::create([
             'name' => $request->name
         ]);
 
@@ -115,12 +113,25 @@ class HomeController extends Controller
 
     public function storeBook(Request $request)
     {
-        CollectionsAndBooks::create([
+        Book::create([
             'name' => $request->name,
-            'parent_id' => $request->parentId,
+            'collection_id' => $request->parentId,
         ]);
 
         toastr()->success('Created Successfully');
         return back();
     }
+
+    // public function archived($id) 
+    // {
+    //     $book = Book::find($id);
+
+    //     $book->update([
+    //         'archived' => 'true'
+    //     ]);
+
+    //     toastr()->success('Archived Successfully');
+    //     return back();
+
+    // }
 }

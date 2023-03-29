@@ -13,14 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_plans', function (Blueprint $table) {
+        Schema::create('layouts', function (Blueprint $table) {
             $table->id();
-            $table->string('filter')->nullable();
+            $table->tinyInteger('book_id');
             $table->string('name')->nullable();
-            $table->integer('amount')->nullable();
-            $table->string('li_exp')->nullable();
-            $table->string('exp')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('layouts');
     }
 };

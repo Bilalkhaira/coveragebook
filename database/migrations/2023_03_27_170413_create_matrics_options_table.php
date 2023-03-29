@@ -13,12 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('my_teams', function (Blueprint $table) {
+        Schema::create('matrics_options', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('user_id')->nullable();
+            $table->tinyInteger('metric_id')->nullable();
             $table->string('name')->nullable();
-            $table->string('email')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('matrics_options');
     }
 };
