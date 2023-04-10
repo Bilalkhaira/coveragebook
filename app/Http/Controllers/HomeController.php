@@ -27,9 +27,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $collections = Collection::whereNull('parent_id')->get();
+        $collections = Collection::get();
 
-        $allBooks = Collection::whereNotNull('parent_id')->where('archived', 'false')->orderBy('name')->get();
+        $allBooks = Book::whereNotNull('collection_id')->orderBy('name')->get();
 
         return view('home', ['collections' => $collections, 'allBooks' => $allBooks]);
     }

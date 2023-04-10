@@ -61,8 +61,8 @@ Route::prefix('user')->group(function () {
     Route::post('/filterBooks', [HomeController::class, 'filterBooks'])->name('filterBooks');
     Route::get('/collectionBooks/{id}', [HomeController::class, 'collectionBooks'])->name('collectionBooks');
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
-    Route::post('/storeCollection', [HomeController::class, 'storeCollection'])->name('storeCollection');
-    Route::post('/storeBook', [HomeController::class, 'storeBook'])->name('storeBook');
+    Route::post('/storeCollection', [HomeController::class, 'storeCollection'])->name('storeCollection'); //use
+    Route::post('/storeBook', [HomeController::class, 'storeBook'])->name('storeBook'); // use
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('passwordReset', [ProfileController::class, 'passwordReset'])->name('reset.password');
 
@@ -79,12 +79,16 @@ Route::prefix('user')->group(function () {
     Route::get('permissions', [UsersPermissionsController::class, 'index'])->name('permissions');
 
     Route::prefix('book')->group(function () {
-        Route::get('/', [BookController::class, 'index'])->name('book.index');
+        Route::get('/{id?}', [BookController::class, 'index'])->name('book.index'); //use
         Route::get('/share', [ShareBookController::class, 'index'])->name('book.share');
         Route::get('/preview', [PreviewBookController::class, 'index'])->name('book.preview');
         Route::get('/matrics_summary', [MatricsSummaryBookController::class, 'index'])->name('book.matrics_summary');
         Route::get('/highlights', [BookLighlightController::class, 'index'])->name('book.highlights');
-        Route::get('/fount_cover', [BookFountCoverController::class, 'index'])->name('book.fount_cover');
+        Route::get('/fount_cover/{id?}', [BookFountCoverController::class, 'index'])->name('book.fount_cover'); //use
+        Route::post('/fount_cover/logo', [BookFountCoverController::class, 'StoreLogoText'])->name('book.fount_cover.StoreLogoText'); //use
+        Route::post('/fount_cover/cover_image', [BookFountCoverController::class, 'storeCoverImage'])->name('book.fount_cover.storeCoverImage'); //use
+        Route::post('/fount_cover/bg', [BookFountCoverController::class, 'backgroundColor'])->name('book.fount_cover.backgroundColor'); //use
+        Route::post('/fount_cover/status', [BookFountCoverController::class, 'updateStatus'])->name('book.fount_cover.updateStatus'); //use
         Route::get('/upload_covarage_file', [UploadeCoverageFile::class, 'index'])->name('book.upload_covarage_file');
         Route::get('/coverage', [CoverageController::class, 'index'])->name('book.coverage');
         Route::get('/matrics', [BookMatricsController::class, 'index'])->name('book.matrics');

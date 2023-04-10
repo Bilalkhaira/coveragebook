@@ -47,12 +47,18 @@
                     <div class="row">
                         <div class="col-md-7">
                             <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Logo</h6>
-                            <p class="clr ml-1 mb-0 text-success">New Book</p>
+                            <p class="clr ml-1 mb-0 text-success">{{ $book->cover_title ?? ''}} / {{ $book->cover_subtitle ?? ''}}</p>
                         </div>
                         <div class="col-md-4">
-                            <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal2" id="achrcrd">
+                            @if(!empty($book->cover_logo))
+                            <a href="#" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal2" id="achrcrd">
+                                <img src="{{ asset('img/fontCover/'.$book->cover_logo ?? '') }}" alt="" width="24" height="27" class="">
+                            </a>
+                            @else
+                            <a href="#" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal2" id="achrcrd">
                                 <img src="{{ asset('img/mouth.png') }}" alt="" width="24" height="27" class="">
                             </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -63,12 +69,19 @@
                     <div class="row">
                         <div class="col-md-7">
                             <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Cover Img</h6>
-                            <p class="clr ml-1 mb-0 text-success">Montage</p>
+                            <p class="clr ml-1 mb-0 text-success">{{ $book->cover_image_title ?? ''}}</p>
                         </div>
                         <div class="col-md-4">
-                            <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal3" id="achrcrd">
+                            @if(!empty($book->cover_image))
+                            <a href="#" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal3" id="achrcrd">
+                                <img src="{{ asset('img/fontCover/'.$book->cover_image ?? '') }}" alt="" width="24" height="27" class="">
+                            </a>
+                            @else
+                            <a href="#" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal3" id="achrcrd">
                                 <img src="{{ asset('img/cover.png') }}" alt="" width="24" height="27" class="">
                             </a>
+                            @endif
+
                         </div>
                     </div>
                 </div>
@@ -79,12 +92,17 @@
                     <div class="row">
                         <div class="col-md-7">
                             <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Bg Color</h6>
-                            <p class="clr ml-1 mb-0 text-success">#eeeff0</p>
+                            <p class="clr ml-1 mb-0 text-success">{{ $book->cover_bg_color ?? '#werrt23'}}</p>
                         </div>
                         <div class="col-md-4">
+                            @if(!empty($book->cover_bg_color))
+                            <a href="" class="btn mt-1" type="button" style="background-color: {{$book->cover_bg_color}};" data-toggle="modal" data-target="#backgrountColor" id="achrcrd">
+                            </a>
+                            @else
                             <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#backgrountColor" id="achrcrd">
                                 <img src="{{ asset('img/circle.png') }}" alt="" width="24" height="27" class="">
                             </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -95,12 +113,22 @@
                     <div class="row">
                         <div class="col-md-7">
                             <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Show/hide</h6>
-                            <p class="clr ml-1 mb-0 text-success">Visible</p>
+                            <p class="clr ml-1 mb-0 text-success">{{ $book->status ?? 'show'}}</p>
                         </div>
                         <div class="col-md-4">
+                            @if(!empty($book->status))
+                            <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#hideShow" id="achrcrd">
+                                @if($book->status == 'show')
+                                <i class="fa fa-eye"></i>
+                                @else
+                                <i class="fa fa-eye-slash"></i>
+                                @endif
+                            </a>
+                            @else
                             <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#hideShow" id="achrcrd">
                                 <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="27" class="">
                             </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -125,16 +153,39 @@
             </div>
 
             <div class="modal-body">
-                <form action="/action_page.php">
+                <form action="{{ route('book.fount_cover.updateStatus') }}" method="POST">
+                    @csrf
 
                     <div class="form-group text-center">
                         <p>If you would prefer to not have a front cover for your book you can hide this area from public view.</p>
                     </div>
                     <div class="row">
                         <div class="col-md-2"></div>
+                        @if(!empty($book->status == 'hide'))
                         <div class="col-md-4 text-center">
                             <p><b>Show front cover</b></p>
                             <div class="coverageSecDetailTab">
+                                <input type="hidden" id="showHide" value="show">
+                                <p><i class="fa fa-eye"></i></p>
+                                <span></span>
+                            </div>
+                            <p>Display a front cover in your book.</p>
+                        </div>
+
+                        <div class="col-md-4 text-center">
+                            <p><b>Hide front cover</b></p>
+                            <div class="coverageSecDetailTab">
+                                <input type="hidden" id="showHide" value="hide">
+                                <p class="coverageSecDetailTab_active"> <i class="fa fa-eye-slash"></i></p>
+                                <span class="coverageSecDetailTab_active"></span>
+                            </div>
+                            <p>The front cover will not be shown in your book.</p>
+                        </div>
+                        @else
+                        <div class="col-md-4 text-center">
+                            <p><b>Show front cover</b></p>
+                            <div class="coverageSecDetailTab">
+                                <input type="hidden" id="showHide" value="show">
                                 <p class="coverageSecDetailTab_active"><i class="fa fa-eye"></i></p>
                                 <span class="coverageSecDetailTab_active"></span>
                             </div>
@@ -144,14 +195,18 @@
                         <div class="col-md-4 text-center">
                             <p><b>Hide front cover</b></p>
                             <div class="coverageSecDetailTab">
+                                <input type="hidden" id="showHide" value="hide">
                                 <p><i class="fa fa-eye-slash"></i></p>
                                 <span></span>
                             </div>
                             <p>The front cover will not be shown in your book.</p>
                         </div>
+                        @endif
                         <div class="col-md-2"></div>
                     </div>
-
+                    <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
+                    <input type="hidden" name="recordRowId" value="{{ $book->id ?? ''}}">
+                    <input type="hidden" name="status" id="hideShowInput" value="show">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-success">Save</button>
@@ -174,15 +229,18 @@
 
             </div>
             <div class="modal-body" id="form">
-                <form action="" class="form">
+                <form action="{{ route('book.fount_cover.backgroundColor') }}" method="POST" class="form">
+                    @csrf
                     <p id="text"><b>Background color</b><br> accent colour is used on links, buttons, certain text and icons to add a customised brand flavour to the books you share.</p>
                     <div>
-                        <input type="color" id="head" name="head" value="#e66465" class="form-control">
+                        <input type="color" id="head" name="bg_color" value="#e66465" class="form-control">
+                        <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
+                        <input type="hidden" name="recordRowId" value="{{ $book->id ?? ''}}">
                     </div>
                     <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="bttnn">
                         Save
                     </button>
-                    <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Close</a>
+                    <a type="submit" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Close</a>
                 </form>
             </div>
 
@@ -264,10 +322,35 @@
 
                 </div>
                 <div class="modal-body" id="form">
-                    <form action="" class="form">
+                    <form action="{{ route('book.fount_cover.StoreLogoText') }}" method="POST" class="form" enctype="multipart/form-data">
+                        @csrf
                         <div class="row">
                             <div class="col-md-3">
-                                <input type="file" accept="image/*" class="fsp-drop-pane__input form-control" style="width: 180px;height: 200px; border: 1px dashed gray; background: rgb(199, 198, 198);">
+                                <label class="cabinet center-block">
+                                    <figure>
+                                        <img src="" class="gambar img-responsive img-thumbnail" id="item-img-output" />
+                                        <figcaption><i class="fa fa-camera"></i></figcaption>
+                                    </figure>
+                                    <input type="file" class="item-img file center-block" name="file_photo" />
+                                </label>
+                                <div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">
+                                                    asd</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="upload-demo" class="center-block"></div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" id="cropImageBtn" class="btn btn-primary">Crop</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-8">
                                 <label for="" class="font-weight-bold mt-3">Logo</label>
@@ -276,16 +359,18 @@
                                 </p>
                             </div>
                         </div>
-                        <label for="" class="font-weight-bold mt-3">Edit</label>
+                        <label for="" class="font-weight-bold mt-3">Title</label>
                         <p class="text-secondary text-left ml-0">Defaults to the same as the name of the book. If empty, no title will be displayed.</p>
 
-                        <input type="text" value="New Book 2023" class="form-control">
+                        <input type="text" name="title" class="form-control" value="{{ $book->cover_title ?? ''}}">
                         <label for="" class="font-weight-bold mt-3">Subtitle</label>
                         <p class="text-secondary text-left ml-0">Displayed under the title.</p>
 
-                        <input type="text" value="" class="form-control">
+                        <input type="text" name="sub_title" class="form-control" value="{{ $book->cover_subtitle ?? ''}}">
+                        <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
+                        <input type="hidden" name="recordRowId" value="{{ $book->id ?? ''}}">
 
-                        <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="bttnn">
+                        <button class="btn mt-4 mb-3" type="submit" data-component="button-element" id="bttnn">
                             Save
                         </button>
                         <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
@@ -303,34 +388,35 @@
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="head" id="text">Logo & Text</h>
+                    <h4 class="head" id="text">Cover Image</h>
                         <button type="buttom" class="close" data-dismiss="modal">
                             &times;
                         </button>
                 </div>
                 <div class="modal-body" id="form">
-                    <form action="" class="form">
-                        <ul class="nav nav-tabs font_cover_tab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#home">
-                                    <p><span class="circle"></span><b>Montage</b></p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#menu1">
-                                    <p><span class="circle"></span><b>Custome Image</b></p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#menu2">
-                                    <p><span class="circle"></span><b>None</b></p>
-                                </a>
-                            </li>
-                        </ul>
+                    <ul class="nav nav-tabs font_cover_tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#home">
+                                <p><span class="circle"></span><b>Montage</b></p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#menu1">
+                                <p><span class="circle"></span><b>Custome Image</b></p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#menu2">
+                                <p><span class="circle"></span><b>None</b></p>
+                            </a>
+                        </li>
+                    </ul>
 
-                        <!-- Tab panes -->
-                        <div class="tab-content font_cover_tabContent">
-                            <div id="home" class="container tab-pane active"><br>
+                    <!-- Tab panes -->
+                    <div class="tab-content font_cover_tabContent">
+                        <div id="home" class="container tab-pane active"><br>
+                            <form action="{{ route('book.fount_cover.storeCoverImage')}}" method="POST">
+                                @csrf
                                 <div class="row">
                                     <div class="col-md-6">
                                         <p>Screenshots and images from your coverage will be used to create a montage image.</p>
@@ -346,60 +432,82 @@
                                     </div>
                                     <div class="col-md-6">
                                         <img src="{{ asset('img/123.png') }}" alt="" width="100%" height="200px">
+                                        <input type="hidden" name="title" value="Montage">
+                                        <input type="hidden" name="bookId" value="{{ $book->id ?? ''}}">
                                     </div>
                                 </div>
-                            </div>
-                            <div id="menu1" class="container tab-pane fade"><br>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <button disabled class="btn mt-4 mb-3" type="submit" data-component="button-element" id="bttnn">
+                                            Save
+                                        </button>
+                                        <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="menu1" class="container tab-pane fade"><br>
+                            <form action="{{ route('book.fount_cover.storeCoverImage')}}" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <div class="row">
                                     <div class="col-md-6">
+                                        <input type="hidden" name="title" value="Custome Image">
+                                        <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
+                                        <input type="hidden" name="recordRowId" value="{{ $book->id ?? ''}}">
                                         <p>Upload your own custom front cover image. E.g. brand/campaign imagery, graphic etc...</p>
                                         <input type="radio"> Size image to fit (stylised) <br>
                                         <input type="radio"> Size image to fill (edge to edge)
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="cabinet center-block">
-                                            <figure>
-                                                <img src="" class="gambar img-responsive img-thumbnail" id="item-img-output" width="100%" style="height: 200px !important;" />
-                                                <figcaption><i class="fa fa-camera"></i></figcaption>
-                                            </figure>
-                                            <input type="file" id="img_preview" class="item-img file center-block" name="file_photo" />
-                                        </label>
-
-                                        <div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                        <h4 class="modal-title" id="myModalLabel"></h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div id="upload-demo" class="center-block"></div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        <button type="button" id="cropImageBtn" class="btn btn-success">Crop</button>
-                                                    </div>
+                                        <div class="avatar-upload">
+                                            <div class="avatar-edit">
+                                                <input type='file' id="imageUpload" name="file_photo" accept=".png, .jpg, .jpeg" />
+                                                <label for="imageUpload"></label>
+                                            </div>
+                                            <div class="avatar-preview">
+                                                @if(!empty($book->cover_image))
+                                                <div id="imagePreview" style="background-image: url({{ asset('img/fontCover/'.$book->cover_image ?? '' ) }});">
                                                 </div>
+                                                @else
+                                                <div id="imagePreview" style="background-image: url(https://user.gadjian.com/static/images/personnel_boy.png);">
+                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="menu2" class="container tab-pane fade text-center"><br>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <button class="btn mt-4 mb-3" type="submit" data-component="button-element" id="bttnn">
+                                            Save
+                                        </button>
+                                        <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="menu2" class="container tab-pane fade text-center"><br>
+                            <form action="{{ route('book.fount_cover.storeCoverImage')}}" method="POST">
+                                @csrf
                                 <p>No cover image will be shown.</p>
-                            </div>
+                                <input type="hidden" name="title" value="None">
+                                <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
+                                <input type="hidden" name="recordRowId" value="{{ $book->id ?? ''}}">
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <button class="btn mt-4 mb-3" type="submit" data-component="button-element" id="bttnn">
+                                            Save
+                                        </button>
+                                        <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-12 text-right">
-                                <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="bttnn">
-                                    Save
-                                </button>
-                                <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
-                            </div>
-                        </div>
+                    </div>
 
-                    </form>
                 </div>
             </div>
         </div>
@@ -407,15 +515,41 @@
 </div>
 <!-- modal cover {{ asset('img end-->
 <script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                $('#imagePreview').hide();
+                $('#imagePreview').show();
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#imageUpload").change(function() {
+        readURL(this);
+    });
+
     $(document).on("click", ".coverageSecDetailTab", function(e) {
+        $("body").find('#hideShowInput').val('');
         $("body").find('.coverageSecDetailTab_active').removeClass("coverageSecDetailTab_active");
         $(this).closest('.coverageSecDetailTab').find('p').addClass('coverageSecDetailTab_active');
         $(this).closest('.coverageSecDetailTab').find('span').addClass('coverageSecDetailTab_active');
+        var status = $(this).closest('.coverageSecDetailTab').find('#showHide').val();
+        $("body").find('#hideShowInput').val(status);
 
     });
 
     // Start upload preview image
-    $(".gambar").attr("src", "https://user.gadjian.com/static/images/personnel_boy.png");
+
+    if ('<?php echo $book->cover_logo ?? '' ?>') {
+        var img = '<?php echo $book->cover_logo ?? '' ?>';
+        var path = '<?php echo asset('img/fontCover/') ?>';
+        $(".gambar").attr("src", "" + path + "/" + img + "");
+    } else {
+        $(".gambar").attr("src", "https://user.gadjian.com/static/images/personnel_boy.png");
+    }
+
     var $uploadCrop,
         tempFilename,
         rawImg,

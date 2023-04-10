@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->tinyInteger('metric_id')->nullable();
             $table->string('name')->nullable();
+            $table->tinyInteger('value')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

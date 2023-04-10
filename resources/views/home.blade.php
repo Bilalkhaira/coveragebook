@@ -86,7 +86,7 @@
       @foreach($allBooks as $allBook)
       <div class="col-md-3">
         <div class="row">
-          <a href="{{ route('book.index') }}">
+          <a href="{{ route('book.index', $allBook->id) }}">
             <div class="card mt-2 ml-4" style="height: 260px;width: 330px;border-radius: 14px;">
               <img src="{{ asset('img/_20230131194939.jpg') }}" alt="" style="height: 100%;width: 100%; border-radius: 14px;">
             </div>

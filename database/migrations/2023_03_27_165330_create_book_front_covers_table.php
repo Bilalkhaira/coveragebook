@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('cover_title')->nullable();
             $table->string('cover_subtitle')->nullable();
             $table->string('cover_image')->nullable();
+            $table->string('cover_image_title')->nullable();
             $table->string('cover_bg_color')->nullable();
             $table->enum('status', ['show', 'hide'])->default('show');
             $table->tinyInteger('created_by')->nullable();

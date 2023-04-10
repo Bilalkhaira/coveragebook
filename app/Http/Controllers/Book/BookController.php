@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Book;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\BookFrontCover;
+use App\Http\Controllers\Controller;
 
 class BookController extends Controller
 {
-    public function index() 
+    public function index($bookId = '') 
     {
-        return view('pages.book.index');
+        $book = BookFrontCover::where('book_id', $bookId)->first();
+        return view('pages.book.index', compact('book', 'bookId'));
     }
 }

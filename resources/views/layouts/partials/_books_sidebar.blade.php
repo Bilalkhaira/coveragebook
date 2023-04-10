@@ -78,11 +78,12 @@
 
             </li>
             <li>
-                <a href="{{ route('book.index') }}">
+                
+                <a href="{{ route('book.index', $bookId ?? '') }}">
                     <i class="fa-solid fa-book-open" style="font-size: 30px;"></i><br> Book <br> Overview</a>
             </li>
             <li>
-                <a href="{{ route('book.fount_cover') }}" class="pt-4">
+                <a href="{{ route('book.fount_cover', $bookId ?? '') }}" class="pt-4">
                     <i class="fa-solid fa-image" style="font-size: 30px;"></i><br> Front Cover
                 </a>
             </li>

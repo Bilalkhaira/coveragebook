@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('layouts', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('book_id');
             $table->string('name')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();

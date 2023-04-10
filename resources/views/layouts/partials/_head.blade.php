@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="{{ asset('css/custom_style.css') }}" />
   <link rel="stylesheet" href="{{ asset('css/mediaquery.css') }}" />
   <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+  <link rel="stylesheet" href="{{ asset('css/img_preview.css') }}" />
   <!-- <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" /> -->
   <link rel="icon" type="image/png" href="{{ asset('img/book.png') }}" />
   @yield('css')

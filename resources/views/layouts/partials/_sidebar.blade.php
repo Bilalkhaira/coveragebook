@@ -12,10 +12,10 @@
           <i class="fa-solid fa-folder mr-2" style="font-size: 20px; color: rgb(178, 175, 175);"></i>All Books
         </a>
 
-        @if(!empty(App\Models\CollectionsAndBooks::whereNull('parent_id')->get()))
-        @foreach(App\Models\CollectionsAndBooks::whereNull('parent_id')->get() as $collection)
+        @if(!empty(App\Models\Collection::get()))
+        @foreach(App\Models\Collection::get() as $collection)
         @php
-        $count = App\Models\CollectionsAndBooks::where('parent_id')->get();
+        $count = App\Models\Collection::get();
         @endphp
         <a href="{{ route('collectionBooks', $collection->id) }}" style="font-weight: bold;">
           <i class="fa-solid fa-folder mr-2" style="font-size: 20px; color: rgb(178, 175, 175);"></i> {{$collection->name}}
@@ -23,7 +23,7 @@
         @endforeach
         @endif
       </li>
-      <li>
+      <li style="display: none;">
         <a class="user_sidebar" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
           <i class="fa fa-user"></i><span> Users </span> <i class="fa-solid fa-caret-down"></i>
         </a>
