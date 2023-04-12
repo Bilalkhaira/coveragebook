@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers\Book;
 
-use App\Http\Controllers\Controller;
+use App\Models\Layout;
 use Illuminate\Http\Request;
+use App\Models\BookFrontCover;
+use App\Http\Controllers\Controller;
 
 class PreviewBookController extends Controller
 {
-    public function index()
+    public function index($bookId='')
     {
-        return view('pages.book.preview_book');
+        
+        $book = BookFrontCover::where('book_id', $bookId)->where('status', 'active')->first();
+        
+        return view('pages.book.preview_book', compact('book', 'bookId'));
     }
 }

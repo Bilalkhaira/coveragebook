@@ -3,10 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Layout;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class InsertFountCoverLayout extends Seeder
+class InsertFrontCoverLayout extends Seeder
 {
     /**
      * Run the database seeds.

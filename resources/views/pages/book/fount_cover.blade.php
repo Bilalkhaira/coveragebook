@@ -16,7 +16,7 @@
                 <p class="new">Front Cover</p>
             </div>
             <div class="col-md-3 text-right">
-                <a href="{{ route('book.preview') }}" target="_blank">
+                <a href="{{ route('book.preview', $book->book_id ?? '') }}" target="_blank">
                     <button type="button" class="btn mt-5 pr-5" id="prviw" data-toggle="modal" data-target="#">
                         <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 3px;">
                         Preview Book
@@ -135,8 +135,33 @@
             </div>
             <div class="container-fluid">
                 <div class="row mt-5 mb-5">
-                    <div class="col-md-12">
-                        <img src="{{ asset('img/_20230131194939.jpg') }}" alt="" style="border-radius: 20px;height: 100%; width: 100%;">
+                    <div class="col-md-12 layout_main_col" >
+                        <div class="layout_main" style="background-color: {{$book->cover_bg_color ?? ''}};@if(isset($book->status) && $book->status== 'hide') opacity: 0.6 @endif">
+                            <div class="row">
+                                @if(!empty($book->cover_logo))
+                                <div class="col-md-12 text-center">
+                                    <img src="{{ asset('img/fontCover/'.$book->cover_logo ?? '' )}}" alt="" width="150px" height="150px">
+                                </div>
+                                @endif
+                                @if(!empty($book->cover_title))
+                                <div class="col-md-12 text-center">
+                                    <h1>{{ $book->cover_title ?? ''}}</h1>
+                                </div>
+                                @endif
+
+                                @if(!empty($book->cover_subtitle))
+                                <div class="col-md-12 text-center">
+                                    <b>{{ $book->cover_subtitle ?? ''}}</b>
+                                </div>
+                                @endif
+
+                                @if(!empty($book->cover_image))
+                                <div class="col-md-12">
+                                <img src="{{ asset('img/fontCover/'.$book->cover_image ?? '' )}}" alt="" width="100%">
+                                </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -161,13 +186,12 @@
                     </div>
                     <div class="row">
                         <div class="col-md-2"></div>
-                        @if(!empty($book->status == 'hide'))
                         <div class="col-md-4 text-center">
                             <p><b>Show front cover</b></p>
                             <div class="coverageSecDetailTab">
                                 <input type="hidden" id="showHide" value="show">
-                                <p><i class="fa fa-eye"></i></p>
-                                <span></span>
+                                <p class="@if(isset($book->status) && $book->status== 'show') ? coverageSecDetailTab_active @endif"><i class="fa fa-eye"></i></p>
+                                <span class="@if(isset($book->status) && $book->status== 'show') ? coverageSecDetailTab_active @endif"></span>
                             </div>
                             <p>Display a front cover in your book.</p>
                         </div>
@@ -176,32 +200,12 @@
                             <p><b>Hide front cover</b></p>
                             <div class="coverageSecDetailTab">
                                 <input type="hidden" id="showHide" value="hide">
-                                <p class="coverageSecDetailTab_active"> <i class="fa fa-eye-slash"></i></p>
-                                <span class="coverageSecDetailTab_active"></span>
+                                <p class="@if(isset($book->status) && $book->status=='hide') ? coverageSecDetailTab_active @endif"> <i class="fa fa-eye-slash"></i></p>
+                                <span class="@if(isset($book->status) && $book->status=='hide') ? coverageSecDetailTab_active @endif"></span>
                             </div>
                             <p>The front cover will not be shown in your book.</p>
                         </div>
-                        @else
-                        <div class="col-md-4 text-center">
-                            <p><b>Show front cover</b></p>
-                            <div class="coverageSecDetailTab">
-                                <input type="hidden" id="showHide" value="show">
-                                <p class="coverageSecDetailTab_active"><i class="fa fa-eye"></i></p>
-                                <span class="coverageSecDetailTab_active"></span>
-                            </div>
-                            <p>Display a front cover in your book.</p>
-                        </div>
-
-                        <div class="col-md-4 text-center">
-                            <p><b>Hide front cover</b></p>
-                            <div class="coverageSecDetailTab">
-                                <input type="hidden" id="showHide" value="hide">
-                                <p><i class="fa fa-eye-slash"></i></p>
-                                <span></span>
-                            </div>
-                            <p>The front cover will not be shown in your book.</p>
-                        </div>
-                        @endif
+                       
                         <div class="col-md-2"></div>
                     </div>
                     <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
@@ -216,7 +220,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="modal fade" id="backgrountColor">
     <div class="modal-dialog modal-lg">
@@ -261,40 +264,46 @@
             </div>
 
             <div class="modal-body">
-                <form action="/action_page.php">
+                <form action="{{ route('book.fount_cover.storeLayout') }}" method="POST">
+                    @csrf
 
                     <div class="form-group text-center">
                         <p>Each layout works with either your own custom image or our auto-generated coverage montage. Hit 'Save' to preview a layout.</p>
                     </div>
                     <div class="row">
                         <div class="col-md-4 text-center">
-                            <p><b>Stacked</b><span class="cover_layout_new">new</span></p>
+                            <p><b>{{ $layout[0]->name ?? 'Stacked'}}</b><span class="cover_layout_new">new</span></p>
                             <div class="coverageSecDetailTab">
-                                <p class="coverageSecDetailTab_active"><i class="fa fa-pager"></i></p>
-                                <span class="coverageSecDetailTab_active"></span>
+                                <input type="hidden" id="layoutInput" value="{{ $layout[0]->id ?? ''}}">
+                                <p class="@if(isset($book->layout_id) && $book->layout_id==1) ? coverageSecDetailTab_active @endif"><i class="fa fa-pager"></i></p>
+                                <span class="@if(isset($book->layout_id) && $book->layout_id==1) ? coverageSecDetailTab_active @endif"></span>
                             </div>
                             <p>Logo & title are displayed above the cover image</p>
                         </div>
 
                         <div class="col-md-4 text-center">
-                            <p><b>Side-by-Side</b><span class="cover_layout_new">new</span></p>
+                            <p><b>{{ $layout[1]->name ?? '' }}</b><span class="cover_layout_new">new</span></p>
                             <div class="coverageSecDetailTab">
-                                <p><i class="fa-solid fa-table-cells"></i></p>
-                                <span></span>
+                                <input type="hidden" id="layoutInput" value="{{ $layout[1]->id ?? ''}}">
+                                <p class="@if(isset($book->layout_id) && $book->layout_id==2) ? coverageSecDetailTab_active @endif"><i class="fa-solid fa-table-cells"></i></p>
+                                <span class="@if(isset($book->layout_id) && $book->layout_id==2) ? coverageSecDetailTab_active @endif"></span>
                             </div>
                             <p>Logo & title on the left, image on the right</p>
                         </div>
 
                         <div class="col-md-4 text-center">
-                            <p><b>Overlay</b><span class="cover_layout_new">new</span></p>
+                            <p><b>{{ $layout[2]->name ?? ''}}</b><span class="cover_layout_new">new</span></p>
                             <div class="coverageSecDetailTab">
-                                <p><i class="fa fa-list"></i></p>
-                                <span></span>
+                                <input type="hidden" id="layoutInput" value="{{ $layout[2]->id ?? ''}}">
+                                <p class="@if(isset($book->layout_id) && $book->layout_id==3) ? coverageSecDetailTab_active @endif"><i class="fa fa-list"></i></p>
+                                <span class="@if(isset($book->layout_id) && $book->layout_id==3) ? coverageSecDetailTab_active @endif"></span>
                             </div>
                             <p>Logo & title overlaid on top of the cover image</p>
                         </div>
                     </div>
-
+                    <input type="hidden" name="layoutId" id="layoutId">
+                    <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
+                    <input type="hidden" name="recordRowId" value="{{ $book->id ?? ''}}">
                     <div class="form-group text-center mt-10">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-success">Save</button>
@@ -357,6 +366,9 @@
                                 <p class="text-sm text-gray-600">
                                     Set a front cover logo to appear above your title, for example a client or project logo. If you don't want a logo, simply leave it blank.
                                 </p>
+                                @if(!empty($book->cover_logo))
+                                <a href="{{ route('book.fount_cover.deleteLogoImage', $book->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Remove</a>
+                                @endif
                             </div>
                         </div>
                         <label for="" class="font-weight-bold mt-3">Title</label>
@@ -535,8 +547,12 @@
         $("body").find('.coverageSecDetailTab_active').removeClass("coverageSecDetailTab_active");
         $(this).closest('.coverageSecDetailTab').find('p').addClass('coverageSecDetailTab_active');
         $(this).closest('.coverageSecDetailTab').find('span').addClass('coverageSecDetailTab_active');
+
         var status = $(this).closest('.coverageSecDetailTab').find('#showHide').val();
         $("body").find('#hideShowInput').val(status);
+
+        var layout = $(this).closest('.coverageSecDetailTab').find('#layoutInput').val();
+        $("body").find('#layoutId').val(layout);
 
     });
 

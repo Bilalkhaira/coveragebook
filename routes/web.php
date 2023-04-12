@@ -13,7 +13,7 @@ use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Book\BookMatricsController;
 use App\Http\Controllers\Book\PreviewBookController;
 use App\Http\Controllers\Book\BookLighlightController;
-use App\Http\Controllers\Book\BookFountCoverController;
+use App\Http\Controllers\Book\BookFrontCoverController;
 use App\Http\Controllers\User\UsersPermissionsController;
 use App\Http\Controllers\Book\MatricsSummaryBookController;
 
@@ -81,14 +81,19 @@ Route::prefix('user')->group(function () {
     Route::prefix('book')->group(function () {
         Route::get('/{id?}', [BookController::class, 'index'])->name('book.index'); //use
         Route::get('/share', [ShareBookController::class, 'index'])->name('book.share');
-        Route::get('/preview', [PreviewBookController::class, 'index'])->name('book.preview');
-        Route::get('/matrics_summary', [MatricsSummaryBookController::class, 'index'])->name('book.matrics_summary');
+        Route::get('/preview/{id?}', [PreviewBookController::class, 'index'])->name('book.preview'); //use
+        Route::get('/matrics_summary/{id?}', [MatricsSummaryBookController::class, 'index'])->name('book.matrics_summary'); //use
         Route::get('/highlights', [BookLighlightController::class, 'index'])->name('book.highlights');
-        Route::get('/fount_cover/{id?}', [BookFountCoverController::class, 'index'])->name('book.fount_cover'); //use
-        Route::post('/fount_cover/logo', [BookFountCoverController::class, 'StoreLogoText'])->name('book.fount_cover.StoreLogoText'); //use
-        Route::post('/fount_cover/cover_image', [BookFountCoverController::class, 'storeCoverImage'])->name('book.fount_cover.storeCoverImage'); //use
-        Route::post('/fount_cover/bg', [BookFountCoverController::class, 'backgroundColor'])->name('book.fount_cover.backgroundColor'); //use
-        Route::post('/fount_cover/status', [BookFountCoverController::class, 'updateStatus'])->name('book.fount_cover.updateStatus'); //use
+
+        Route::get('/fount_cover/{id?}', [BookFrontCoverController::class, 'index'])->name('book.fount_cover'); //use
+        Route::post('/fount_cover/logo', [BookFrontCoverController::class, 'StoreLogoText'])->name('book.fount_cover.StoreLogoText'); //use
+        Route::get('/fount_cover/delete/{id?}', [BookFrontCoverController::class, 'deleteLogoImage'])->name('book.fount_cover.deleteLogoImage'); //use
+        Route::post('/fount_cover/cover_image', [BookFrontCoverController::class, 'storeCoverImage'])->name('book.fount_cover.storeCoverImage'); //use
+        Route::post('/fount_cover/bg', [BookFrontCoverController::class, 'backgroundColor'])->name('book.fount_cover.backgroundColor'); //use
+        Route::post('/fount_cover/bg', [BookFrontCoverController::class, 'backgroundColor'])->name('book.fount_cover.backgroundColor'); //use
+        Route::post('/fount_cover/store_layout', [BookFrontCoverController::class, 'storeLayout'])->name('book.fount_cover.storeLayout'); //use
+        Route::post('/fount_cover/status', [BookFrontCoverController::class, 'updateStatus'])->name('book.fount_cover.updateStatus'); //use
+
         Route::get('/upload_covarage_file', [UploadeCoverageFile::class, 'index'])->name('book.upload_covarage_file');
         Route::get('/coverage', [CoverageController::class, 'index'])->name('book.coverage');
         Route::get('/matrics', [BookMatricsController::class, 'index'])->name('book.matrics');

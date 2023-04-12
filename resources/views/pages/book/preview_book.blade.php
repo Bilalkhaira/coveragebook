@@ -13,6 +13,62 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
     <link rel="icon" type="image/png" href="{{ asset('img/book.png') }}" />
+    <style>
+        #myScrollspy {
+            float: right;
+        }
+
+        .tab_link {
+            position: fixed;
+            top: 6%;
+            left: 0;
+            z-index: 999;
+            width: 100%;
+            height: 48px;
+            background-color: white;
+            padding-top: 6px;
+        }
+
+        #myScrollspy button {
+            border: none;
+            background-color: transparent;
+        }
+
+        ul.nav-pills {
+            top: 20px;
+            position: fixed;
+        }
+
+        div.col-8 div {
+            height: 500px;
+        }
+
+        .container-fluid {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        #myScrollspy i {
+            margin-right: 10px;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        .layout_main {
+            border-radius: 5px;
+            padding: 50px 0px;
+            color: white;
+        }
+
+        .layout_main .col-md-12 {
+            padding-top: 20px;
+        }
+        #section42{
+            padding-bottom: 50px;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,100 +80,124 @@
                     <nav class="navbar  navbar-default navbar-fixed-top justify-content-center  navbar-expand-lg" style="position: fixed; left:0; right: 0; z-index: 1; height: 60px;
                         background: rgb(8, 161, 154);">
                         <span><b>This is a preview of your book.
-                       <a class="text-dark" href="#">
-                            <span>Go back to editing</span>
-                        </a>
-                        <span>or</span>
-                        <a class="text-dark" href="#">
-                            <span> share your book</span>
-                        </a>
-                        </b>
+                                <a class="text-dark" href="#">
+                                    <span>Go back to editing</span>
+                                </a>
+                                <span>or</span>
+                                <a class="text-dark" href="#">
+                                    <span> share your book</span>
+                                </a>
+                            </b>
                         </span>
                     </nav>
                 </header>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <header id="header">
-                    <nav class="navbar mb-5 navbar-default bg-white border-bottom" style="position: fixed; left:0; right: 0; height: 60px; z-index: 1;
-                        margin-top: 0px;">
-                        <div class="row">
-                            <img src="{{ asset('img/book.png') }}" alt="" width="40" height="30" class="hidden ml-4 mt-0">
-                            <div class="dropdown">
-                                <a type="" class="nav-link" data-toggle="dropdown" href="#">
-                                My Acount
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="">Front Cover</a>
-                                    <a class="dropdown-item" href="">Matrics Summary</a>
+            <div class="col-md-12 tab_link">
+
+                <img src="{{ asset('img/book.png') }}" alt="" width="40" height="30" class="hidden ml-4 mt-0">
+                <nav id="myScrollspy">
+
+                    <button class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-bars"></i>Contents</button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#section41">Front Cover</a>
+                        <a class="dropdown-item" href="#section42">Matrics Summary</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12" style="margin-top: 45px;">
+
+                <div id="section41" style="background-color: {{$book->cover_bg_color ?? ''}};">
+                    <div class="col-md-12 layout_main_col">
+                        <div class="layout_main" style="background-color: {{$book->cover_bg_color ?? ''}};">
+                            <div class="row">
+                                @if(!empty($book->cover_logo))
+                                <div class="col-md-12 text-center">
+                                    <img src="{{ asset('img/fontCover/'.$book->cover_logo ?? '' )}}" alt="" width="150px" height="150px">
                                 </div>
+                                @endif
+                                @if(!empty($book->cover_title))
+                                <div class="col-md-12 text-center">
+                                    <h1>{{ $book->cover_title ?? ''}}</h1>
+                                </div>
+                                @endif
+
+                                @if(!empty($book->cover_subtitle))
+                                <div class="col-md-12 text-center">
+                                    <b>{{ $book->cover_subtitle ?? ''}}</b>
+                                </div>
+                                @endif
+
+                                @if(!empty($book->cover_image))
+                                <div class="container">
+                                    <div class="col-md-12">
+                                        <img src="{{ asset('img/fontCover/'.$book->cover_image ?? '' )}}" alt="" width="100%">
+                                    </div>
+                                </div>
+                                @endif
                             </div>
                         </div>
-                    </nav>
-                </header>
+                    </div>
+                </div>
+                <div id="section42" class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center mt-5 mb-5">
+                            <h1>Summary</h1>
+                            <hr style="height: 5px;width: 80px; background: gray;margin-left: 511px;">
+                        </div>
+                    </div>
+                    <div class="row mb-3 mt-5">
+                        <div class="col-md-6">
+                            <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
+                                <h1>1</h1>
+                                <h3>Piece of Coverage</h3>
+                                <p class="text-secondary">Total number of online, offline and social clips in this book</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
+                                <h1>0</h1>
+                                <h3>Estimated Views</h3>
+                                <p class="text-secondary">Prediction of lifetime views of coverage, based on audience reach & engagement rate on social</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
+                                <h1>0</h1>
+                                <h3>Audience</h3>
+                                <p class="text-secondary">Combined total of publication-wide audience figures for all outlets featuring coverage</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
+                                <h1>3.07M</h1>
+                                <h3> Engagements</h3>
+                                <p class="text-secondary">Combined total of likes, comments and shares on social media platforms</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center pl-2 pr-2" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
+                                <h1>0</h1>
+                                <h3>Avg. Domain</h3>
+                                <p class="text-secondary">A 0-100 measure of the authority of the site coverage appears on. Provided by Moz</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+  
 
-    <!-- header end -->
-    <!-- start body -->
-    <div class="container-fluid">
-        <div class="row mt-0">
-            <img src="{{ asset('img/_20230131194939.jpg') }}" alt="" width="100%" height="auto">
-        </div>
-    </div>
-    <div class="container mb-5">
-        <div class="row">
-            <div class="col-md-12 text-center mt-5 mb-5">
-                <h1>Summary</h1>
-                <hr style="height: 5px;width: 80px; background: gray;margin-left: 511px;">
-            </div>
-        </div>
-        <div class="row mb-3 mt-5">
-            <div class="col-md-6">
-                <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
-                    <h1>1</h1>
-                    <h3>Piece of Coverage</h3>
-                    <p class="text-secondary">Total number of online, offline and social clips in this book</p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
-                    <h1>0</h1>
-                    <h3>Estimated Views</h3>
-                    <p class="text-secondary">Prediction of lifetime views of coverage, based on audience reach & engagement rate on social</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
-                    <h1>0</h1>
-                    <h3>Audience</h3>
-                    <p class="text-secondary">Combined total of publication-wide audience figures for all outlets featuring coverage</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
-                    <h1>3.07M</h1>
-                    <h3> Engagements</h3>
-                    <p class="text-secondary">Combined total of likes, comments and shares on social media platforms</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center pl-2 pr-2" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
-                    <h1>0</h1>
-                    <h3>Avg. Domain</h3>
-                    <p class="text-secondary">A 0-100 measure of the authority of the site coverage appears on. Provided by Moz</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="container-fluid">
+    <!-- <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 text-center mt-5 mb-5">
                 <h1>Coverage</h1>
@@ -131,7 +211,6 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <!-- <a href="" target="_blank">ghghs</a> -->
                     <div class="row">
                         <div class="col-md-8">
                             <div class="card m-4" style="background: rgb(225, 223, 223);">
@@ -161,7 +240,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 </body>
 

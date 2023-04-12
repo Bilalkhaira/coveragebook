@@ -88,7 +88,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('book.matrics_summary') }}">
+                <a href="{{ route('book.matrics_summary', $bookId ?? '') }}">
                     <i class="fa-solid fa-chart-simple" style="color: white;font-size: 30px;"></i><br> Matrics summary
                 </a>
             </li>
