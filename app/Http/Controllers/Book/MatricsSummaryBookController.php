@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Book;
 
+use App\Models\Metric;
 use App\Models\BookFrontCover;
 use App\Http\Controllers\Controller;
-use App\Models\Matric;
 
 class MatricsSummaryBookController extends Controller
 {
@@ -13,8 +13,7 @@ class MatricsSummaryBookController extends Controller
     {
         $book = BookFrontCover::where('book_id', $bookId)->first();
 
-        $matrics = Matric::with('options')->get();
-        // dd($matrics);
+        $matrics = Metric::with('options')->get();
         
         return view('pages.book.matrics_summary', compact('book', 'bookId', 'matrics'));
     }
