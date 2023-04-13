@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('metric_id')->nullable();
             $table->string('name')->nullable();
-            $table->string('hint')->nullable();
+            $table->string('description')->nullable();
             $table->integer('value')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamp('created_at')->useCurrent();

@@ -24,6 +24,8 @@
         width: 10%;
         height: 54%;
         border-radius: 10px;
+        padding-left: 0px;
+        padding-right: 0px;
     }
 
     .fram_dv {
@@ -56,6 +58,12 @@
         border-radius: 100px;
         border: 1px solid lightgray;
         color: white;
+    }   
+
+    #myScrollspy i {
+        float: right;
+        font-size: 13px;
+        margin-top: 8px;
     }
 
     .questonIcon {
@@ -68,6 +76,9 @@
         font-size: 13px;
     }
 
+    .questonIcon:hover {
+        cursor: pointer;
+    }
 
     .mtric_option h6 {
         margin-top: 20px;
@@ -103,7 +114,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <h5 class="ml-2 mt-1">Choose Matrics</h5>
-                            <h6 class="clr text-success ml-2">7 avaiable</h5>
+                            <h6 class="clr text-success ml-2">{{ $metricsCount ?? ''}} avaiable</h5>
                         </div>
                         <div class="col-md-4 text-right">
                             <a href="" class="btn mt-2" style="background: lavender;">
@@ -222,10 +233,10 @@
                     <div class="row">
                         <nav class="col-sm-3 col-4" id="myScrollspy">
                             <ul class="nav nav-pills flex-column">
-                                @if(!empty($matrics))
-                                @foreach($matrics as $key => $matric)
+                                @if(!empty($metrics))
+                                @foreach($metrics as $key => $metric)
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#section{{$key}}">{{ $matric->name ?? ''}}</a>
+                                    <a class="nav-link" href="#section{{$key}}">{{ $metric->name ?? ''}}<i class="fa-solid fa-angle-right"></i></a>
                                 </li>
                                 @endforeach
                                 @endif
@@ -234,21 +245,22 @@
                         </nav>
                         <div class="col-md-2"></div>
                         <div class="col-md-10 fram_dv">
-                            @if(!empty($matrics))
-                            @foreach($matrics as $key => $matric)
+                            @if(!empty($metrics))
+                            @foreach($metrics as $key => $metric)
                             <div id="section{{$key}}" class="" style="padding: 20px;">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <b>{{ $matric->name ?? ''}}</b>
+                                        <b>{{ $metric->name ?? ''}}</b>
+
                                         <hr>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    @if(!empty($matric->options))
-                                    @foreach($matric->options as $key => $option)
+                                    @if(!empty($metric->options))
+                                    @foreach($metric->options as $key => $option)
                                     <div class="col-md-3">
                                         <div class="mtric_option">
-                                            <span class="questonIcon"><i class="fa fa-question"></i></span>
+                                            <span class="questonIcon" data-toggle="tooltip" data-placement="top" title="{{ $option->description ?? ''}}"><i class="fa fa-question"></i></span>
                                             <span class="checkbox"><i class="fa fa-check"></i></span>
                                             <h6>{{ $option->name }}</h6>
                                             <p>{{ $option->value }}</p>
@@ -355,4 +367,9 @@
         </div>
     </div>
 </div>
+<script>
+    $(function() {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 @endsection
