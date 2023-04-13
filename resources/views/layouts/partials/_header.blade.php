@@ -23,9 +23,9 @@
 
             <div class="col-md-5" style="vertical-align: middle;">
                 <ul class="navbar-nav float-right">
-                    <li class="nav-item ml-5 justify-content-center">
+                    <!-- <li class="nav-item ml-5 justify-content-center">
                         <a class="nav-link" href="#" style="color: rgb(254 197 122)"><i class="fa-solid fa-heart mr-1"></i>Upgrade Now</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <div class="dropdown">
                             <a type="" class="nav-link text-white dropdown-toggle" data-toggle="dropdown" href="#"><img src="{{asset ('img/qstmrk.png') }}" alt="" width="18" height="18"> Help & Advice
@@ -48,7 +48,7 @@
 
                                 <a class="dropdown-item" style="color: #626060;" style="color: #626060;" href=""><img src="{{ asset('img/team.png') }}" alt="" class="mr-1" width="21" height="21">My Team</a>
 
-                                <a class="dropdown-item" style="color: #626060;" href=""><img src="{{ asset('img/bdge.png') }}" alt="" class="mr-1" width="21" height="21">Switch Plan</a>
+                                <!-- <a class="dropdown-item" style="color: #626060;" href=""><img src="{{ asset('img/bdge.png') }}" alt="" class="mr-1" width="21" height="21">Switch Plan</a> -->
 
                                 <a class="dropdown-item" style="color: #626060;" href="{{ route('profile') }}"><img src="{{ asset('img/key.png') }}" alt="" class="mr-1" width="21" height="21">Edit My Password</a>
 

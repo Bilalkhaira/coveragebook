@@ -15,18 +15,19 @@ return new class extends Migration
     {
         Schema::create('book_front_covers', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('book_id')->nullable();
-            $table->tinyInteger('layout_id')->nullable();
+            $table->integer('book_id')->nullable();
+            $table->integer('layout_id')->nullable();
             $table->string('cover_logo')->nullable();
             $table->string('cover_title')->nullable();
             $table->string('cover_subtitle')->nullable();
             $table->string('cover_image')->nullable();
             $table->string('cover_image_title')->nullable();
             $table->string('cover_bg_color')->nullable();
-            $table->enum('status', ['show', 'hide'])->default('show');
-            $table->tinyInteger('created_by')->nullable();
-            $table->tinyInteger('updated_by')->nullable();
-            $table->timestamps();
+            $table->enum('visibility', ['show', 'hide'])->default('show');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->nullable();
         });
     }
 

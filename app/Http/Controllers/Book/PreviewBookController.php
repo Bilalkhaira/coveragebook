@@ -12,7 +12,7 @@ class PreviewBookController extends Controller
     public function index($bookId='')
     {
         
-        $book = BookFrontCover::where('book_id', $bookId)->where('status', 'active')->first();
+        $book = BookFrontCover::where('book_id', $bookId)->where('visibility', 'show')->first();
         
         return view('pages.book.preview_book', compact('book', 'bookId'));
     }

@@ -15,7 +15,7 @@ class BookFrontCoverController extends Controller
     {
         $book = BookFrontCover::where('book_id', $bookId)->first();
         $layout = Layout::get();
-        return view('pages.book.fount_cover',  compact('book', 'bookId', 'layout'));
+        return view('pages.book.front_cover',  compact('book', 'bookId', 'layout'));
     }
 
     public function StoreLogoText(Request $request)
@@ -150,13 +150,13 @@ class BookFrontCoverController extends Controller
             $book = BookFrontCover::find($request->recordRowId);
 
             $book->update([
-                'status' => $request->status ?? '',
+                'visibility' => $request->status ?? '',
             ]);
             toastr()->success('Updated Successfully');
         } else {
 
             BookFrontCover::create([
-                'status' => $request->status ?? '',
+                'visibility' => $request->status ?? '',
                 'book_id' => $request->bookId ?? '',
             ]);
             toastr()->success('Created Successfully');

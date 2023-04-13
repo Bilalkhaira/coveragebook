@@ -15,16 +15,17 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('collection_id')->comment('foreign key from collection table');
+            $table->integer('collection_id')->comment('foreign key from collection table');
             $table->string('name');
             $table->string('banner_logo')->nullable();
             $table->string('accent_color')->nullable();
-            $table->string('front_cover_id')->nullable()->comment('foreign key from covers table');
-            $table->tinyInteger('created_by')->nullable();
-            $table->tinyInteger('updated_by')->nullable();
-            $table->tinyInteger('show_matrics_summary')->default(1);
-            $table->tinyInteger('show_front_cover')->default(1);
-            $table->timestamps();
+            $table->integer('front_cover_id')->nullable()->comment('foreign key from covers table');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->enum('show_matrics_summary', [0,1])->default(1);
+            $table->enum('show_front_cover', [0,1])->default(1);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->nullable();
         });
     }
 

@@ -95,7 +95,7 @@
             <a href="" style="text-decoration: none;">
               <h5 id="text" class="ml-4 mt-3">{{ $allBook->name ?? ''}}</h5>
               <div class="text-xs text-secondary opacity-60 ml-4">
-                {{ $allBook->created_at->format('M d, Y') }} ・ 1 item
+               {{-- {{ $allBook->created_at->format('M d, Y') }} ・ 1 item --}}
               </div>
             </a>
           </div>

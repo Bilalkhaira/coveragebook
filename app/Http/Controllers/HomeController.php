@@ -104,7 +104,8 @@ class HomeController extends Controller
     public function storeCollection(Request $request)
     {
         Collection::create([
-            'name' => $request->name
+            'name' => $request->name,
+            'created_by' => auth()->user()->id
         ]);
 
         toastr()->success('Created Successfully');
@@ -116,6 +117,7 @@ class HomeController extends Controller
         Book::create([
             'name' => $request->name,
             'collection_id' => $request->parentId,
+            'created_by' => auth()->user()->id
         ]);
 
         toastr()->success('Created Successfully');
