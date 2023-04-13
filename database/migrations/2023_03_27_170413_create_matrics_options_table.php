@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('matrics_options', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('metric_id')->nullable();
+            $table->tinyInteger('matric_id')->nullable();
             $table->string('name')->nullable();
+            $table->string('hint')->nullable();
             $table->tinyInteger('value')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();

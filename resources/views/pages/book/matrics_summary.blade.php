@@ -1,9 +1,84 @@
 @extends('layouts.book_master')
+@section('css')
+<style>
+    .modal_hdr {
+        position: fixed;
+        top: 8%;
+        background-color: white;
+        z-index: 9999;
+        width: 59.30%;
+    }
 
+    #matrics {
+        height: 60%;
+        position: fixed;
+        top: 12%
+    }
+
+    #myScrollspy {
+        position: fixed;
+        top: 14%;
+        padding-top: 30px;
+        background-color: white;
+        z-index: 9999;
+        width: 10%;
+        height: 54%;
+        border-radius: 10px;
+    }
+
+    .fram_dv {
+        height: 480px;
+        overflow: scroll;
+    }
+
+    .ftr {
+        background-color: white;
+    }
+
+    #myScrollspy a {
+        color: black;
+    }
+
+    .mtric_option {
+        text-align: center;
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #fafafa;
+        margin-bottom: 15px;
+    }
+
+    .mtric_option .checkbox {
+        display: block;
+        background-color: white;
+        width: 26px;
+        margin: auto;
+        border-radius: 100px;
+        border: 1px solid lightgray;
+        color: white;
+    }
+
+    .questonIcon {
+        background-color: gray;
+        display: block;
+        width: 20px;
+        float: right;
+        border-radius: 100px;
+        color: white;
+        font-size: 13px;
+    }
+
+
+    .mtric_option h6 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+</style>
+@endsection
 @section('content')
 
 <section class="body">
-    <div class="container-fluid" style="background: #fafafa">
+    <div class="container-fluid" style="background: #f5f5f5">
         <div class="row" id="rws">
             <div class="col-md-9 mt-5">
                 <div>
@@ -24,7 +99,7 @@
         </div>
         <div class="row mt-2">
             <div class="col-md-3">
-                <div class="card p-1" id="shadow">
+                <div class="card p-1" id="shadow" type="button" data-toggle="modal" data-target="#matrics">
                     <div class="row">
                         <div class="col-md-8">
                             <h5 class="ml-2 mt-1">Choose Matrics</h5>
@@ -133,7 +208,70 @@
         </div>
     </div>
 </section>
+<div class="modal" id="matrics">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content" style="position: relative;">
 
+            <div class="modal-header modal_hdr">
+                <h4 class="modal-title">Add / remove metrics from your summary</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body modal-bdy">
+                <form action="/action_page.php">
+                    <div class="row">
+                        <nav class="col-sm-3 col-4" id="myScrollspy">
+                            <ul class="nav nav-pills flex-column">
+                                @if(!empty($matrics))
+                                @foreach($matrics as $key => $matric)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#section{{$key}}">{{ $matric->name ?? ''}}</a>
+                                </li>
+                                @endforeach
+                                @endif
+
+                            </ul>
+                        </nav>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-10 fram_dv">
+                            @if(!empty($matrics))
+                            @foreach($matrics as $key => $matric)
+                            <div id="section{{$key}}" class="" style="padding: 20px;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <b>{{ $matric->name ?? ''}}</b>
+                                        <hr>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    @if(!empty($matric->options))
+                                    @foreach($matric->options as $key => $option)
+                                    <div class="col-md-3">
+                                        <div class="mtric_option">
+                                            <span class="questonIcon"><i class="fa fa-question"></i></span>
+                                            <span class="checkbox"><i class="fa fa-check"></i></span>
+                                            <h6>{{ $option->name }}</h6>
+                                            <p>{{ $option->value }}</p>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                    @endif
+                                </div>
+                            </div>
+                            @endforeach
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="modal-footer ftr">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal" id="addCard">
     <div class="modal-dialog modal-lg">

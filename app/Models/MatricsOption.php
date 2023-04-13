@@ -10,4 +10,9 @@ class MatricsOption extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function matric()
+    {
+    	return $this->belongsTo(Matric::class);
+    }
 }

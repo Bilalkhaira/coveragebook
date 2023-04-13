@@ -10,4 +10,9 @@ class Matric extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function options()
+    {
+    	return $this->hasMany(MatricsOption::class);
+    }
 }
