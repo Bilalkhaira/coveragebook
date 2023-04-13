@@ -7,7 +7,7 @@ use App\Models\MatricsOption;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class MatricsSummarySeeder extends Seeder
+class MetricsSummarySeeder extends Seeder
 {
     /**
      * Run the database seeds.
