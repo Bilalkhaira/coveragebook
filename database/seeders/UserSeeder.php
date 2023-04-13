@@ -21,6 +21,6 @@ class UserSeeder extends Seeder
             'password' => bcrypt('admin@gmail.com'),
         ]);
 
-        $user->assignRole(1);
+        // $user->assignRole(1);
     }
 }

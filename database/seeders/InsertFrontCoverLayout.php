@@ -19,6 +19,7 @@ class InsertFrontCoverLayout extends Seeder
             ['name' => 'Side-by-Side'],
             ['name' => 'Overlay'],
         ];
+        
         Layout::insert($data);
     }
 }
