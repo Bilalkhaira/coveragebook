@@ -48,6 +48,7 @@
         padding: 10px;
         background-color: #fafafa;
         margin-bottom: 15px;
+        cursor: pointer;
     }
 
     .mtric_option .checkbox {
@@ -58,7 +59,7 @@
         border-radius: 100px;
         border: 1px solid lightgray;
         color: white;
-    }   
+    }
 
     #myScrollspy i {
         float: right;
@@ -84,6 +85,21 @@
         margin-top: 20px;
         margin-bottom: 10px;
     }
+
+    .activeTab {
+        border: 1px solid #02c5a3;
+        background-color: white;
+    }
+
+    .activecheckbox {
+        background-color: #02c5a3 !important;
+        border: 1px solid #02c5a3 !important;
+    }
+
+    .bookMetric {
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
 </style>
 @endsection
 @section('content')
@@ -93,14 +109,14 @@
         <div class="row" id="rws">
             <div class="col-md-9 mt-5">
                 <div>
-                    <a href="" class="text-success hover:text-green-darker">New Book 2023</a>
+                    <a href="{{ route('book.index', $book->id ?? '') }}" class="text-success hover:text-green-darker">{{ $book->name ?? ''}}</a>
                     <span class="opacity-50">/</span>
                     <span class="opacity-60">Front Matter</span>
                 </div>
                 <p class="new mtrics_h">Matrics Summary</p>
             </div>
             <div class="col-md-3 text-right">
-                <a href="{{ route('book.preview') }}" target="_blank">
+                <a href="{{ route('book.preview', $book->id ?? '') }}" target="_blank">
                     <button type="button" class="btn mt-5 pr-5" id="prviw" data-toggle="modal" data-target="#">
                         <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 3px;">
                         Preview Book
@@ -129,12 +145,23 @@
                     <div class="row">
                         <div class="col-md-8">
                             <h5 class="ml-2 mt-1">Show/hide</h5>
-                            <h6 class="text-success ml-2">Visible</h6>
+                            <h6 class="text-success ml-2">
+                                @if($book->show_matrics_summary == 1)
+                                show
+                                @else
+                                hide
+                                @endif
+                            </h6>
                         </div>
                         <div class="col-md-4 text-right">
-                            <a href="" class="btn mt-2" style="background: lavender;">
-                                <img src="{{ asset('img/circle.png') }}" alt="" width="30" height="30" class="">
+                            <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#hideShow" id="achrcrd">
+                                @if($book->show_matrics_summary == 1)
+                                <i class="fa fa-eye"></i>
+                                @else
+                                <i class="fa fa-eye-slash"></i>
+                                @endif
                             </a>
+
                         </div>
                     </div>
                 </div>
@@ -144,7 +171,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <h5 class="ml-2 mt-1">Add Cards</h5>
-                            <h6 class="clr text-success ml-2">0</h6>
+                            <h6 class="clr text-success ml-2">{{ $customCardCount ?? 0 }}</h6>
                         </div>
                         <div class="col-md-4 text-right">
                             <a href="" class="btn mt-2" style="background: lavender;">
@@ -156,52 +183,40 @@
             </div>
         </div>
 
-        <div class="row mb-3 mt-5">
-            <div class="col-md-6">
+        <div class="row" style="@if(isset($book->show_matrics_summary) && $book->show_matrics_summary== 0) opacity: 0.5 @endif">
+            @forelse ($bookOptions as $key => $bookOption)
+            @if($key == 0 || $key == 1)
+            <div class="col-md-6 bookMetric">
                 <div class="card text-center" id="hover">
-                    <h1>1</h1>
-                    <h3>Piece of Coverage</h3>
-                    <p class="text-secondary">Total number of online, offline and social clips in this book</p>
+                    <h1>{{ $bookOption->value }}</h1>
+                    <h3>{{ $bookOption->name }}</h3>
+                    <p class="text-secondary">{{ $bookOption->description }}</p>
                 </div>
             </div>
-            <div class="col-md-6">
+            @else
+            <div class="col-md-3 bookMetric">
                 <div class="card text-center" id="hover">
-                    <h1>0</h1>
-                    <h3>Estimated Views</h3>
-                    <p class="text-secondary">Prediction of lifetime views of coverage, based on audience reach & engagement rate on social</p>
+                    <h1>{{ $bookOption->value }}</h1>
+                    <h3>{{ $bookOption->name }}</h3>
+                    <p class="text-secondary">{{ $bookOption->description }}</p>
                 </div>
             </div>
-        </div>
+            @endif
+            @empty
+            <div class="col-md-12 bookMetric">
+                <div class="card text-center" id="hover">
+                    <p class="text-secondary">This metric summary is currently empty, it won’t show in your public book.</p>
+                </div>
+            </div>
+            @endforelse
 
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card text-center" id="hover">
-                    <h1>0</h1>
-                    <h3>Audience</h3>
-                    <p class="text-secondary">Combined total of publication-wide audience figures for all outlets featuring coverage</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center" id="hover">
-                    <h1>3.07M</h1>
-                    <h3> Engagements</h3>
-                    <p class="text-secondary">Combined total of likes, comments and shares on social media platforms</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center pl-2 pr-2" id="hover">
-                    <h1>0</h1>
-                    <h3>Avg. Domain</h3>
-                    <p class="text-secondary">A 0-100 measure of the authority of the site coverage appears on. Provided by Moz</p>
-                </div>
-            </div>
         </div>
         <div class="row mt-5 mb-3">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <a href="" class="text-decoration-none">
+                <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#matrics">
                     <div class="card p-3" style="border-radius: 16px;background: lightgray;">
-                        <div class="row">
+                        <div class="row" >
                             <div class="col-md-2 pt-2">
                                 <img class="card-img-left example-card-img-responsive" src="{{ asset('img/lus.png') }}" alt="" width="80" height="80" />
                             </div>
@@ -209,7 +224,7 @@
                             <div class="col-md-10">
                                 <div class="card-body mr-0 pt-1">
                                     <h4 class="card-title" style="color: black;">Add / Remove matrics your summary</h4>
-                                    <p class="card-text text-secondary">46 avaiable</p>
+                                    <p class="card-text text-secondary">{{ $metricsCount ?? ''}} avaiable</p>
                                 </div>
                             </div>
                         </div>
@@ -229,7 +244,9 @@
             </div>
 
             <div class="modal-body modal-bdy">
-                <form action="/action_page.php">
+                <form action="{{ route('book.matrics_summary.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" value="{{ $bookId ?? ''}}" name="bookId">
                     <div class="row">
                         <nav class="col-sm-3 col-4" id="myScrollspy">
                             <ul class="nav nav-pills flex-column">
@@ -259,11 +276,18 @@
                                     @if(!empty($metric->options))
                                     @foreach($metric->options as $key => $option)
                                     <div class="col-md-3">
-                                        <div class="mtric_option">
+                                        <div class="mtric_option @if(in_array($option->id, $bookOptionsIds)) ? activeTab @endif">
                                             <span class="questonIcon" data-toggle="tooltip" data-placement="top" title="{{ $option->description ?? ''}}"><i class="fa fa-question"></i></span>
-                                            <span class="checkbox"><i class="fa fa-check"></i></span>
+                                            <span class="checkbox @if(in_array($option->id, $bookOptionsIds)) ? activecheckbox @endif"><i class="fa fa-check"></i></span>
                                             <h6>{{ $option->name }}</h6>
                                             <p>{{ $option->value }}</p>
+                                            <input type="hidden" value="{{ $option->id }}" id="get_option_id">
+                                            @if(in_array($option->id, $bookOptionsIds))
+                                            <input type="hidden" name="options[]" id="put_option_id" value="{{ $option->id }}">
+                                            @else
+                                            <input type="hidden" name="options[]" id="put_option_id">
+                                            @endif
+
                                         </div>
                                     </div>
                                     @endforeach
@@ -295,20 +319,22 @@
             </div>
 
             <div class="modal-body">
-                <form action="/action_page.php">
+                <form action="{{ route('book.matrics_summary.storeCustomCard') }}" method="POST">
+                    @csrf
+                    <input type="hidden" value="{{ $bookId ?? ''}}" name="bookId">
                     <div class="form-group">
                         <label for="name"><b>Name</b>:</br><small>This is the label for the card. It will appear in your public books and when editing.</small></label>
-                        <input type="text" class="form-control">
+                        <input type="text" name="title" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="description"><b>Description</b>:</br><small> This helps readers to understand what this card is.</small></label>
-                        <input type="text" class="form-control">
+                        <input type="text" name="description" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="text"><b>Value</b>:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" name="value" class="form-control">
                     </div>
 
                     <div class="modal-footer">
@@ -326,38 +352,43 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h4 class="modal-title">Show/hide summary</h4>
+                <h4 class="modal-title">Show/hide cover</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <div class="modal-body">
-                <form action="/action_page.php">
+                <form action="{{ route('book.matrics_summary.updateVisibility') }}" method="POST">
+                    @csrf
 
                     <div class="form-group text-center">
-                        <p>If you would prefer to not showcase any summary metrics in your book you can hide this area from public view.</p>
+                        <p>If you would prefer to not have a front cover for your book you can hide this area from public view.</p>
                     </div>
                     <div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-4 text-center">
-                            <p><b>Show metrics summary</b></p>
+                            <p><b>Show front cover</b></p>
                             <div class="coverageSecDetailTab">
-                                <p class="coverageSecDetailTab_active"><i class="fa fa-eye"></i></p>
-                                <span class="coverageSecDetailTab_active"></span>
+                                <input type="hidden" id="showHide" value="1">
+                                <p class="@if(isset($book->show_matrics_summary) && $book->show_matrics_summary== 1) ? coverageSecDetailTab_active @endif"><i class="fa fa-eye"></i></p>
+                                <span class="@if(isset($book->show_matrics_summary) && $book->show_matrics_summary== 1) ? coverageSecDetailTab_active @endif"></span>
                             </div>
-                            <p>Display a summary of your coverage metrics at the top of your book</p>
+                            <p>Display a front cover in your book.</p>
                         </div>
 
                         <div class="col-md-4 text-center">
-                            <p><b>Hide metrics summary</b></p>
+                            <p><b>Hide front cover</b></p>
                             <div class="coverageSecDetailTab">
-                                <p><i class="fa fa-eye-slash"></i></p>
-                                <span></span>
+                                <input type="hidden" id="showHide" value="0">
+                                <p class="@if(isset($book->show_matrics_summary) && $book->show_matrics_summary==0) ? coverageSecDetailTab_active @endif"> <i class="fa fa-eye-slash"></i></p>
+                                <span class="@if(isset($book->show_matrics_summary) && $book->show_matrics_summary==0) ? coverageSecDetailTab_active @endif"></span>
                             </div>
-                            <p>The metrics summary will not be shown in your book.</p>
+                            <p>The front cover will not be shown in your book.</p>
                         </div>
+
                         <div class="col-md-2"></div>
                     </div>
-
+                    <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
+                    <input type="hidden" name="status" id="hideShowInput" value="1">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-success">Save</button>
@@ -368,6 +399,41 @@
     </div>
 </div>
 <script>
+    $(document).on("click", ".coverageSecDetailTab", function(e) {
+        $("body").find('#hideShowInput').val('');
+        $("body").find('.coverageSecDetailTab_active').removeClass("coverageSecDetailTab_active");
+        $(this).closest('.coverageSecDetailTab').find('p').addClass('coverageSecDetailTab_active');
+        $(this).closest('.coverageSecDetailTab').find('span').addClass('coverageSecDetailTab_active');
+
+        var status = $(this).closest('.coverageSecDetailTab').find('#showHide').val();
+        $("body").find('#hideShowInput').val(status);
+
+        var layout = $(this).closest('.coverageSecDetailTab').find('#layoutInput').val();
+        $("body").find('#layoutId').val(layout);
+
+    });
+
+
+    $(document).on("click", ".mtric_option", function(e) {
+
+        if ($(this).closest('.mtric_option').find('#put_option_id').val()) {
+
+            $(this).closest('.mtric_option').find('.checkbox').removeClass('activecheckbox');
+            $(this).removeClass('activeTab');
+
+            $(this).closest('.mtric_option').find('#put_option_id').val('');
+
+        } else {
+
+            $(this).closest('.mtric_option').find('.checkbox').addClass('activecheckbox');
+            $(this).addClass('activeTab');
+
+            var id = $(this).closest('.mtric_option').find('#get_option_id').val();
+            $(this).closest('.mtric_option').find('#put_option_id').val(id);
+        }
+
+    });
+
     $(function() {
         $('[data-toggle="tooltip"]').tooltip()
     })

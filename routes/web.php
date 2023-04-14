@@ -82,8 +82,13 @@ Route::prefix('user')->group(function () {
         Route::get('/{id?}', [BookController::class, 'index'])->name('book.index'); //use
         Route::get('/share', [ShareBookController::class, 'index'])->name('book.share');
         Route::get('/preview/{id?}', [PreviewBookController::class, 'index'])->name('book.preview'); //use
-        Route::get('/matrics_summary/{id?}', [MatricsSummaryBookController::class, 'index'])->name('book.matrics_summary'); //use
         Route::get('/highlights', [BookLighlightController::class, 'index'])->name('book.highlights');
+
+        Route::get('/matrics_summary/{id?}', [MatricsSummaryBookController::class, 'index'])->name('book.matrics_summary'); //use
+        Route::post('/matrics_summary/store', [MatricsSummaryBookController::class, 'store'])->name('book.matrics_summary.store'); //use
+        Route::post('/matrics_summary/store_custom_card', [MatricsSummaryBookController::class, 'storeCustomCard'])->name('book.matrics_summary.storeCustomCard'); //use
+        Route::post('/matrics_summary/update_visibility', [MatricsSummaryBookController::class, 'updateVisibility'])->name('book.matrics_summary.updateVisibility'); //use
+        
 
         Route::get('/fount_cover/{id?}', [BookFrontCoverController::class, 'index'])->name('book.fount_cover'); //use
         Route::post('/fount_cover/logo', [BookFrontCoverController::class, 'StoreLogoText'])->name('book.fount_cover.StoreLogoText'); //use

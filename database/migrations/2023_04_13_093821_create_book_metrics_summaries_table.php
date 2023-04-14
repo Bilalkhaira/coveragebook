@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('book_metrics_summaries', function (Blueprint $table) {
             $table->id();
             $table->integer('book_id');
-            $table->integer('metric_id');
+            $table->integer('metric_id')->nullable();
             $table->integer('metric_option_id');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
