@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->integer('collection_id')->comment('foreign key from collection table');
+            $table->integer('collection_id')->nullable()->comment('foreign key from collection table');
             $table->string('name');
             $table->string('banner_logo')->nullable();
             $table->string('accent_color')->nullable();

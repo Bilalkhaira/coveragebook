@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\MetricsOption;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BookMetricsSummary extends Model
 {
@@ -12,4 +13,14 @@ class BookMetricsSummary extends Model
     public $timestamps = false;
 
     protected $guarded = [];
+
+    public function book()
+    {
+    	return $this->belongsTo(Book::class);
+    }
+
+    public function metricOptions()
+    {
+        return $this->belongsTo(MetricsOption::class, 'id');
+    }
 }

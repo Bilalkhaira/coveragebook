@@ -177,12 +177,16 @@ class BookFrontCoverController extends Controller
             }
             toastr()->success('Updated Successfully');
         } else {
+            if (!empty($request->layoutId)) {
+                BookFrontCover::create([
+                    'layout_id' => $request->layoutId ?? '',
+                    'book_id' => $request->bookId ?? '',
+                ]);
+                toastr()->success('Created Successfully');
+            } else {
+                toastr()->error('This layout already select change the layout then submit');
+            }
 
-            BookFrontCover::create([
-                'layout_id' => $request->layoutId ?? '',
-                'book_id' => $request->bookId ?? '',
-            ]);
-            toastr()->success('Created Successfully');
         }
 
         return redirect()->back();

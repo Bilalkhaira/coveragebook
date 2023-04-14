@@ -271,6 +271,8 @@
                         <p>Each layout works with either your own custom image or our auto-generated coverage montage. Hit 'Save' to preview a layout.</p>
                     </div>
                     <div class="row">
+                        @if(!empty($book->layout_id))
+
                         <div class="col-md-4 text-center">
                             <p><b>{{ $layout[0]->name ?? 'Stacked'}}</b><span class="cover_layout_new">new</span></p>
                             <div class="coverageSecDetailTab">
@@ -300,6 +302,37 @@
                             </div>
                             <p>Logo & title overlaid on top of the cover image</p>
                         </div>
+                        @else
+                        <div class="col-md-4 text-center">
+                            <p><b>Stacked</b><span class="cover_layout_new">new</span></p>
+                            <div class="coverageSecDetailTab">
+                                <input type="hidden" id="layoutInput" value="{{ $layout[0]->id ?? ''}}">
+                                <p class="coverageSecDetailTab_active"><i class="fa fa-pager"></i></p>
+                                <span class="coverageSecDetailTab_active"></span>
+                            </div>
+                            <p>Logo & title are displayed above the cover image</p>
+                        </div>
+
+                        <div class="col-md-4 text-center">
+                            <p><b>Side-by-Side</b><span class="cover_layout_new">new</span></p>
+                            <div class="coverageSecDetailTab">
+                                <input type="hidden" id="layoutInput" value="{{ $layout[1]->id ?? ''}}">
+                                <p class=""><i class="fa-solid fa-table-cells"></i></p>
+                                <span class=""></span>
+                            </div>
+                            <p>Logo & title on the left, image on the right</p>
+                        </div>
+
+                        <div class="col-md-4 text-center">
+                            <p><b>Overlaynew</b><span class="cover_layout_new">new</span></p>
+                            <div class="coverageSecDetailTab">
+                                <input type="hidden" id="layoutInput" value="{{ $layout[2]->id ?? ''}}">
+                                <p class=""><i class="fa fa-list"></i></p>
+                                <span class=""></span>
+                            </div>
+                            <p>Logo & title overlaid on top of the cover image</p>
+                        </div>
+                        @endif
                     </div>
                     <input type="hidden" name="layoutId" id="layoutId">
                     <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">

@@ -29,7 +29,9 @@ class HomeController extends Controller
     {
         $collections = Collection::get();
 
-        $allBooks = Book::whereNotNull('collection_id')->orderBy('name')->get();
+        // $allBooks = Book::whereNotNull('collection_id')->orderBy('name')->get();
+        $allBooks = Book::orderBy('name')->get();
+
 
         return view('home', ['collections' => $collections, 'allBooks' => $allBooks]);
     }
@@ -114,11 +116,21 @@ class HomeController extends Controller
 
     public function storeBook(Request $request)
     {
-        Book::create([
-            'name' => $request->name,
-            'collection_id' => $request->parentId,
-            'created_by' => auth()->user()->id
-        ]);
+        if(!empty($request->parentId))
+        {
+            Book::create([
+                'name' => $request->name ?? '',
+                'collection_id' =>$request->parentId,
+                'created_by' => auth()->user()->id ?? ''
+            ]);
+        }
+        else
+        {
+            Book::create([
+                'name' => $request->name ?? '',
+                'created_by' => auth()->user()->id ?? ''
+            ]);
+        }
 
         toastr()->success('Created Successfully');
         return back();

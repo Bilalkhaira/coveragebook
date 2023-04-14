@@ -65,7 +65,8 @@
         .layout_main .col-md-12 {
             padding-top: 20px;
         }
-        #section42{
+
+        #section42 {
             padding-bottom: 50px;
         }
     </style>
@@ -152,23 +153,38 @@
                         </div>
                     </div>
                     <div class="row mb-3 mt-5">
+                        @if(!empty($metrics))
+                        @foreach($metrics->metricOptions as $key => $metric)
+                        @if($key == 0 || $key == 1)
                         <div class="col-md-6">
                             <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
-                                <h1>1</h1>
-                                <h3>Piece of Coverage</h3>
-                                <p class="text-secondary">Total number of online, offline and social clips in this book</p>
+                                <h1>{{ $metric->value }}</h1>
+                                <h3>{{ $metric->name }}</h3>
+                                <p class="text-secondary">{{ $metric->description }}</p>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        @else
+                        <div class="col-md-3">
+                            <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
+                                <h1>{{ $metric->value }}</h1>
+                                <h3>{{ $metric->name }}</h3>
+                                <p class="text-secondary">{{ $metric->description }}</p>
+                            </div>
+                        </div>
+                        @endif
+                        
+                        @endforeach
+                        @endif
+                        <!-- <div class="col-md-6">
                             <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
                                 <h1>0</h1>
                                 <h3>Estimated Views</h3>
                                 <p class="text-secondary">Prediction of lifetime views of coverage, based on audience reach & engagement rate on social</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-3">
                             <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
                                 <h1>0</h1>
@@ -190,12 +206,12 @@
                                 <p class="text-secondary">A 0-100 measure of the authority of the site coverage appears on. Provided by Moz</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
     </div>
-  
+
 
     <!-- <div class="container-fluid">
         <div class="row">

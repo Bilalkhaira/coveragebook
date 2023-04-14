@@ -32,7 +32,8 @@
                     <input type="text" class="form-control" name="name" required>
 
                     <label for="" class="label">Collections</label><br>
-                    <select name="parentId" id="" class="form-control">
+                    <select name="parentId" class="form-control">
+                      <option value="">Select Collection</option>
                       @if(!empty($collections))
                       @foreach($collections as $collection)
                       <option value="{{ $collection->id }}">{{ $collection->name }}</option>
