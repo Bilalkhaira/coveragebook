@@ -29,66 +29,58 @@ class HomeController extends Controller
     {
         $collections = Collection::get();
 
-        // $allBooks = Book::whereNotNull('collection_id')->orderBy('name')->get();
-        $allBooks = Book::orderBy('name')->get();
-
+        $allBooks = Book::where('visibility', 'show')->orderBy('name')->get();
 
         return view('home', ['collections' => $collections, 'allBooks' => $allBooks]);
     }
 
     public function collectionBooks($id)
     {
-        $collections = Collection::whereNull('parent_id')->get();
+        $collections = Collection::get();
 
-        $allBooks = Collection::where('parent_id', $id)->where('archived', 'false')->orderBy('name')->get();
+        $allBooks = Book::where('collection_id', $id)->where('visibility', 'show')->orderBy('name')->get();
 
         return view('home', ['collections' => $collections, 'allBooks' => $allBooks, 'parent_id' => $id]);
     }
 
     public function filterBooks(Request $request)
     {
-        $collections = Collection::whereNull('parent_id')->get();
+        $collections = Collection::get();
 
         if (!empty($request->is_allBook) OR $request->identify == 'allBook') {
-            $allBooks = Collection::query()
+            $allBooks = Book::query()
                 ->when($request->name, function (Builder $query, string $search) {
-                    $query->where('name', 'LIKE', '%'.$search.'%')->whereNotNull('parent_id');
-                })
-                ->when(($request->filter == 'assec'), function (Builder $query) {
-                    $query->whereNotNull('parent_id');
+                    $query->where('name', 'LIKE', '%'.$search.'%');
                 })
                 ->when(($request->filter == 'desec'), function (Builder $query) {
-                    $query->whereNotNull('parent_id')->orderBy('name', 'DESC');
+                    $query->orderBy('name', 'DESC');
                 })
                 ->when(($request->filter == 'recentlyCreated'), function (Builder $query) {
-                    $query->whereNotNull('parent_id')->orderBy('created_at', 'DESC');
+                    $query->orderBy('created_at', 'DESC');
                 })
                 ->when(($request->filter == 'recentlyUpdated'), function (Builder $query) {
-                    $query->whereNotNull('parent_id')->orderBy('updated_at', 'DESC');
+                    $query->orderBy('updated_at', 'DESC');
                 })
-                ->where('archived', 'false')
+                ->where('visibility', 'show')
                 ->get();
 
                 $identify = 'allBook';
                 $parent_id = '';
         } else {
-            $allBooks = Collection::query()
+            $allBooks = Book::query()
                 ->when($request->name, function (Builder $query, string $search) {
-                    $query->where('name', 'LIKE', '%'.$search.'%')->where('parent_id', request('parent_id'));
-                })
-                ->when(($request->filter == 'assec'), function (Builder $query) {
-                    $query->where('parent_id', request('parent_id'));
+                    $query->where('name', 'LIKE', '%'.$search.'%');
                 })
                 ->when(($request->filter == 'desec'), function (Builder $query) {
-                    $query->where('parent_id', request('parent_id'))->orderBy('name', 'DESC');
+                    $query->orderBy('name', 'DESC');
                 })
                 ->when(($request->filter == 'recentlyCreated'), function (Builder $query) {
-                    $query->where('parent_id', request('parent_id'))->orderBy('created_at', 'DESC');
+                    $query->orderBy('created_at', 'DESC');
                 })
                 ->when(($request->filter == 'recentlyUpdated'), function (Builder $query) {
-                    $query->where('parent_id', request('parent_id'))->orderBy('updated_at', 'DESC');
+                    $query->orderBy('updated_at', 'DESC');
                 })
-                ->where('archived', 'false')
+                ->where('visibility', 'show')
                 ->get();
 
                 $identify = 'notAllBook';
@@ -136,16 +128,16 @@ class HomeController extends Controller
         return back();
     }
 
-    // public function archived($id) 
-    // {
-    //     $book = Book::find($id);
+    public function archived($id) 
+    {
+        $book = Book::find($id);
 
-    //     $book->update([
-    //         'archived' => 'true'
-    //     ]);
+        $book->update([
+            'visibility' => 'hide'
+        ]);
 
-    //     toastr()->success('Archived Successfully');
-    //     return back();
+        toastr()->success('Archived Successfully');
+        return back();
 
-    // }
+    }
 }

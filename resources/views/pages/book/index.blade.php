@@ -60,19 +60,19 @@
         </div>
       </div>
 
-      <div class="col-md-3"type="button">
+      <div class="col-md-3" type="button">
         <div class="card p-2" id="shadow">
-        <a href="{{ route('book.matrics') }}" class="anchorTag">
-          <div class="row">
-            <div class="col-md-8">
-              <h6 class="ml-2 mt-1 font-weight-bold">Matrics & Links</h6>
-              <h6 class="clr ml-2">Rfresh/hide/show</h6>
-            </div>
-            <div class="col-md-4 text-right">
+          <a href="{{ route('book.matrics') }}" class="anchorTag">
+            <div class="row">
+              <div class="col-md-8">
+                <h6 class="ml-2 mt-1 font-weight-bold">Matrics & Links</h6>
+                <h6 class="clr ml-2">Rfresh/hide/show</h6>
+              </div>
+              <div class="col-md-4 text-right">
                 <img id="achrcrd" src="{{ asset('img/level.png') }}" alt="" width="30" height="30" class="mt-1">
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
         </div>
       </div>
 
@@ -175,10 +175,10 @@
         <p class="neww ml-1">BOOK CONTENTS</p>
       </div>
       <div class="col-md-3 text-right">
-          <button type="button" class="btn mt-4 mb-3 pr-2 text-secondary" id="prviw" data-toggle="modal" data-target="#addNewSection">
-            <img src="{{ asset('img/p box.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 2px;">
-            Add a New Section
-          </button>
+        <button type="button" class="btn mt-4 mb-3 pr-2 text-secondary" id="prviw" data-toggle="modal" data-target="#addNewSection">
+          <img src="{{ asset('img/p box.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 2px;">
+          Add a New Section
+        </button>
       </div>
     </div>
     <div class="row mt-3">
@@ -231,41 +231,41 @@
 </section>
 
 <div class="modal" id="addNewSection">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Add a Section</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add a Section</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
 
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form action="/action_page.php">
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form action="/action_page.php">
 
-                    <div class="form-group">
-                        <p>Sections can be used to<b> organise your coverage</b>. Each section will have its <b> own page </b> (and URL) in the book and you can move coverage between sections at any time.</p>
-                    </div>
+          <div class="form-group">
+            <p>Sections can be used to<b> organise your coverage</b>. Each section will have its <b> own page </b> (and URL) in the book and you can move coverage between sections at any time.</p>
+          </div>
 
-                    <div class="form-group">
-                        <label class="font-weight-bold" for="email">Section name<br> <small>e.g. 'Autumn coverage' or 'On the socials'</small></label>
+          <div class="form-group">
+            <label class="font-weight-bold" for="email">Section name<br> <small>e.g. 'Autumn coverage' or 'On the socials'</small></label>
 
-                        <input type="text" class="form-control">
-                    </div>
+            <input type="text" class="form-control">
+          </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Add Section</button>
-                    </div>
-                </form>
-            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Add Section</button>
+          </div>
+        </form>
+      </div>
 
-            <!-- Modal footer -->
+      <!-- Modal footer -->
 
 
-        </div>
     </div>
+  </div>
 </div>
 <!-- modal banner logo -->
 <div class="container">
@@ -280,7 +280,8 @@
 
         </div>
         <div class="modal-body" id="form">
-          <form action="" class="form">
+          <form action="{{ route('book.storeBookLogo') }}" method="POST" class="form">
+            @csrf
             <div class="row">
               <div class="col-md-3">
                 <label class="cabinet center-block">
@@ -314,8 +315,15 @@
                   This logo appears in the top banner of your shared book. Agencies might put their own logo here. To see how it looks in place,
                   <a href="#" class="link link-success underline" data-component="link">preview your book</a>.
                 </p>
+                <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
                 <a type="button" class="btn btn-outline-danger"> <i class="fa fa-trash"></i> Remove</a>
               </div>
+            </div>
+            <div class="text-right">
+            <button class="btn mt-4 mb-3" type="submit" data-component="button-element" id="bttnn">
+              Save
+            </button>
+            <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
             </div>
           </form>
         </div>

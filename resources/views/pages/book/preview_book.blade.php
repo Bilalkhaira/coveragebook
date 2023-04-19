@@ -154,21 +154,21 @@
                     </div>
                     <div class="row mb-3 mt-5">
                         @if(!empty($metrics))
-                        @foreach($metrics->metricOptions as $key => $metric)
-                        @if($key == 0 || $key == 1)
+                        @foreach($metrics as $key => $metric)
+                       @if($key == 0 || $key == 1)
                         <div class="col-md-6">
-                            <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
-                                <h1>{{ $metric->value }}</h1>
-                                <h3>{{ $metric->name }}</h3>
-                                <p class="text-secondary">{{ $metric->description }}</p>
+                            <div class="card text-center" style="width:100%;height: 300px;padding: 50px 30px;border-radius: 16px; margin-bottom:30px">
+                                <h1>{{ $metric->metricOptions->value }}</h1>
+                                <h3>{{ $metric->metricOptions->name }}</h3>
+                                <p class="text-secondary">{{ $metric->metricOptions->description }}</p>
                             </div>
                         </div>
                         @else
                         <div class="col-md-3">
-                            <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
-                                <h1>{{ $metric->value }}</h1>
-                                <h3>{{ $metric->name }}</h3>
-                                <p class="text-secondary">{{ $metric->description }}</p>
+                            <div class="card text-center" style="width:100%;height: 300px;padding: 50px 30px;border-radius: 16px;margin-bottom:30px">
+                                <h1>{{ $metric->metricOptions->value }}</h1>
+                                <h3>{{ $metric->metricOptions->name }}</h3>
+                                <p class="text-secondary">{{ $metric->metricOptions->description }}</p>
                             </div>
                         </div>
                         @endif

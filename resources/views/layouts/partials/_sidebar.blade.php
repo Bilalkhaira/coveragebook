@@ -17,7 +17,7 @@
         @php
         $count = App\Models\Collection::get();
         @endphp
-        <a href="" style="font-weight: bold;">
+        <a href="{{ route('collectionBooks', $collection->id)}}" style="font-weight: bold;">
           <i class="fa-solid fa-folder mr-2" style="font-size: 20px; color: rgb(178, 175, 175);"></i> {{$collection->name}}
         </a>
         @endforeach

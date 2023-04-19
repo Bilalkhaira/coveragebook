@@ -57,9 +57,9 @@ Auth::routes(['verify' => true]);
 
 
 Route::prefix('user')->group(function () {
-    Route::get('archived/{id}', [HomeController::class, 'archived'])->name('archived');
-    Route::post('/filterBooks', [HomeController::class, 'filterBooks'])->name('filterBooks');
-    Route::get('/collectionBooks/{id}', [HomeController::class, 'collectionBooks'])->name('collectionBooks');
+    Route::get('archived/{id}', [HomeController::class, 'archived'])->name('archived'); //use
+    Route::post('/filterBooks', [HomeController::class, 'filterBooks'])->name('filterBooks'); //use
+    Route::get('/collectionBooks/{id}', [HomeController::class, 'collectionBooks'])->name('collectionBooks'); //use
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::post('/storeCollection', [HomeController::class, 'storeCollection'])->name('storeCollection'); //use
     Route::post('/storeBook', [HomeController::class, 'storeBook'])->name('storeBook'); // use
@@ -80,6 +80,8 @@ Route::prefix('user')->group(function () {
 
     Route::prefix('book')->group(function () {
         Route::get('/{id?}', [BookController::class, 'index'])->name('book.index'); //use
+        Route::post('/store_book_logo', [BookController::class, 'storeBookLogo'])->name('book.storeBookLogo'); //use
+
         Route::get('/share', [ShareBookController::class, 'index'])->name('book.share');
         Route::get('/preview/{id?}', [PreviewBookController::class, 'index'])->name('book.preview'); //use
         Route::get('/highlights', [BookLighlightController::class, 'index'])->name('book.highlights');

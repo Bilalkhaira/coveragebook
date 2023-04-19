@@ -11,15 +11,20 @@ use App\Http\Controllers\Controller;
 
 class PreviewBookController extends Controller
 {
-    public function index($bookId='')
+    public function index($bookId = '')
     {
-        
+
         $book = BookFrontCover::where('book_id', $bookId)->where('visibility', 'show')->first();
 
-        $metrics = BookMetricsSummary::with('metricOptions')->where('book_id', $bookId)->get();
+        $findBook = Book::find($bookId);
 
-        // dd($metrics);
-        
-        return view('pages.book.preview_book', compact('book', 'bookId'));
+        if ($findBook->show_matrics_summary == 1) {
+
+            $metrics = BookMetricsSummary::with('metricOptions')->where('book_id', $bookId)->get();
+        } else {
+            $metrics = '';
+        }
+
+        return view('pages.book.preview_book', compact('book', 'bookId', 'metrics'));
     }
 }

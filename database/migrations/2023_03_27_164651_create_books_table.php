@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('banner_logo')->nullable();
             $table->string('accent_color')->nullable();
+            $table->enum('visibility', ['show', 'hide'])->default('show');
             $table->integer('front_cover_id')->nullable()->comment('foreign key from covers table');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
