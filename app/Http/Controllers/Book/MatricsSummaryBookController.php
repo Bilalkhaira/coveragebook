@@ -88,6 +88,6 @@ class MatricsSummaryBookController extends Controller
 
         toastr()->success('Updated Successfully');
 
-        return redirect()->route('book.matrics_summary', $request->bookId);
+        return redirect()->back();
     }
 }

@@ -94,13 +94,14 @@
                 </header>
             </div>
         </div>
-        <div class="row">
+            <div class="row">
             <div class="col-md-12 tab_link">
-
-                <img src="{{ asset('img/book.png') }}" alt="" width="40" height="30" class="hidden ml-4 mt-0">
+                @if(!empty($findBook->banner_logo))
+                <img src="{{ asset('img/'.$findBook->banner_logo) }}" alt="" width="40" height="30" class="hidden ml-4 mt-0">
+                @endif
                 <nav id="myScrollspy">
 
-                    <button class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-bars"></i>Contents</button>
+                    <button class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"> <i style="color: {{ $findBook->accent_color ?? ''}};" class="fa fa-bars"></i>Contents</button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#section41">Front Cover</a>
                         <a class="dropdown-item" href="#section42">Matrics Summary</a>
@@ -155,7 +156,7 @@
                     <div class="row mb-3 mt-5">
                         @if(!empty($metrics))
                         @foreach($metrics as $key => $metric)
-                       @if($key == 0 || $key == 1)
+                        @if($key == 0 || $key == 1)
                         <div class="col-md-6">
                             <div class="card text-center" style="width:100%;height: 300px;padding: 50px 30px;border-radius: 16px; margin-bottom:30px">
                                 <h1>{{ $metric->metricOptions->value }}</h1>
@@ -172,41 +173,13 @@
                             </div>
                         </div>
                         @endif
-                        
+
                         @endforeach
                         @endif
-                        <!-- <div class="col-md-6">
-                            <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
-                                <h1>0</h1>
-                                <h3>Estimated Views</h3>
-                                <p class="text-secondary">Prediction of lifetime views of coverage, based on audience reach & engagement rate on social</p>
-                            </div>
-                        </div> -->
+                        
                     </div>
 
-                    <!-- <div class="row">
-                        <div class="col-md-3">
-                            <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
-                                <h1>0</h1>
-                                <h3>Audience</h3>
-                                <p class="text-secondary">Combined total of publication-wide audience figures for all outlets featuring coverage</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card text-center" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
-                                <h1>3.07M</h1>
-                                <h3> Engagements</h3>
-                                <p class="text-secondary">Combined total of likes, comments and shares on social media platforms</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card text-center pl-2 pr-2" style="width:100%;height: 300px;padding-top: 100px;border-radius: 16px;">
-                                <h1>0</h1>
-                                <h3>Avg. Domain</h3>
-                                <p class="text-secondary">A 0-100 measure of the authority of the site coverage appears on. Provided by Moz</p>
-                            </div>
-                        </div>
-                    </div> -->
+                    
                 </div>
             </div>
         </div>

@@ -1,5 +1,32 @@
 @extends('layouts.book_master')
+@section('css')
+@endsection
+<style>
+  .frontcoverCard {
+    padding: 20px;
+    color: black;
+  }
 
+  .front_img {
+    height: 135px;
+  }
+
+  .front_logo {
+    position: absolute;
+    left: 44%;
+  }
+
+  .frontcoverCard h1 {
+    margin-top: 47px;
+  }
+
+  .dropdown-item i {
+    margin-right: 10px;
+  }
+  .neww {
+    display: inline-block;
+}
+</style>
 @section('content')
 <section class="body">
   <div class="container-fluid" style="background: #fafafa">
@@ -7,17 +34,17 @@
     <div class="row" id="rws">
       <div class="col-md-9 mt-5 pb-5">
         <div>
-          <a href="Edit.html" class="text-success text-decoration-none hover:text-green-darker">New Book 2023</a>
+          <a href="Edit.html" class="text-success text-decoration-none hover:text-green-darker">{{ $book->name ?? ''}}</a>
           <span class="opacity-50">/</span>
           <span class="opacity-60">Book Overview</span>
         </div>
-        <span class="new mb-3">New Book 2023</span>
+        <span class="new mb-3">{{ $book->name ?? ''}}</span>
         <a href="" class="button group button-icon flex-none" type="button" data-toggle="modal" data-target="#modal3">
           <img src="{{ asset('img/edit.png') }}" alt="" width="44" height="44" style="margin-left: 12; margin-bottom: 18px;">
         </a>
       </div>
       <div class="col-md-3 text-right">
-        <a href="{{ route('book.preview') }}" target="_blank">
+        <a href="{{ route('book.preview', $book->id ?? '') }}" target="_blank">
           <button type="button" class="btn mt-5 pr-5" id="prviw" data-toggle="modal" data-target="#">
             <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 3px;">
             Preview Book
@@ -33,12 +60,25 @@
           <div class="row">
             <div class="col-md-8">
               <h6 class="ml-2 mt-1 font-weight-bold">Banner Logo</h6>
-              <h6 class="clr ml-2">Add Your Logo</h5>
+              <h6 class="clr ml-2">
+                @if(!empty($book->banner_logo))
+                Custom Logo
+                @else
+                Add Your Logo
+                @endif
+                </h5>
             </div>
             <div class="col-md-4 text-right">
+
+              @if(!empty($book->banner_logo))
+              <a href="#" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal2" id="achrcrd">
+                <img src="{{ asset('img/'.$book->banner_logo ?? '') }}" alt="" width="24" height="27" class="">
+              </a>
+              @else
               <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal1" id="achrcrd">
                 <img src="{{ asset('img/book.png') }}" alt="" width="30" height="30" class="mt-0">
               </a>
+              @endif
             </div>
           </div>
         </div>
@@ -49,12 +89,18 @@
           <div class="row">
             <div class="col-md-8">
               <h6 class="ml-2 mt-1 font-weight-bold">Accent color</h6>
-              <h6 class="text-success ml-2">#abb2ba</h6>
+              <h6 class="text-success ml-2">{{ $book->accent_color ?? '#abb2ba'}}</h6>
             </div>
             <div class="col-md-4 text-right">
+
+              @if(!empty($book->accent_color))
+              <a href="" class="btn mt-1" type="button" style="background-color: {{ $book->accent_color }};" data-toggle="modal" data-target="#backgrountColor" id="achrcrd">
+              </a>
+              @else
               <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal2" id="achrcrd">
                 <img src="{{ asset('img/circle.png') }}" alt="" width="30" height="30" class="mt-1">
               </a>
+              @endif
             </div>
           </div>
         </div>
@@ -81,74 +127,111 @@
     <div class="row">
       <div class="col-md-12">
         <p class="neww ml-1">FRONT MATTER</p>
+        <button type="button" class="btn mt-4 mb-3 pr-2 text-secondary" style="float: right;" id="prviw" data-toggle="modal" data-target="#addNewSection">
+          <img src="{{ asset('img/p box.png') }}" alt="" width="24" height="24">
+          Add a New Slide
+        </button>
       </div>
     </div>
 
     <div class="row mb-2">
       <div class="col-md-4">
 
-        <a href="{{ route('book.fount_cover') }}" class="text-decoration-none">
-          <div class="card" id="crd">
-            <img src="{{ asset('img/_20230131194939.jpg') }}" alt="" width="100%" height="100%">
-            <p style="color: black;margin-top: 6px;">Front Cover</p>
+        <a href="{{ route('book.fount_cover', $book->id ?? '') }}" class="text-decoration-none">
+          <div class="card text-center frontcoverCard" id="crd" style="background-color: {{$frontCover->cover_bg_color ?? '' }};@if(isset($frontCover->visibility) && $frontCover->visibility== 'hide') opacity: 0.6 @endif">
+            @if(!empty($frontCover->cover_logo))
+            <img class="front_logo" src="{{ asset('img/fontCover/'.$frontCover->cover_logo ?? '' )}}" alt="" width="50px" height="50px">
+            @endif
+            @if(!empty($frontCover->cover_title))
+            <h1>{{ $frontCover->cover_title ?? ''}}</h1>
+            @endif
+
+            @if(!empty($frontCover->cover_subtitle))
+            <b>{{ $frontCover->cover_subtitle ?? ''}}</b>
+            @endif
+
+            @if(!empty($frontCover->cover_image))
+            <img class="front_img" src="{{ asset('img/fontCover/'.$frontCover->cover_image ?? '' )}}" alt="" width="100%">
+            @endif
           </div>
         </a>
-
+        <p style="color: black;display: inline-block;">Front Cover</p>
         <div class="dropdown float-right dropleft">
           <a href="" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
             <b>...</b>
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="Edit.html"><i class="fa-solid fa-eye-slash"></i>Hide</a>
+            <form action="{{ route('book.fount_cover.updateStatus') }}" method="POST">
+              @csrf
+              <a class="dropdown-item" href="{{ route('book.fount_cover', $book->id) }}"><i class="fa fa-edit"></i>Edit</a>
+              @if(!empty($frontCover->visibility == 'show'))
+              <button type="submit" class="dropdown-item"><i class="fa-solid fa-eye-slash"></i>Hide</button>
+              <input type="hidden" value="hide" name="status">
+              @else
+              <button type="submit" class="dropdown-item"><i class="fa-solid fa-eye"></i>Show</button>
+              <input type="hidden" value="show" name="status">
+              @endif
+              <input type="hidden" value="{{ $frontCover->id ?? ''}}" name="recordRowId">
+            </form>
           </div>
         </div>
 
       </div>
       <div class="col-md-4">
 
-        <a href="{{ route('book.matrics_summary') }}" class="text-decoration-none">
-          <div class="card p-2" id="crd">
+        <a href="{{ route('book.matrics_summary', $book->id ) }}" class="text-decoration-none">
+          <div class="card p-2" id="crd" style="@if(isset($book->show_matrics_summary) && $book->show_matrics_summary== 0) opacity: 0.6 @endif">
             <div class="row">
+              @if(!empty($metrics))
+              @foreach($metrics as $key => $metric)
               <div class="col-md-6">
                 <div class="card mt-2 text-lg-center" id="crds">
-                  <h1 class="p-4">1</h1>
-                  <p>Price of Coverage</p>
+                  <h1 class="p-4">{{ $metric->metricOptions->value }}</h1>
+                  <p>{{ $metric->metricOptions->name }}</p>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="card mt-2 text-lg-center" id="crds">
-                  <h1 class="p-4">0</h1>
-                  <p>Estimated Views</p>
-                </div>
-              </div>
+              @endforeach
+              @endif
+              
             </div>
+            @if(!empty($metricsCount))
             <div class="row">
               <div class="col-md-12 p-4 mt-3">
                 <div class="card text-lg-center" id="crrds">
-                  <p class="p-4">+ 3 more matrics</p>
+                  <p class="p-4">+ {{ $metricsCount-2 ?? '' }}   more matrics</p>
                 </div>
               </div>
             </div>
-            <a href="" class="text-decoration-none">
-              <span style="color: black;">Matrics Summary</span>
-              <span class="text-secondary font-weight-bold">(4 itoms)</span>
-            </a>
+            @endif
+           
           </div>
         </a>
-
+        <p style="color: black;display: inline-block;">Matrics Summary</p>
+        <span class="text-secondary font-weight-bold">({{$metricsCount ?? ''}} items)</span>
         <div class="dropdown float-right dropleft">
           <a href="" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
             <b>...</b>
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="Edit.html"><i class="fa-solid fa-eye-slash"></i>Hide</a>
+            <form action="{{ route('book.matrics_summary.updateVisibility') }}" method="POST">
+              @csrf
+              <a class="dropdown-item" href="{{ route('book.matrics_summary', $book->id ) }}"><i class="fa fa-edit"></i>Edit</a>
+              @if(!empty($book->show_matrics_summary == 1))
+              <button type="submit" class="dropdown-item"><i class="fa-solid fa-eye-slash"></i>Hide</button>
+              <input type="hidden" value="0" name="status">
+              @else
+              <button type="submit" class="dropdown-item"><i class="fa-solid fa-eye"></i>Show</button>
+              <input type="hidden" value="1" name="status">
+              @endif
+              <input type="hidden" value="{{ $book->id ?? ''}}" name="bookId">
+            </form>
           </div>
         </div>
 
       </div>
       <div class="col-md-4">
 
-        <a href="{{ route('book.highlights') }}" class="text-decoration-none">
+        <a href="{{ route('book.highlights', $book->id ?? '') }}" class="text-decoration-none">
           <div class="card text-center p-3" id="crd">
             <i class="fa fa-star" style="font-size: 40px;margin-top: 60px;color: #fec878"></i>
             <p class="mt-3" style="color: black;">Showcase your best bits by clicking the star <br> icons on each piece of coverage </p>
@@ -158,11 +241,11 @@
         </a>
 
         <div class="dropdown float-right dropleft mt-0">
-          <a href="" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
+          <a href="{{ route('book.highlights', $book->id ?? '') }}" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
             <b class="mt-0">...</b>
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="Edit.html"><i class="fa-solid fa-eye-slash"></i>Hide</a>
+            <a class="dropdown-item" href="#"><i class="fa-solid fa-eye-slash"></i>Hide</a>
           </div>
         </div>
 
@@ -280,7 +363,7 @@
 
         </div>
         <div class="modal-body" id="form">
-          <form action="{{ route('book.storeBookLogo') }}" method="POST" class="form">
+          <form action="{{ route('book.storeBookLogo') }}" method="POST" class="form" enctype="multipart/form-data">
             @csrf
             <div class="row">
               <div class="col-md-3">
@@ -316,14 +399,16 @@
                   <a href="#" class="link link-success underline" data-component="link">preview your book</a>.
                 </p>
                 <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
-                <a type="button" class="btn btn-outline-danger"> <i class="fa fa-trash"></i> Remove</a>
+                @if(!empty($book->banner_logo))
+                <a href="{{ route('book.deleteBookHeaderLogo', $book->id) }}" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')">Remove</a>
+                @endif
               </div>
             </div>
             <div class="text-right">
-            <button class="btn mt-4 mb-3" type="submit" data-component="button-element" id="bttnn">
-              Save
-            </button>
-            <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
+              <button class="btn mt-4 mb-3" type="submit" data-component="button-element" id="bttnn">
+                Save
+              </button>
+              <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
             </div>
           </form>
         </div>
@@ -346,10 +431,12 @@
 
         </div>
         <div class="modal-body" id="form">
-          <form action="" class="form">
+          <form action="{{ route('book.setHeaderIconColor') }}" method="POST" class="form">
+            @csrf
             <p id="text">The accent colour is used on links, buttons, certain text and icons to add a customised brand flavour to the books you share.</p>
             <div>
-              <input type="color" id="head" name="head" value="#e66465" class="form-control">
+              <input type="color" id="head" name="bg_color" value="#e66465" class="form-control">
+              <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
             </div>
             <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="bttnn">
               Save
@@ -409,7 +496,13 @@
 @section('scripts')
 <script>
   // Start upload preview image
-  $(".gambar").attr("src", "https://user.gadjian.com/static/images/personnel_boy.png");
+  if ('<?php echo $book->banner_logo ?? '' ?>') {
+    var img = '<?php echo $book->banner_logo ?? '' ?>';
+    var path = '<?php echo asset('img/') ?>';
+    $(".gambar").attr("src", "" + path + "/" + img + "");
+  } else {
+    $(".gambar").attr("src", "https://user.gadjian.com/static/images/personnel_boy.png");
+  }
   var $uploadCrop,
     tempFilename,
     rawImg,

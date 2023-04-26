@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class BookLighlightController extends Controller
 {
-    public function index()
+    public function index($bookId = '')
     {
-        return view('pages.book.highlights');
+        return view('pages.book.highlights', compact('bookId'));
     }
 }

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\BookFrontCover;
 use App\Http\Controllers\Controller;
 use App\Models\Layout;
-use Laravel\Ui\Presets\React;
 
 class BookFrontCoverController extends Controller
 {

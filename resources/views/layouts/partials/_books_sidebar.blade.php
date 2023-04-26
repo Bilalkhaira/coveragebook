@@ -93,7 +93,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('book.highlights') }}">
+                <a href="{{ route('book.highlights', $bookId ?? '') }}">
                     <img src="{{ asset('img/star.png') }}" alt="" width="50" height="50"><br> Highlights
                 </a>
             </li>

@@ -25,6 +25,6 @@ class PreviewBookController extends Controller
             $metrics = '';
         }
 
-        return view('pages.book.preview_book', compact('book', 'bookId', 'metrics'));
+        return view('pages.book.preview_book', compact('book', 'bookId', 'metrics', 'findBook'));
     }
 }

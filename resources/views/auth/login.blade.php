@@ -67,7 +67,7 @@
             <div class="col-md-4 img_col" style="height: 100vh;">
 
                 <div class="col-md-12 d-flex justify-content-center">
-                    <img src="{{ asset('img/signin.jpeg') }}" width="150px" height="150px" alt="">
+                    <img src="{{ asset('img/singin.png') }}" width="150px" height="150px" alt="">
                 </div>
 
                 <div class="col-md-12 ">
