@@ -1,6 +1,5 @@
 @extends('layouts.book_master')
 @section('css')
-@endsection
 <style>
   .frontcoverCard {
     padding: 20px;
@@ -23,10 +22,23 @@
   .dropdown-item i {
     margin-right: 10px;
   }
+
   .neww {
     display: inline-block;
-}
+  }
+
+  #addSlidParent {
+    margin-top: 10px;
+  }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
+<meta name="_token" content="{{csrf_token()}}" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+@endsection
+
 @section('content')
 <section class="body">
   <div class="container-fluid" style="background: #fafafa">
@@ -127,7 +139,7 @@
     <div class="row">
       <div class="col-md-12">
         <p class="neww ml-1">FRONT MATTER</p>
-        <button type="button" class="btn mt-4 mb-3 pr-2 text-secondary" style="float: right;" id="prviw" data-toggle="modal" data-target="#addNewSection">
+        <button type="button" class="btn mt-4 mb-3 pr-2 text-secondary" style="float: right;" id="prviw" data-toggle="modal" data-target="#addNewSlide">
           <img src="{{ asset('img/p box.png') }}" alt="" width="24" height="24">
           Add a New Slide
         </button>
@@ -164,7 +176,7 @@
             <form action="{{ route('book.fount_cover.updateStatus') }}" method="POST">
               @csrf
               <a class="dropdown-item" href="{{ route('book.fount_cover', $book->id) }}"><i class="fa fa-edit"></i>Edit</a>
-              @if(!empty($frontCover->visibility == 'show'))
+              @if(!empty($frontCover->visibility) && $frontCover->visibility == 'show')
               <button type="submit" class="dropdown-item"><i class="fa-solid fa-eye-slash"></i>Hide</button>
               <input type="hidden" value="hide" name="status">
               @else
@@ -192,18 +204,18 @@
               </div>
               @endforeach
               @endif
-              
+
             </div>
             @if(!empty($metricsCount))
             <div class="row">
               <div class="col-md-12 p-4 mt-3">
                 <div class="card text-lg-center" id="crrds">
-                  <p class="p-4">+ {{ $metricsCount-2 ?? '' }}   more matrics</p>
+                  <p class="p-4">+ {{ $metricsCount-2 ?? '' }} more matrics</p>
                 </div>
               </div>
             </div>
             @endif
-           
+
           </div>
         </a>
         <p style="color: black;display: inline-block;">Matrics Summary</p>
@@ -252,67 +264,144 @@
       </div>
 
     </div>
-    <hr style="width:1110x; height:1.5 px;background: gray;margin-top: 50px;">
-    <div class="row">
-      <div class="col-md-9">
-        <p class="neww ml-1">BOOK CONTENTS</p>
-      </div>
-      <div class="col-md-3 text-right">
-        <button type="button" class="btn mt-4 mb-3 pr-2 text-secondary" id="prviw" data-toggle="modal" data-target="#addNewSection">
-          <img src="{{ asset('img/p box.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 2px;">
-          Add a New Section
-        </button>
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-md-12">
-        <div class="card mb-4" id="crd">
-          <div class="row">
-            <div class="col-md-12">
-              <img src="{{ asset('img/eye.png') }}" alt="" width="30" height="30" style="margin-right: 30px; margin-top: 10px;float: right;">
-            </div>
+    <div class="row mb-2">
+      @if(!empty($slides))
+      @foreach($slides as $slide)
+      <div class="col-md-4">
+
+        <a href="{{ route('book.highlights', $book->id ?? '') }}" class="text-decoration-none">
+          <div class="card text-center p-3" id="crd">
+            <img src="{{ asset('img/files/'.$slide->file_name) }}" width="100%" height="100%">
           </div>
-          <div class="row pt-3 pl-5">
+        </a>
+
+        <p style="color: black;display: inline-block;">{{ $slide->name ?? $slide->file_name }}</p>
+        <div class="dropdown float-right dropleft">
+          <a href="" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
+            <b>...</b>
+          </a>
+          <form action="{{ route('book.fileDestroy') }}" method="POST">
+            @csrf
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="{{ route('book.editSlide', $slide->id ) }}"><i class="fa fa-edit"></i>Edit</a>
+              <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure you want to delete?');"><i class="fa fa-trash"></i>Delete</button>
+              <input type="hidden" value="{{ $slide->file_name }}" name="filename">
+              <input type="hidden" value="1" name="by_btn">
+          </form>
+        </div>
+      </div>
+
+    </div>
+    @endforeach
+    @endif
+
+  </div>
+  <hr style="width:1110x; height:1.5 px;background: gray;margin-top: 50px;">
+  <div class="row">
+    <div class="col-md-9">
+      <p class="neww ml-1">BOOK CONTENTS</p>
+    </div>
+    <div class="col-md-3 text-right">
+      <button type="button" class="btn mt-4 mb-3 pr-2 text-secondary" id="prviw" data-toggle="modal" data-target="#addNewSection">
+        <img src="{{ asset('img/p box.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 2px;">
+        Add a New Section
+      </button>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="card mb-4" id="crd">
+        <div class="row">
+          <div class="col-md-12">
+            <img src="{{ asset('img/eye.png') }}" alt="" width="30" height="30" style="margin-right: 30px; margin-top: 10px;float: right;">
+          </div>
+        </div>
+        <div class="row pt-3 pl-5">
+          <a href="#" class="text-decoration-none ">
+            <span style="color: black;font-size:28px;font-weight: bold;">::</span>
+            <span style="color: black;font-size:18px;font-weight: bold;">Coverage</span>
+          </a>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
             <a href="#" class="text-decoration-none ">
-              <span style="color: black;font-size:28px;font-weight: bold;">::</span>
-              <span style="color: black;font-size:18px;font-weight: bold;">Coverage</span>
+              <img src="{{ asset('img/you.webp') }}" alt="" width="40" height="40" style="margin-left: 30px; margin-top: 60px;margin-bottom: 60px;">
+              <p class="ml-4 p-0 mt-0" style="color: black;">YouTube.co...</p>
             </a>
           </div>
-          <div class="row">
-            <div class="col-md-8">
-              <a href="#" class="text-decoration-none ">
-                <img src="{{ asset('img/you.webp') }}" alt="" width="40" height="40" style="margin-left: 30px; margin-top: 60px;margin-bottom: 60px;">
-                <p class="ml-4 p-0 mt-0" style="color: black;">YouTube.co...</p>
-              </a>
+          <div class="col-md-1 text-center">
+            <h6>TOTAL</h6>
+            <div class="card text-lg-center" id="crrds">
+              <h1 class="mt-1">1</h1>
             </div>
-            <div class="col-md-1 text-center">
-              <h6>TOTAL</h6>
-              <div class="card text-lg-center" id="crrds">
-                <h1 class="mt-1">1</h1>
+            <h6>PIECE</h6>
+          </div>
+          <div class="col-md-1 text-center">
+            <h6>LAYOUT</h6>
+            <div class="card text-lg-center" id="crrds">
+              <img src="{{ asset('img/layout (2).png') }}" alt="" width="40px" height="40px" style="margin-left: 15px; margin-top: 10px;margin-bottom: 0px;">
+            </div>
+            <h6>FULL</h6>
+          </div>
+          <div class="col-md-1 mt-4 text-center">
+            <a href="" class="text-decoration-none">
+              <div style="width:80px;height: 80px;background: white;border-radius: 50%;box-shadow: 0 1px 9px 0 #888888;">
+                <i class="fa-sharp fa-solid fa-arrow-right pt-4" style="color: lightseagreen;font-size: 30px;"></i>
               </div>
-              <h6>PIECE</h6>
-            </div>
-            <div class="col-md-1 text-center">
-              <h6>LAYOUT</h6>
-              <div class="card text-lg-center" id="crrds">
-                <img src="{{ asset('img/layout (2).png') }}" alt="" width="40px" height="40px" style="margin-left: 15px; margin-top: 10px;margin-bottom: 0px;">
-              </div>
-              <h6>FULL</h6>
-            </div>
-            <div class="col-md-1 mt-4 text-center">
-              <a href="" class="text-decoration-none">
-                <div style="width:80px;height: 80px;background: white;border-radius: 50%;box-shadow: 0 1px 9px 0 #888888;">
-                  <i class="fa-sharp fa-solid fa-arrow-right pt-4" style="color: lightseagreen;font-size: 30px;"></i>
-                </div>
-              </a>
-            </div>
+            </a>
           </div>
         </div>
       </div>
     </div>
   </div>
+  </div>
 </section>
+<div class="modal" id="addNewSlide">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
 
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add slides</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="form-group">
+          <b>Choose which section to add your slides to</b><br>
+          <small>You can move them to another section later if you need to.</small>
+          <select class="form-control" id="addSlidParent">
+            @if(!empty($sections))
+            @foreach($sections as $section)
+            <option value="{{ $section->id }}">{{ $section->name }}</option>
+            @endforeach
+            @endif
+          </select>
+        </div>
+        <div class="form-group">
+          <p>Add your own brand images, graphics and analysis to your book. Each file or page will be added as an individual slide. You can move and reorder them after upload.</p>
+          <p>Supported file types: JPG, PNG, GIF, PDF</p>
+        </div>
+
+
+        <form method="post" action="{{route('book.addNewSlideFiles')}}" enctype="multipart/form-data" class="dropzone" id="dropzone">
+          @csrf
+          <input type="text" name="parrentId" id="parrentId" value="{{ $sections[0]->id ?? ''}}">
+        </form>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" id="add_files_btn">Add Section</button>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+
+
+    </div>
+  </div>
+</div>
 <div class="modal" id="addNewSection">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -494,6 +583,56 @@
 
 @endsection
 @section('scripts')
+<script>
+  $("#addSlidParent").on("change", function() {
+    $('body').find('#parrentId').val($(this).val());
+  });
+</script>
+<script type="text/javascript">
+  Dropzone.options.dropzone = {
+    maxFilesize: 12,
+    renameFile: function(file) {
+      var dt = new Date();
+      var time = dt.getTime();
+      return time + file.name;
+    },
+    acceptedFiles: ".jpeg,.jpg,.png,.gif,.pdf",
+    addRemoveLinks: true,
+    timeout: 5000,
+    removedfile: function(file) {
+      var name = file.upload.filename;
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+        type: 'POST',
+        url: '{{ route("book.fileDestroy") }}',
+        data: {
+          filename: name
+        },
+        success: function(data) {
+          toastr.success('Image Remove Successfully');
+        },
+        error: function(e) {
+          console.log(e);
+        }
+      });
+      var fileRef;
+      return (fileRef = file.previewElement) != null ?
+        fileRef.parentNode.removeChild(file.previewElement) : void 0;
+    },
+    success: function(file, response) {},
+    error: function(file, response) {
+      return false;
+    }
+  };
+  $('#add_files_btn').on('click', function() {
+    toastr.success('Image Upload Successfully');
+    location.reload();
+  });
+</script>
+
+
 <script>
   // Start upload preview image
   if ('<?php echo $book->banner_logo ?? '' ?>') {

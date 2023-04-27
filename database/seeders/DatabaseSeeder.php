@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             UsersRoleSeeder::class,
             UsersPermissionSeeder::class,
+            InsertBookDefaultSeeder::class,
         ]);
     }
 }

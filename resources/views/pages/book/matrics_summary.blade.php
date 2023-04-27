@@ -113,7 +113,7 @@
                     <span class="opacity-50">/</span>
                     <span class="opacity-60">Front Matter</span>
                 </div>
-                <p class="new mtrics_h">Matrics Summary</p>
+                <p class="new mtrics_h">Metrics Summary</p>
             </div>
             <div class="col-md-3 text-right">
                 <a href="{{ route('book.preview', $book->id ?? '') }}" target="_blank">
@@ -129,7 +129,7 @@
                 <div class="card p-1" id="shadow" type="button" data-toggle="modal" data-target="#matrics">
                     <div class="row">
                         <div class="col-md-8">
-                            <h5 class="ml-2 mt-1">Choose Matrics</h5>
+                            <h5 class="ml-2 mt-1">Choose Metrics</h5>
                             <h6 class="clr text-success ml-2">{{ $metricsCount ?? ''}} avaiable</h5>
                         </div>
                         <div class="col-md-4 text-right">
@@ -223,7 +223,7 @@
 
                             <div class="col-md-10">
                                 <div class="card-body mr-0 pt-1">
-                                    <h4 class="card-title" style="color: black;">Add / Remove matrics your summary</h4>
+                                    <h4 class="card-title" style="color: black;">Add / Remove metrics your summary</h4>
                                     <p class="card-text text-secondary">{{ $metricsCount ?? ''}} avaiable</p>
                                 </div>
                             </div>

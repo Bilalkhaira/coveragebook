@@ -83,6 +83,9 @@ Route::prefix('user')->group(function () {
         Route::post('/store_book_logo', [BookController::class, 'storeBookLogo'])->name('book.storeBookLogo'); //use
         Route::get('/delete_book_header_logo/{id?}', [BookController::class, 'deleteBookHeaderLogo'])->name('book.deleteBookHeaderLogo'); //use
         Route::post('/set_header_icon_color', [BookController::class, 'setHeaderIconColor'])->name('book.setHeaderIconColor'); //use
+        Route::post('/add_new_slide_files', [BookController::class, 'addNewSlideFiles'])->name('book.addNewSlideFiles'); //use
+        Route::post('/delete_files', [BookController::class, 'fileDestroy'])->name('book.fileDestroy'); //use
+        Route::get('/edit_slide/{id?}', [BookController::class, 'editSlide'])->name('book.editSlide'); //use
 
         Route::get('/share', [ShareBookController::class, 'index'])->name('book.share');
         Route::get('/preview/{id?}', [PreviewBookController::class, 'index'])->name('book.preview'); //use
