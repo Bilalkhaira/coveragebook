@@ -24,11 +24,13 @@ class BookController extends Controller
 
         $metricsCount = count(BookMetricsSummary::where('book_id', $bookId)->get());
 
-        $slides = BookFile::where('book_id', $bookId)->where('filter_by', 'new_slide_file')->get();
-
         $sections = BookSections::get();
 
-        return view('pages.book.index', compact('book', 'bookId', 'frontCover', 'metricsCount', 'metrics', 'slides', 'sections'));
+        $bookSections = BookSections::with('slides')->where('book_id', $bookId)->get();
+
+        $slides = BookSections::with('slides')->where('name', 'Front Matter')->first();
+// dd($slides);
+        return view('pages.book.index', compact('book', 'bookId', 'frontCover', 'metricsCount', 'metrics', 'slides', 'sections', 'bookSections'));
     }
 
     public function storeBookLogo(Request $request)
@@ -123,28 +125,32 @@ class BookController extends Controller
         if (file_exists($path)) {
             unlink($path);
         }
-        if (!empty($request->get('by_btn'))) {
+        if (!empty($request->get('bookId'))) {
+            toastr()->success('File Delete Successfully');
+            // return redirect()->route('book.index', $request->bookId);
             return redirect()->back();
         }
         return response()->json(['success' => 'true']);
     }
 
-    public function editSlide($id = '')
+    public function editSlide($id = '', $bookId = '')
     {
+        $book = Book::find($bookId);
 
-        $frontCover = BookFrontCover::where('book_id', 1)->first();
+        $slide = SectionSlide::find($id);
 
-        $book = Book::find(1);
+        return view('pages.book.edit_new_slide', compact('book', 'bookId', 'slide'));
 
-        $metrics = BookMetricsSummary::with('metricOptions')->where('book_id', 1)->limit(2)->get();
+    }
 
-        $metricsCount = count(BookMetricsSummary::where('book_id', 1)->get());
+    public function updateSlide(Request $request)
+    {
+        $slide = SectionSlide::find($request->slideId);
 
-        $slides = BookFile::where('book_id', 1)->where('filter_by', 'new_slide_file')->get();
+        $slide->update([
+            'name' => $request->name ?? '',
+        ]);
 
-        $slide = BookFile::find($id);
-
-        return view('pages.book.edit_new_slide', compact('book', 'frontCover', 'metricsCount', 'metrics', 'slide'));
-
+        return redirect()->back();
     }
 }

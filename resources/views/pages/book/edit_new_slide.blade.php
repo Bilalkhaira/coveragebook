@@ -33,14 +33,14 @@
                     <span class="opacity-60">Edit slide</span>
                 </div>
                 <span class="new mb-3">{{ $slide->name ?? $slide->file_name}}</span>
-                <a href="" class="button group button-icon flex-none" type="button" data-toggle="modal" data-target="#modal3">
+                <a href="" class="button group button-icon flex-none" type="button" data-toggle="modal" data-target="#addNewSlide">
                     <img src="{{ asset('img/edit.png') }}" alt="" width="44" height="44" style="margin-left: 12; margin-bottom: 18px;">
                 </a>
                 <form class="dlt_form" action="{{ route('book.fileDestroy') }}" method="POST">
                     @csrf
                     <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure you want to delete?');"><i class="fa fa-trash"></i></button>
                     <input type="hidden" value="{{ $slide->file_name }}" name="filename">
-                    <input type="hidden" value="1" name="by_btn">
+                    <input type="hidden" value="{{ $bookId ?? ''}}" name="bookId">
                 </form>
 
             </div>
@@ -64,5 +64,35 @@
 
     </div>
 </section>
+<div class="modal" id="addNewSlide">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
 
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Slide</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form action="{{ route('book.updateSlide') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <b>Name</b><br>
+                        <input type="text" class="form-control" name="name" required>
+                        <input type="hidden" name="slideId" value="{{ $slide->id ?? ''}}">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+
+
+        </div>
+    </div>
+</div>
 @endsection

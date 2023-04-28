@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Book\BookController;
 use App\Http\Controllers\User\UsersController;
+use App\Http\Controllers\Book\SectionController;
 use App\Http\Controllers\Book\CoverageController;
 use App\Http\Controllers\Book\ShareBookController;
 use App\Http\Controllers\Book\UploadeCoverageFile;
@@ -85,7 +86,12 @@ Route::prefix('user')->group(function () {
         Route::post('/set_header_icon_color', [BookController::class, 'setHeaderIconColor'])->name('book.setHeaderIconColor'); //use
         Route::post('/add_new_slide_files', [BookController::class, 'addNewSlideFiles'])->name('book.addNewSlideFiles'); //use
         Route::post('/delete_files', [BookController::class, 'fileDestroy'])->name('book.fileDestroy'); //use
-        Route::get('/edit_slide/{id?}', [BookController::class, 'editSlide'])->name('book.editSlide'); //use
+        Route::get('/edit_slide/{id?}/{bookId?}', [BookController::class, 'editSlide'])->name('book.editSlide'); //use
+        Route::post('/update_slide', [BookController::class, 'updateSlide'])->name('book.updateSlide'); //use
+
+        Route::post('/section/store', [SectionController::class, 'store'])->name('book.section.store'); //use
+        Route::post('/update_status', [SectionController::class, 'updateStatus'])->name('book.section.updateStatus'); //use
+        Route::get('/section/delete/{id?}', [SectionController::class, 'delete'])->name('book.section.delete'); //use
 
         Route::get('/share', [ShareBookController::class, 'index'])->name('book.share');
         Route::get('/preview/{id?}', [PreviewBookController::class, 'index'])->name('book.preview'); //use
@@ -107,7 +113,7 @@ Route::prefix('user')->group(function () {
         Route::post('/fount_cover/status', [BookFrontCoverController::class, 'updateStatus'])->name('book.fount_cover.updateStatus'); //use
 
         Route::get('/upload_covarage_file', [UploadeCoverageFile::class, 'index'])->name('book.upload_covarage_file');
-        Route::get('/coverage', [CoverageController::class, 'index'])->name('book.coverage');
+        Route::get('/coverage/{id?}/{sectionId?}', [CoverageController::class, 'index'])->name('book.coverage'); //use
         Route::get('/matrics', [BookMatricsController::class, 'index'])->name('book.matrics');
        
     });

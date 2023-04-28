@@ -78,7 +78,7 @@
 
             </li>
             <li>
-                
+
                 <a href="{{ route('book.index', $bookId ?? '') }}">
                     <i class="fa-solid fa-book-open" style="font-size: 30px;"></i><br> Book <br> Overview</a>
             </li>
@@ -106,14 +106,18 @@
 
                     <div class="dropdown-menu sidebar_menu" id="dropdown">
                         <div class="cards">
-                            <a class="" href="{{ route('book.coverage') }}" id="cardwth">
+
+                            @if(!empty(App\Models\BookSections::get()))
+                            @foreach(App\Models\BookSections::where('name', '!=', 'Front Matter')->get() as $sections)
+                            <a href="{{ route('book.coverage', [$bookId, $sections->id]) }}" id="cardwth">
                                 <div class="row">
                                     <div class="col-md-11">
-                                            <h6 class="card-title">Coverge</h6>
+                                        <h6 class="card-title">{{ $sections->name }}</h6>
                                     </div>
-                                    
                                 </div>
                             </a>
+                            @endforeach
+                            @endif
 
                             <a class="rounded-bottom" id="cardwth" data-toggle="modal" data-target="#addSection">
                                 <div class="row">
@@ -153,7 +157,8 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="/action_page.php">
+                <form action="{{ route('book.section.store') }}" method="POST">
+                    @csrf
 
                     <div class="form-group">
                         <p>Sections can be used to<b> organise your coverage</b>. Each section will have its <b> own page </b> (and URL) in the book and you can move coverage between sections at any time.</p>
@@ -162,7 +167,8 @@
                     <div class="form-group">
                         <label class="font-weight-bold" for="email">Section name<br> <small>e.g. 'Autumn coverage' or 'On the socials'</small></label>
 
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" name="name" required>
+                        <input type="hidden" value="{{ $bookId ?? ''}}" name="bookId">
                     </div>
 
                     <div class="modal-footer">
@@ -179,38 +185,7 @@
     </div>
 </div>
 
-<div class="modal" id="addSlide">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Add slides</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form action="/action_page.php">
-
-                    <div class="form-group text-center">
-                        <p>Add your own brand images, graphics and analysis to your book. Each file or page will be added as an individual slide. You can move and reorder them after upload.</p>
-                        <p> <small> Supported file types: JPG, PNG, GIF, PDF </small></p>
-                        <input id="add_slide_imgs" type="file" class="form-control" multiple="">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Save</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Modal footer -->
-
-
-        </div>
-    </div>
-</div>
 
 <div class="modal" id="myModal">
     <div class="modal-dialog modal-lg">

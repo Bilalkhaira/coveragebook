@@ -30,6 +30,24 @@
   #addSlidParent {
     margin-top: 10px;
   }
+
+  .sec_btn {
+    padding-top: 10px;
+    padding-right: 30px;
+  }
+
+  .sec_btn i {
+    color: gray;
+    font-size: 20px;
+    margin-left: 10px;
+  }
+  .sec_btn form{
+    display: inline-block;
+  }
+  .sec_btn button{
+    border: none;
+    background-color: transparent;
+  }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -175,7 +193,7 @@
           <div class="dropdown-menu">
             <form action="{{ route('book.fount_cover.updateStatus') }}" method="POST">
               @csrf
-              <a class="dropdown-item" href="{{ route('book.fount_cover', $book->id) }}"><i class="fa fa-edit"></i>Edit</a>
+              <a class="dropdown-item" href="{{ route('book.fount_cover', $book->id ?? '') }}"><i class="fa fa-edit"></i>Edit</a>
               @if(!empty($frontCover->visibility) && $frontCover->visibility == 'show')
               <button type="submit" class="dropdown-item"><i class="fa-solid fa-eye-slash"></i>Hide</button>
               <input type="hidden" value="hide" name="status">
@@ -266,7 +284,7 @@
     </div>
     <div class="row mb-2">
       @if(!empty($slides))
-      @foreach($slides as $slide)
+      @foreach($slides->slides as $slide)
       <div class="col-md-4">
 
         <a href="{{ route('book.highlights', $book->id ?? '') }}" class="text-decoration-none">
@@ -283,10 +301,10 @@
           <form action="{{ route('book.fileDestroy') }}" method="POST">
             @csrf
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="{{ route('book.editSlide', $slide->id ) }}"><i class="fa fa-edit"></i>Edit</a>
+              <a class="dropdown-item" href="{{ route('book.editSlide', [$slide->id, $bookId] ) }}"><i class="fa fa-edit"></i>Edit</a>
               <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure you want to delete?');"><i class="fa fa-trash"></i>Delete</button>
               <input type="hidden" value="{{ $slide->file_name }}" name="filename">
-              <input type="hidden" value="1" name="by_btn">
+              <input type="hidden" value="{{ $bookId ?? ''}}" name="bookId">
           </form>
         </div>
       </div>
@@ -308,12 +326,26 @@
       </button>
     </div>
   </div>
-  <div class="row mt-3">
+  <div class="row mt-3" style="@if(isset($slides->visibility) && $slides->visibility== 'hide') opacity: 0.6 @endif">
     <div class="col-md-12">
       <div class="card mb-4" id="crd">
         <div class="row">
-          <div class="col-md-12">
-            <img src="{{ asset('img/eye.png') }}" alt="" width="30" height="30" style="margin-right: 30px; margin-top: 10px;float: right;">
+          <div class="col-md-12 text-right sec_btn">
+            <form action="{{ route('book.section.updateStatus') }}" method="POST">
+              @csrf
+              @if(!empty($slides->visibility) && $slides->visibility == 'show')
+              <button type="submit"><i class="fa-solid fa-eye-slash"></i></button>
+              <input type="hidden" value="hide" name="status">
+              @else
+              <button type="submit"><i class="fa-solid fa-eye"></i></button>
+              <input type="hidden" value="show" name="status">
+              @endif
+              <input type="hidden" value="{{ $slides->id ?? ''}}" name="recordRowId">
+            </form>
+
+            <!-- <a href="#"><i class="fa-solid fa-arrow-up"></i></a> -->
+            <!-- <a href="#"><i class="fa-solid fa-arrow-down"></i></a> -->
+            <a href="#"><i class="fa fa-trash"></i></a>
           </div>
         </div>
         <div class="row pt-3 pl-5">
@@ -324,15 +356,16 @@
         </div>
         <div class="row">
           <div class="col-md-8">
+            @if(!empty($slides->slides[0]->file_name ?? ''))
             <a href="#" class="text-decoration-none ">
-              <img src="{{ asset('img/you.webp') }}" alt="" width="40" height="40" style="margin-left: 30px; margin-top: 60px;margin-bottom: 60px;">
-              <p class="ml-4 p-0 mt-0" style="color: black;">YouTube.co...</p>
+              <img src="{{ asset('img/files/'.$slides->slides[0]->file_name ?? '') }}" alt="" width="300" height="150" style="margin-left: 30px; margin-top: 15px">
             </a>
+            @endif
           </div>
           <div class="col-md-1 text-center">
             <h6>TOTAL</h6>
             <div class="card text-lg-center" id="crrds">
-              <h1 class="mt-1">1</h1>
+              <h1 class="mt-1">0</h1>
             </div>
             <h6>PIECE</h6>
           </div>
@@ -354,6 +387,76 @@
       </div>
     </div>
   </div>
+
+
+  @if(!empty($bookSections))
+  @foreach($bookSections as $bookSection)
+  <div class="row mt-3" style="@if(isset($bookSection->visibility) && $bookSection->visibility== 'hide') opacity: 0.6 @endif">
+    <div class="col-md-12">
+      <div class="card mb-4" id="crd">
+        <div class="row">
+          <div class="col-md-12 text-right sec_btn">
+          <form action="{{ route('book.section.updateStatus') }}" method="POST">
+              @csrf
+              @if(!empty($bookSection->visibility) && $bookSection->visibility == 'show')
+              <button type="submit"><i class="fa-solid fa-eye-slash"></i></button>
+              <input type="hidden" value="hide" name="status">
+              @else
+              <button type="submit"><i class="fa-solid fa-eye"></i></button>
+              <input type="hidden" value="show" name="status">
+              @endif
+              <input type="hidden" value="{{ $bookSection->id ?? ''}}" name="recordRowId">
+            </form>
+
+            <!-- <a href="#"><i class="fa-solid fa-arrow-up"></i></a> -->
+            <!-- <a href="#"><i class="fa-solid fa-arrow-down"></i></a> -->
+            <a href="{{ route('book.section.delete', $bookSection->id ) }}" onclick="return confirm('Are you sure you want to delete section and their files');"><i class="fa fa-trash"></i></a>
+          </div>
+        </div>
+        <div class="row pt-3 pl-5">
+          <a href="#" class="text-decoration-none ">
+            <span style="color: black;font-size:28px;font-weight: bold;">::</span>
+            <span style="color: black;font-size:18px;font-weight: bold;">{{ $bookSection->name ?? ''}}</span>
+          </a>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            @if(!empty($bookSection->slides[0]->file_name ?? ''))
+            <a href="#" class="text-decoration-none ">
+              <img src="{{ asset('img/files/'.$bookSection->slides[0]->file_name ?? '') }}" alt="" width="300" height="150" style="margin-left: 30px; margin-top: 15px">
+            </a>
+            @endif
+          </div>
+          <div class="col-md-1 text-center">
+            <h6>TOTAL</h6>
+            <div class="card text-lg-center" id="crrds">
+              <h1 class="mt-1">0</h1>
+            </div>
+            <h6>PIECE</h6>
+          </div>
+          <div class="col-md-1 text-center">
+            <h6>LAYOUT</h6>
+            <div class="card text-lg-center" id="crrds">
+              <img src="{{ asset('img/layout (2).png') }}" alt="" width="40px" height="40px" style="margin-left: 15px; margin-top: 10px;margin-bottom: 0px;">
+            </div>
+            <h6>FULL</h6>
+          </div>
+          <div class="col-md-1 mt-4 text-center">
+            <a href="" class="text-decoration-none">
+              <div style="width:80px;height: 80px;background: white;border-radius: 50%;box-shadow: 0 1px 9px 0 #888888;">
+                <i class="fa-sharp fa-solid fa-arrow-right pt-4" style="color: lightseagreen;font-size: 30px;"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  @endforeach
+  @endif
+
+
+
   </div>
 </section>
 <div class="modal" id="addNewSlide">
@@ -387,7 +490,7 @@
 
         <form method="post" action="{{route('book.addNewSlideFiles')}}" enctype="multipart/form-data" class="dropzone" id="dropzone">
           @csrf
-          <input type="text" name="parrentId" id="parrentId" value="{{ $sections[0]->id ?? ''}}">
+          <input type="hidden" name="parrentId" id="parrentId" value="{{ $sections[0]->id ?? ''}}">
         </form>
 
         <div class="modal-footer">
@@ -414,7 +517,8 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="/action_page.php">
+        <form action="{{ route('book.section.store') }}" method="POST">
+          @csrf
 
           <div class="form-group">
             <p>Sections can be used to<b> organise your coverage</b>. Each section will have its <b> own page </b> (and URL) in the book and you can move coverage between sections at any time.</p>
@@ -423,7 +527,8 @@
           <div class="form-group">
             <label class="font-weight-bold" for="email">Section name<br> <small>e.g. 'Autumn coverage' or 'On the socials'</small></label>
 
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" name="name" required>
+            <input type="hidden" value="{{ $bookId ?? ''}}" name="bookId">
           </div>
 
           <div class="modal-footer">

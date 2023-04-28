@@ -1,5 +1,21 @@
 @extends('layouts.book_master')
-
+@section('css')
+<style>
+    .icon {
+        color: gray;
+    }
+    .dlt_btn{
+        border: none;
+        background-color: transparent;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
+<meta name="_token" content="{{csrf_token()}}" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+@endsection
 @section('content')
 
 
@@ -137,12 +153,14 @@
                     </div>
                     <div class="col-md-6 text-right">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-outline-secondary grid_view_btn"><i class="fa fa-bars"></i>Grid View</button>
-                            <button type="button" class="btn btn-outline-secondary list_view_btn"><i class="fa fa-bars"></i>List View</button>
+                            <!-- <button type="button" class="btn btn-outline-secondary grid_view_btn"><i class="fa fa-bars"></i>Grid View</button> -->
+                            <!-- <button type="button" class="btn btn-outline-secondary list_view_btn"><i class="fa fa-bars"></i>List View</button> -->
                         </div>
                     </div>
                 </div>
                 <div class="row">
+                    @if(!empty($sectionSlides))
+                    @foreach($sectionSlides as $sectionSlide)
                     <div class="col-md-3">
                         <div class="coverage_grid_view">
                             <div class="row">
@@ -150,28 +168,35 @@
                                     <input type="checkbox">
                                 </div>
                                 <div class="col-md-8 text-right">
-                                    <a href="#"><i class="fa fa-copy"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-trash"></i></a>
+                                    <!-- <a href="#"><i class="fa fa-copy"></i></a> -->
+                                    <!-- <a href="#"><i class="fa fa-star"></i></a> -->
+                                    <!-- <a href="#"><i class="icon fa fa-trash"></i></a> -->
+                                    <form action="{{ route('book.fileDestroy') }}" method="POST">
+                                        @csrf
+                                        <button class="dlt_btn" type="submit" onclick="return confirm('Are you sure you want to delete?');"><i class="icon fa fa-trash"></i></button>
+                                        <input type="hidden" value="{{ $sectionSlide->file_name }}" name="filename">
+                                        <input type="hidden" value="{{ $bookId ?? ''}}" name="bookId">
+                                    </form>
 
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <img src="{{ asset('img/bbooks.jpg') }}" alt="">
+                                    <img src="{{ asset('img/files/'.$sectionSlide->file_name) }}" alt="">
                                 </div>
                             </div>
                             <div class="row edit">
-                                <div class="col-md-8">
-                                    This is Heading
+                                <div class="col-md-8" style="overflow: hidden;">
+                                    <p>{{ $sectionSlide->name ?? $sectionSlide->file_name }}</p>
                                 </div>
                                 <div class="col-md-4 text-right">
-                                    <a href="#"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ route('book.editSlide', [$sectionSlide->id, $bookId] ) }}"><i class="icon fa fa-edit"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    @endforeach
+                    @endif
                 </div>
 
 
@@ -350,18 +375,19 @@
             </div>
 
             <div class="modal-body">
-                <form action="/action_page.php">
 
-                    <div class="form-group text-center">
-                        <p>Each file/page will be added as a Slide within this section.</p>
-                        <p> <small> Supported file types: JPG, PNG, GIF, PDF </small></p>
-                        <input id="add_slide_imgs" type="file" class="form-control" multiple="">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Save</button>
-                    </div>
+                <div class="form-group text-center">
+                    <p>Each file/page will be added as a Slide within this section.</p>
+                    <p> <small> Supported file types: JPG, PNG, GIF, PDF </small></p>
+                </div>
+                <form method="post" action="{{route('book.addNewSlideFiles')}}" enctype="multipart/form-data" class="dropzone" id="dropzone">
+                    @csrf
+                    <input type="hidden" name="parrentId" value="{{ $sectionId ?? ''}}">
                 </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="add_files_btn">Add Section</button>
+                </div>
             </div>
         </div>
     </div>
@@ -372,14 +398,62 @@
 
 @endsection
 @section('scripts')
+
+<script type="text/javascript">
+    Dropzone.options.dropzone = {
+        maxFilesize: 12,
+        renameFile: function(file) {
+            var dt = new Date();
+            var time = dt.getTime();
+            return time + file.name;
+        },
+        acceptedFiles: ".jpeg,.jpg,.png,.gif,.pdf",
+        addRemoveLinks: true,
+        timeout: 5000,
+        removedfile: function(file) {
+            var name = file.upload.filename;
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                type: 'POST',
+                url: '{{ route("book.fileDestroy") }}',
+                data: {
+                    filename: name
+                },
+                success: function(data) {
+                    toastr.success('Image Remove Successfully');
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
+            var fileRef;
+            return (fileRef = file.previewElement) != null ?
+                fileRef.parentNode.removeChild(file.previewElement) : void 0;
+        },
+        success: function(file, response) {},
+        error: function(file, response) {
+            return false;
+        }
+    };
+    $('#add_files_btn').on('click', function() {
+        toastr.success('Image Upload Successfully');
+        location.reload();
+    });
+</script>
+
+
+
+
 <script>
-        $(document).on("click", ".coverageSecDetailTab", function(e) {
+    $(document).on("click", ".coverageSecDetailTab", function(e) {
         $("body").find('.coverageSecDetailTab_active').removeClass("coverageSecDetailTab_active");
         $(this).closest('.coverageSecDetailTab').find('p').addClass('coverageSecDetailTab_active');
         $(this).closest('.coverageSecDetailTab').find('span').addClass('coverageSecDetailTab_active');
-       
+
     });
-    
+
     $(document).on("click", ".grid_view_btn", function(e) {
         e.preventDefault();
         $("body").find(".coverage_list_view").addClass("no_display");
