@@ -29,7 +29,7 @@ class BookController extends Controller
         $bookSections = BookSections::with('slides')->where('book_id', $bookId)->get();
 
         $slides = BookSections::with('slides')->where('name', 'Front Matter')->first();
-// dd($slides);
+
         return view('pages.book.index', compact('book', 'bookId', 'frontCover', 'metricsCount', 'metrics', 'slides', 'sections', 'bookSections'));
     }
 
@@ -127,7 +127,6 @@ class BookController extends Controller
         }
         if (!empty($request->get('bookId'))) {
             toastr()->success('File Delete Successfully');
-            // return redirect()->route('book.index', $request->bookId);
             return redirect()->back();
         }
         return response()->json(['success' => 'true']);

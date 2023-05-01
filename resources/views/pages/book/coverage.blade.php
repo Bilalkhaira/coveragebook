@@ -4,9 +4,29 @@
     .icon {
         color: gray;
     }
-    .dlt_btn{
+
+    .dlt_btn {
         border: none;
         background-color: transparent;
+    }
+
+    .coverage_links {
+        padding: 40px 10px;
+        border-radius: 20px;
+        margin-top: 30px;
+        border: 2px dashed lightgray;
+        background-color: white;
+    }
+
+    .coverage_links button {
+        background-color: #02c5a3;
+        color: white;
+        padding: 5px 10px;
+    }
+
+    .coverage_links button:hover {
+        background-color: #208775;
+        color: white;
     }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
@@ -90,8 +110,6 @@
                 </div>
             </div>
 
-
-
             <div class="col-md-2">
                 <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#hideShow">
                     <div class="row">
@@ -109,7 +127,7 @@
             </div>
             <div class="container-fluid">
                 <div class="row coverage_select">
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-12">
                         <div class="inlineBlock">
                             <input type="checkbox" name="" id="select_all">
                             <span>Select</span>
@@ -150,13 +168,8 @@
                             </div>
                         </div>
 
-                    </div>
-                    <div class="col-md-6 text-right">
-                        <div class="btn-group">
-                            <!-- <button type="button" class="btn btn-outline-secondary grid_view_btn"><i class="fa fa-bars"></i>Grid View</button> -->
-                            <!-- <button type="button" class="btn btn-outline-secondary list_view_btn"><i class="fa fa-bars"></i>List View</button> -->
-                        </div>
-                    </div>
+                    </div> -->
+
                 </div>
                 <div class="row">
                     @if(!empty($sectionSlides))
@@ -199,26 +212,162 @@
                     @endif
                 </div>
 
+            </div>
 
+            <div class="container-fluid">
+                <div class="row coverage_select">
+                    <div class="col-md-6">
+                        <!-- <div class="inlineBlock">
+                            <input type="checkbox" name="" id="select_all">
+                            <span>Select</span>
+                        </div>
+
+                        <div class="inlineBlock select_all_hide no_display">
+                            <i class="fa fa-trash"></i>
+                            <span>Remove Item</span>
+                        </div>
+
+                        <div class="inlineBlock select_all_hide no_display">
+                            <div class="dropdown">
+                                <button class="dropdown-toggle" data-toggle="dropdown">
+                                    Dropdown button
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-arrow-up"></i> Start of this section</a>
+                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-arrow-down"></i>End of this section</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-arrow-right"></i>Move to position:</a>
+                                    <a class="dropdown-item" href="#">
+                                        <select name="" id="" class="form-control">
+                                            <option value="">1</option>
+                                            <option value="">2</option>
+                                        </select>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-plus"></i>Add new section</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-arrow-right"></i>Move to section:</a>
+                                    <a class="dropdown-item" href="#">
+                                        <select name="" id="" class="form-control">
+                                            <option value="">new section</option>
+                                            <option value="">old section</option>
+                                        </select>
+                                    </a>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-outline-secondary grid_view_btn"><i class="fa fa-bars"></i>Grid View</button>
+                            <button type="button" class="btn btn-outline-secondary list_view_btn"><i class="fa fa-bars"></i>List View</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="coverage_list_view no_display">
+                    @if(!empty($sectionLinks))
+                    @forelse($sectionLinks as $sectionLink)
+                    <div class="col-md-3">
+                        <div class="coverage_grid_view coverage_grid_vieww">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <input type="checkbox" name="lang">
-                                    <a href="#" class="edit_btn"><i class="fa fa-edit"></i></a>
-                                    <img src="{{ asset('img/bbooks.jpg') }}" alt="" width="100px" height="100px">
+                                <div class="col-md-4">
+                                    <input type="checkbox">
                                 </div>
-                                <div class="col-md-6 text-right">
-                                    <a href="#"><i class="fa fa-copy"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-trash"></i></a>
+                                <div class="col-md-8 text-right">
+                                        <a href="{{ route('book.coverage.deleteLink', $sectionLink->id) }}" onclick="return confirm('Are you sure you want to delete?');"><i class="icon fa fa-trash"></i></a>
+                                        <input type="hidden" value="{{ $sectionLink->id ?? ''}}" id="editLinkId">
+                                        <a type="button" class="edit_link" data-toggle="modal" data-target="#editLinks"><i class="icon fa fa-edit"></i></a>
+
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @if(!empty($sectionLink->name))
+                                    <p><b>{{$sectionLink->name ?? ''}}</b></p>
+                                    @endif
+                                    @if(!empty($sectionLink->image))
+                                    <img src="{{ asset('img/files/'.$sectionLink->image) }}" alt="">
+                                    @endif
+
+                                    @if(!empty($sectionLink->description))
+                                    <p> {{ $sectionLink->description ?? '' }} </p>
+                                    @endif
+                                    <a class="btn btn-outline-primary btn-sm float-right" href="{{ $sectionLink->links ?? ''}}" target="_blank">read More</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    @empty
+                    <div class="col-md-12">
+                        <div class="coverage_links">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <p>This section has no coverage items yet.</p>
+                                    <p>You can add new coverage straight into a section or select existing coverage & move it into this section.</p>
+                                    <button class="btn" type="button" data-toggle="modal" data-target="#addLinks"><i class="fa-solid fa-link"></i> Add Coverage Links</button>
+                                    <button class="btn"> <i class="fa-regular fa-file-image"></i> Upload Coverage Files</button>
+                                </div>
+
                             </div>
                         </div>
                     </div>
+                    @endforelse
+                    @endif
+                </div>
+
+
+                <div class="row">
+                    @if(!empty($sectionLinks))
+                    @forelse($sectionLinks as $sectionLink)
+                    <div class="col-md-12">
+                        <div class="coverage_list_view no_display">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <input type="checkbox" name="lang">
+                                    <!-- <a href="#" class="edit_btn"><i class="fa fa-edit"></i></a> -->
+                                    <!-- <img src="{{ asset('img/bbooks.jpg') }}" alt="" width="100px" height="100px"> -->
+                                    @if(!empty($sectionLink->name))
+                                    <b>{{$sectionLink->name ?? ''}}</b><br>
+                                    @endif
+                                    @if(!empty($sectionLink->image))
+                                    <img src="{{ asset('img/files/'.$sectionLink->image) }}" width="100px" height="100px" alt="">
+                                    @endif
+
+                                    @if(!empty($sectionLink->description))
+                                    <p> {{ $sectionLink->description ?? '' }} </p>
+                                    @endif
+                                </div>
+                                <div class="col-md-6 text-right">
+                                <a href="{{ route('book.coverage.deleteLink', $sectionLink->id) }}" onclick="return confirm('Are you sure you want to delete?');"><i class="icon fa fa-trash"></i></a>
+                                        <input type="hidden" value="{{ $sectionLink->id ?? ''}}" id="editLinkId">
+                                        <a type="button" class="edit_link" data-toggle="modal" data-target="#editLinks"><i class="icon fa fa-edit"></i></a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="col-md-12">
+                        <div class="coverage_links">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <p>This section has no coverage items yet.</p>
+                                    <p>You can add new coverage straight into a section or select existing coverage & move it into this section.</p>
+                                    <button class="btn" type="button" data-toggle="modal" data-target="#addLinks"><i class="fa-solid fa-link"></i> Add Coverage Links</button>
+                                    <button class="btn"> <i class="fa-regular fa-file-image"></i> Upload Coverage Files</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    @endforelse
+                    @endif
 
                 </div>
+
             </div>
         </div>
 </section>
@@ -392,6 +541,107 @@
         </div>
     </div>
 </div>
+<div class="modal" id="addLinks">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Add Coverage Links</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form method="POST" action="{{route('book.coverage.storeLinks')}}">
+                    @csrf
+                    <div class="form-group">
+                        <p><b>Paste the URLs to your coverage in here</b></p>
+                        <p> <small> Add your links to online articles, social media posts, YouTube videos... Maximum 250 at a time. 199 remaining in your plan </small></p>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="link" id="" cols="30" rows="5" class="form-control" placeholder="awesomewebsite.com/yourcoverage" required></textarea>
+                        <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
+                    </div>
+                    <div class="form-group">
+                        <b>Choose which section to import your coverage into</b><br>
+                        <small>Divide your coverage into sections for easy grouping, sorting and presentation e.g. by media type or location.</small>
+                        <select class="form-control" name="sectionId">
+                            @if(!empty($sections))
+                            @foreach($sections as $section)
+                            <option value="{{ $section->id }}">{{ $section->name }}</option>
+                            @endforeach
+                            @endif
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="editLinks">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Edit outlet details</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form method="POST" action="{{route('book.coverage.updataLink')}}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="avatar-upload">
+                                    <div class="avatar-edit">
+                                        <input type='file' id="imageUpload" name="file_photo" accept=".png, .jpg, .jpeg" />
+                                        <label for="imageUpload"></label>
+                                    </div>
+                                    <div class="avatar-preview">
+                                        <div id="imagePreview">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p><small>An image or logo to represent the outlet.</small></p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <b>Outlet name</b><br>
+                        <small>Name of the publication, website, social media account, TV show...</small>
+                        <input type="text" class="form-control" id="link_name" name="name">
+                        <input type="hidden" class="form-control" name="updatedId" id="updatedId">
+                    </div>
+
+                    <div class="form-group">
+                        <b>Outlet description</b><br>
+                        <small>Add additional context with a short description or bio.</small>
+                        <textarea name="description" id="link_desc" cols="30" rows="5" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value=""> <b>Apply these changes next time this outlet is featured</b>
+                        </label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -400,6 +650,37 @@
 @section('scripts')
 
 <script type="text/javascript">
+    $(document).on("click", ".edit_link", function(e) {
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
+        $.ajax({
+            data: {
+                id: $(this).closest('form').find("#editLinkId").val()
+            },
+            url: "{{ route('book.coverage.editLink') }}",
+            type: "POST",
+            dataType: "json",
+
+            success: function(data) {
+           
+                var path = '<?php echo asset('img/files/') ?>';
+                $("body").find("#updatedId").val(data.id);
+                $("body").find("#link_name").val(data.name);
+                $("body").find("#link_desc").val(data.description);
+                $('#imagePreview').css('background-image', 'url('+path+'/' + data.image + ')');
+            }
+        });
+    });
+
+
+
+
+
     Dropzone.options.dropzone = {
         maxFilesize: 12,
         renameFile: function(file) {
@@ -447,6 +728,22 @@
 
 
 <script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                $('#imagePreview').hide();
+                $('#imagePreview').show();
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#imageUpload").change(function() {
+        readURL(this);
+    });
+
+
     $(document).on("click", ".coverageSecDetailTab", function(e) {
         $("body").find('.coverageSecDetailTab_active').removeClass("coverageSecDetailTab_active");
         $(this).closest('.coverageSecDetailTab').find('p').addClass('coverageSecDetailTab_active');
@@ -457,12 +754,12 @@
     $(document).on("click", ".grid_view_btn", function(e) {
         e.preventDefault();
         $("body").find(".coverage_list_view").addClass("no_display");
-        $("body").find('.coverage_grid_view').removeClass("no_display");
+        $("body").find('.coverage_grid_vieww').removeClass("no_display");
     });
 
     $(document).on("click", ".list_view_btn", function(e) {
         e.preventDefault();
-        $("body").find(".coverage_grid_view").addClass("no_display");
+        $("body").find(".coverage_grid_vieww").addClass("no_display");
         $("body").find('.coverage_list_view').removeClass("no_display");
     });
 

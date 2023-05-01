@@ -113,8 +113,13 @@ Route::prefix('user')->group(function () {
         Route::post('/fount_cover/status', [BookFrontCoverController::class, 'updateStatus'])->name('book.fount_cover.updateStatus'); //use
 
         Route::get('/upload_covarage_file', [UploadeCoverageFile::class, 'index'])->name('book.upload_covarage_file');
-        Route::get('/coverage/{id?}/{sectionId?}', [CoverageController::class, 'index'])->name('book.coverage'); //use
         Route::get('/matrics', [BookMatricsController::class, 'index'])->name('book.matrics');
+
+        Route::get('/coverage/{id?}/{sectionId?}', [CoverageController::class, 'index'])->name('book.coverage'); //use
+        Route::post('/coverage/store_link', [CoverageController::class, 'storeLinks'])->name('book.coverage.storeLinks'); //use
+        Route::post('/coverage/link/edit', [CoverageController::class, 'editLink'])->name('book.coverage.editLink'); //use
+        Route::post('/coverage/link/update', [CoverageController::class, 'updataLink'])->name('book.coverage.updataLink'); //use
+        Route::get('/coverage/link/delete/{id?}', [CoverageController::class, 'deleteLink'])->name('book.coverage.deleteLink'); //use
        
     });
 
