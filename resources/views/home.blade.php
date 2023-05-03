@@ -11,9 +11,9 @@
 
       <div class="col-md-3 mt-5">
         <div class="container">
-          <button type="button" class="btn mt-5 ml-5 p-1" id="main" data-toggle="modal" data-target="#modal1">
+          <button type="button" class="btn" id="main" data-toggle="modal" data-target="#modal1">
             <i class="fa-solid fa-book"></i>
-            Create new Book
+            Create New Book
           </button>
 
           <div class="modal fade" id="modal1">
@@ -60,10 +60,9 @@
     <form class="example ml-2" action="{{ route('filterBooks') }}" method="POST">
       @csrf
       <div class="row mt-4">
-        <div class="col-md-6">
+        <div class="col-md-8" >
           <div style="max-width:390px;">
-            <input type="text" class="bg-white border-outline-secondary focus:border-succees" placeholder="Search books by title..." name="name">
-
+            <input type="text" class="bg-white border-outline-secondary focus:border-succees form-control" placeholder="Search books by title..." name="name">
             <button type="submit"><i class="fa fa-search text-dark font-weight-lighter"></i></button>
             <input type="hidden" name="is_allBook" value="{{ (request()->is('user/dashboard')) ? 'yes' : '' }}">
             <input type="hidden" name="parent_id" value="{{ $parent_id ?? ''}}">
@@ -71,12 +70,12 @@
           </div>
 
         </div>
-        <div class="col-md-5 text-right">
-          <select name="filter" class="borderb bg-white p-2 rounded" style="height: 38px;margin-right: 22px;" onchange="this.form.submit()">
-            <option value="assec" @if(isset($filter_name) && $filter_name=='assec' ) selected ?? '' @endif>By Name (A-Z)</option>
-            <option value="desec" @if(isset($filter_name) && $filter_name=='desec' ) selected ?? '' @endif>By Name (Z-A)</option>
-            <option value="recentlyCreated" @if(isset($filter_name) && $filter_name=='recentlyCreated' ) selected ?? '' @endif>Created Recently Created</option>
-            <option value="recentlyUpdated" @if(isset($filter_name) && $filter_name=='recentlyUpdated' ) selected ?? '' @endif>Created Recently Updated</option>
+        <div class="col-md-3">
+          <select name="filter" class="form-control" onchange="this.form.submit()">
+            <option value="assec" @if(isset($filter_name) && $filter_name == 'assec') selected ?? '' @endif>By Name (A-Z)</option>
+            <option value="desec" @if(isset($filter_name) && $filter_name == 'desec') selected ?? '' @endif>By Name (Z-A)</option>
+            <option value="recentlyCreated" @if(isset($filter_name) && $filter_name == 'recentlyCreated') selected ?? '' @endif>Created Recently Created</option>
+            <option value="recentlyUpdated" @if(isset($filter_name) && $filter_name == 'recentlyUpdated') selected ?? '' @endif>Created Recently Updated</option>
           </select>
         </div>
 
@@ -119,7 +118,7 @@
                 <b>...</b>
               </a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="Edit.html">Edit</a>
+                <a class="dropdown-item" href="{{ route('book.index', $allBook->id) }}">Edit</a>
                 <a class="dropdown-item" href="#">Share</a>
                 <a class="dropdown-item" href="#">Copy</a>
                 <a class="dropdown-item" href="{{ route('archived', $allBook->id) }}">Archive</a>
@@ -141,7 +140,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="head" id="text">Create a new Collection</h>
+          <h4 class="head" id="text">Create New Collection</h>
             <button type="buttom" class="close" data-dismiss="modal">
               &times;
             </button>
@@ -154,7 +153,7 @@
             <label for="" class="label" id="text">Name</label><br>
             <input type="text" class="form-control" name="name" required>
 
-            <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="bttnn">
+            <button class="btn" type="submit" name="" value="" data-component="button-element" id="main">
               Create Collection
             </button>
             <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Close</a>

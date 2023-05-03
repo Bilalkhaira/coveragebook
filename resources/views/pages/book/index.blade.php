@@ -63,7 +63,7 @@
   <div class="container-fluid" style="background: #fafafa">
 
     <div class="row" id="rws">
-      <div class="col-md-9 mt-5 pb-5">
+      <div class="col-md-9">
         <div>
           <a href="Edit.html" class="text-success text-decoration-none hover:text-green-darker">{{ $book->name ?? ''}}</a>
           <span class="opacity-50">/</span>
@@ -76,7 +76,7 @@
       </div>
       <div class="col-md-3 text-right">
         <a href="{{ route('book.preview', $book->id ?? '') }}" target="_blank">
-          <button type="button" class="btn mt-5 pr-5" id="prviw" data-toggle="modal" data-target="#">
+          <button type="button" class="btn" id="prviw" data-toggle="modal" data-target="#">
             <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 3px;">
             Preview Book
           </button>
@@ -87,7 +87,7 @@
     <div class="row mt-2">
 
       <div class="col-md-3">
-        <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#modal1">
+        <div class="card p-2 crd-heights" id="shadow" type="button" data-toggle="modal" data-target="#modal1">
           <div class="row">
             <div class="col-md-8">
               <h6 class="ml-2 mt-1 font-weight-bold">Banner Logo</h6>
@@ -99,15 +99,15 @@
                 @endif
                 </h5>
             </div>
-            <div class="col-md-4 text-right">
+            <div class="col-md-4">
 
               @if(!empty($book->banner_logo))
-              <a href="#" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal2" id="achrcrd">
-                <img src="{{ asset('img/'.$book->banner_logo ?? '') }}" alt="" width="24" height="27" class="">
+              <a href="#" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal2">
+                <img src="{{ asset('img/'.$book->banner_logo ?? '') }}" alt="" class="mt-1" style="width: 100%; height: auto; max-height: 54px">
               </a>
               @else
               <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal1" id="achrcrd">
-                <img src="{{ asset('img/book.png') }}" alt="" width="30" height="30" class="mt-0">
+                <img src="{{ asset('img/default-logo.png') }}" alt="" class="mt-1" style="width: 100%; height: auto; max-height: 54px">
               </a>
               @endif
             </div>
@@ -116,20 +116,19 @@
       </div>
 
       <div class="col-md-3">
-        <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#modal2">
+        <div class="card p-2 crd-heights" id="shadow" type="button" data-toggle="modal" data-target="#modal2">
           <div class="row">
             <div class="col-md-8">
               <h6 class="ml-2 mt-1 font-weight-bold">Accent color</h6>
               <h6 class="text-success ml-2">{{ $book->accent_color ?? '#abb2ba'}}</h6>
             </div>
-            <div class="col-md-4 text-right">
+            <div class="col-md-4">
 
               @if(!empty($book->accent_color))
-              <a href="" class="btn mt-1" type="button" style="background-color: {{ $book->accent_color }};" data-toggle="modal" data-target="#backgrountColor" id="achrcrd">
+              <a href="" class="btn mt-3" type="button" style="background-color: {{ $book->accent_color }};" data-toggle="modal" data-target="#backgrountColor" id="achrcrd">
               </a>
               @else
-              <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal2" id="achrcrd">
-                <img src="{{ asset('img/circle.png') }}" alt="" width="30" height="30" class="mt-1">
+              <a href="" class="btn mt-3" type="button" style="background-color: #cccccc" data-toggle="modal" data-target="#backgrountColor" id="achrcrd">
               </a>
               @endif
             </div>
@@ -137,19 +136,22 @@
         </div>
       </div>
 
-      <div class="col-md-3" type="button">
-        <div class="card p-2" id="shadow">
-          <a href="{{ route('book.matrics') }}" class="anchorTag">
+      <div class="col-md-3">
+        <div class="card p-2 crd-heights" id="shadow" type="button">
             <div class="row">
+              <!-- <a href="{{ route('book.matrics') }}" class="anchorTag"> -->
               <div class="col-md-8">
                 <h6 class="ml-2 mt-1 font-weight-bold">Matrics & Links</h6>
-                <h6 class="clr ml-2">Rfresh/hide/show</h6>
+                <h6 class="clr ml-2">Refresh/hide/show</h6>
               </div>
-              <div class="col-md-4 text-right">
-                <img id="achrcrd" src="{{ asset('img/level.png') }}" alt="" width="30" height="30" class="mt-1">
+              <div class="col-md-4">
+                <a href="{{ route('book.matrics') }}">
+                  <img src="{{ asset('img/level.png') }}" alt="" class="mt-2" style="width: 100%; height: auto; max-height: 54px">
+                </a>
               </div>
+              <!-- </a> -->
+
             </div>
-          </a>
         </div>
       </div>
 
@@ -186,32 +188,42 @@
             @endif
           </div>
         </a>
-        <p style="color: black;display: inline-block;">Front Cover</p>
-        <div class="dropdown float-right dropleft">
-          <a href="" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
-            <b>...</b>
-          </a>
-          <div class="dropdown-menu">
-            <form action="{{ route('book.fount_cover.updateStatus') }}" method="POST">
-              @csrf
-              <a class="dropdown-item" href="{{ route('book.fount_cover', $book->id ?? '') }}"><i class="fa fa-edit"></i>Edit</a>
-              @if(!empty($frontCover->visibility) && $frontCover->visibility == 'show')
-              <button type="submit" class="dropdown-item"><i class="fa-solid fa-eye-slash"></i>Hide</button>
-              <input type="hidden" value="hide" name="status">
-              @else
-              <button type="submit" class="dropdown-item"><i class="fa-solid fa-eye"></i>Show</button>
-              <input type="hidden" value="show" name="status">
-              @endif
-              <input type="hidden" value="{{ $frontCover->id ?? ''}}" name="recordRowId">
-            </form>
+
+        <div class="row">
+          <div class="col-md-9"  style="padding-top: 20px">
+            <span>Front Cover</span>
+            
           </div>
+          <div class="col-md-3">
+            
+            <div class="dropdown float-right dropleft">
+              <a href="" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
+                <b>...</b>
+              </a>
+              <div class="dropdown-menu">
+                <form action="{{ route('book.fount_cover.updateStatus') }}" method="POST">
+                  @csrf
+                  <a class="dropdown-item" href="{{ route('book.fount_cover', $book->id ?? '') }}"><i class="fa fa-edit"></i>Edit</a>
+                  @if(!empty($frontCover->visibility) && $frontCover->visibility == 'show')
+                  <button type="submit" class="dropdown-item"><i class="fa-solid fa-eye-slash"></i>Hide</button>
+                  <input type="hidden" value="hide" name="status">
+                  @else
+                  <button type="submit" class="dropdown-item"><i class="fa-solid fa-eye"></i>Show</button>
+                  <input type="hidden" value="show" name="status">
+                  @endif
+                  <input type="hidden" value="{{ $frontCover->id ?? ''}}" name="recordRowId">
+                </form>
+              </div>
+            </div>
+          </div>
+          
         </div>
 
       </div>
       <div class="col-md-4">
 
         <a href="{{ route('book.matrics_summary', $book->id ) }}" class="text-decoration-none">
-          <div class="card p-2" id="crd" style="@if(isset($book->show_matrics_summary) && $book->show_matrics_summary== 0) opacity: 0.6 @endif">
+          <div class="card p-3" id="crd" style="@if(isset($book->show_matrics_summary) && $book->show_matrics_summary== 0) opacity: 0.6 @endif">
             <div class="row">
               @if(!empty($metrics))
               @foreach($metrics as $key => $metric)
@@ -237,25 +249,32 @@
 
           </div>
         </a>
-        <p style="color: black;display: inline-block;">Matrics Summary</p>
-        <span class="text-secondary font-weight-bold">({{$metricsCount ?? ''}} items)</span>
-        <div class="dropdown float-right dropleft">
-          <a href="" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
-            <b>...</b>
-          </a>
-          <div class="dropdown-menu">
-            <form action="{{ route('book.matrics_summary.updateVisibility') }}" method="POST">
-              @csrf
-              <a class="dropdown-item" href="{{ route('book.matrics_summary', $book->id ) }}"><i class="fa fa-edit"></i>Edit</a>
-              @if(!empty($book->show_matrics_summary == 1))
-              <button type="submit" class="dropdown-item"><i class="fa-solid fa-eye-slash"></i>Hide</button>
-              <input type="hidden" value="0" name="status">
-              @else
-              <button type="submit" class="dropdown-item"><i class="fa-solid fa-eye"></i>Show</button>
-              <input type="hidden" value="1" name="status">
-              @endif
-              <input type="hidden" value="{{ $book->id ?? ''}}" name="bookId">
-            </form>
+
+        <div class="row">
+          <div class="col-md-9" style="padding-top: 20px">
+              <span>Matrics Summary </span> <span class="text-secondary font-weight-bold">({{$metricsCount ?? ''}} items)</span>
+          </div>
+          <div class="col-md-3">
+            <div class="dropdown float-right dropleft">
+              <a href="" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
+                <b>...</b>
+              </a>
+              <div class="dropdown-menu">
+                <form action="{{ route('book.matrics_summary.updateVisibility') }}" method="POST">
+                  @csrf
+                  <a class="dropdown-item" href="{{ route('book.matrics_summary', $book->id ) }}"><i class="fa fa-edit"></i>Edit</a>
+                  @if(!empty($book->show_matrics_summary == 1))
+                  <button type="submit" class="dropdown-item"><i class="fa-solid fa-eye-slash"></i>Hide</button>
+                  <input type="hidden" value="0" name="status">
+                  @else
+                  <button type="submit" class="dropdown-item"><i class="fa-solid fa-eye"></i>Show</button>
+                  <input type="hidden" value="1" name="status">
+                  @endif
+                  <input type="hidden" value="{{ $book->id ?? ''}}" name="bookId">
+                </form>
+              </div>
+            </div>
+            
           </div>
         </div>
 
@@ -267,18 +286,27 @@
             <i class="fa fa-star" style="font-size: 40px;margin-top: 60px;color: #fec878"></i>
             <p class="mt-3" style="color: black;">Showcase your best bits by clicking the star <br> icons on each piece of coverage </p>
           </div>
-          <span class="mt-3" style="color: black;">Highlights</span>
-          <span class="text-secondary font-weight-bold">(0 itoms)</span>
         </a>
 
-        <div class="dropdown float-right dropleft mt-0">
-          <a href="{{ route('book.highlights', $book->id ?? '') }}" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
-            <b class="mt-0">...</b>
-          </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#"><i class="fa-solid fa-eye-slash"></i>Hide</a>
+        <div class="row">
+          <div class="col-md-9">
+            <div class="col-md-9" style="padding-top: 20px">
+              <span>Highlights </span> <span class="text-secondary font-weight-bold">(0 items)</span>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="dropdown float-right dropleft mt-0">
+              <a href="{{ route('book.highlights', $book->id ?? '') }}" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
+                <b class="mt-0">...</b>
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#"><i class="fa-solid fa-eye-slash"></i>Hide</a>
+              </div>
+            </div>
+            
           </div>
         </div>
+
 
       </div>
 
@@ -315,7 +343,7 @@
     @endif
 
   </div>
-  <hr style="width:1110x; height:1.5 px;background: gray;margin-top: 50px;">
+  <hr style="margin-top: 50px;">
   <div class="row">
     <div class="col-md-9">
       <p class="neww ml-1">BOOK CONTENTS</p>
@@ -368,14 +396,14 @@
             <div class="card text-lg-center" id="crrds">
               <h1 class="mt-1">0</h1>
             </div>
-            <h6>PIECE</h6>
+            <h6>Piece</h6>
           </div>
           <div class="col-md-1 text-center">
             <h6>LAYOUT</h6>
             <div class="card text-lg-center" id="crrds">
               <img src="{{ asset('img/layout (2).png') }}" alt="" width="40px" height="40px" style="margin-left: 15px; margin-top: 10px;margin-bottom: 0px;">
             </div>
-            <h6>FULL</h6>
+            <h6>Full</h6>
           </div>
           <div class="col-md-1 mt-4 text-center">
             <a href="" class="text-decoration-none">
@@ -433,14 +461,14 @@
             <div class="card text-lg-center" id="crrds">
               <h1 class="mt-1">0</h1>
             </div>
-            <h6>PIECE</h6>
+            <h6>Piece</h6>
           </div>
           <div class="col-md-1 text-center">
             <h6>LAYOUT</h6>
             <div class="card text-lg-center" id="crrds">
               <img src="{{ asset('img/layout (2).png') }}" alt="" width="40px" height="40px" style="margin-left: 15px; margin-top: 10px;margin-bottom: 0px;">
             </div>
-            <h6>FULL</h6>
+            <h6>Full</h6>
           </div>
           <div class="col-md-1 mt-4 text-center">
             <a href="" class="text-decoration-none">
@@ -600,7 +628,7 @@
               </div>
             </div>
             <div class="text-right">
-              <button class="btn mt-4 mb-3" type="submit" data-component="button-element" id="bttnn">
+              <button class="btn mt-4 mb-3" type="submit" data-component="button-element" id="main">
                 Save
               </button>
               <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
@@ -630,10 +658,10 @@
             @csrf
             <p id="text">The accent colour is used on links, buttons, certain text and icons to add a customised brand flavour to the books you share.</p>
             <div>
-              <input type="color" id="head" name="bg_color" value="#e66465" class="form-control">
+              <input type="color" id="head" name="bg_color" value="#cccccc" class="form-control">
               <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
             </div>
-            <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="bttnn">
+            <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="main">
               Save
             </button>
             <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Close</a>
@@ -669,7 +697,7 @@
 
             <input type="text" value="New Book 2023" class="form-control">
 
-            <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="bttnn">
+            <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="main">
               Update Book
             </button>
             <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
@@ -746,7 +774,7 @@
     var path = '<?php echo asset('img/') ?>';
     $(".gambar").attr("src", "" + path + "/" + img + "");
   } else {
-    $(".gambar").attr("src", "https://user.gadjian.com/static/images/personnel_boy.png");
+    $(".gambar").attr("src", "{{ asset('img/default-logo.png') }}");
   }
   var $uploadCrop,
     tempFilename,

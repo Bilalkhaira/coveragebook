@@ -1,5 +1,6 @@
 <header id="header">
     <!-- header start -->
+    <!-- #9d0a0e -->
     <nav class="navbar  navbar-default navbar-fixed-top  navbar-expand-lg" style="position: fixed; left:0; right: 0; z-index: 1; height: 60px;
             background: #427484;display: inline-block;vertical-align: middle;">
         <div class="row">
@@ -12,12 +13,12 @@
 
             <div class="col-md-5">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link text-white" href="coeragebook.html"><i class="fa-solid mr-1 fa-book"></i>BOOKS</a>
-                    </li>
-                    <li class="nav-item">
+                    </li> -->
+                    <!-- <li class="nav-item">
                         <a class="nav-link text-white" href="#"><img src="{{ asset('img/box.png') }}" alt="" width="24" height="24" class="mb-1">CONVERAGE VOLT</a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
 

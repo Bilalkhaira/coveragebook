@@ -167,46 +167,52 @@
 /* start body */
 
 #rws {
-    background: #eeeff0
+    background: #eeeff0;
+    height: 250px;
+    padding-top: 30px;
 }
 
 #crd {
     height: 300px;
-    border-radius: 10px;
+    border-radius: 25px;
+    border: none !important;
 }
 
 #crd:hover {
-    box-shadow: 0 1px 3px 0 #888888;
+    box-shadow: 0 1px 3px 0 #ccc;
 }
 
 #crds {
     height: 150px;
     color: black;
-    border-radius: 10px;
-    box-shadow: 0 1px 3px 0 #888888;
+    border-radius: 25px;
+    box-shadow: 0 1px 3px 0 #eee;
+    border: none !important;
 }
 
 #crrds {
     color: black;
     height: 70px;
-    border-radius: 10px;
-    box-shadow: 0 1px 3px 0 #888888;
+    border-radius: 25px;
+    box-shadow: 0 1px 3px 0 #eee;
+    border: none !important;
 }
 
 #shadow {
     margin-top: -50px;
     border-radius: 15px;
-    box-shadow: 0 1px 7px 0 #888888;
+    box-shadow: 0 1px 7px 0 #ccc;
 }
 
 #shadow:hover {
-    box-shadow: 0 1px 4px 0 #888888;
+    box-shadow: 0 1px 4px 0 #ccc;
 }
 
 #prviw {
-    border-color: black;
+    border-color: #ccc;
     color: black;
-    background: none;
+    background: #fff;
+    border-radius: 12px;
 }
 
 #hover {
@@ -217,7 +223,7 @@
 }
 
 #hover:hover {
-    box-shadow: 0 1px 9px 0 #888888;
+    box-shadow: 0 1px 9px 0 #ccc;
 }
 
 .body {
@@ -226,14 +232,12 @@
 }
 
 #achrcrd {
-    width: auto;
-    height: 50px;
-    background: rgb(237, 237, 237);
-    border-radius: 10px;
+    width: 75%;
+    height: 80%;
+    border-radius: 25px;
 }
 
 .new {
-    font-weight: lighter;
     font-size: 60px;
 }
 
@@ -247,4 +251,10 @@
 }
 .mtrics_h{
     margin-bottom: 65px;
+}
+
+.crd-heights {
+    height: 100px;
+    max-height: 100px;
+    min-height: 100px;
 }
