@@ -69,6 +69,56 @@
         #section42 {
             padding-bottom: 50px;
         }
+
+        .overview_p {
+            font-size: 1.5rem;
+            color: gray;
+        }
+
+        .overview_p span {
+            color: black;
+        }
+
+        .sectionCard {
+            width: 100%;
+            height: 300px;
+            padding: 50px 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+        }
+
+        .sectionCard:hover {
+            cursor: pointer;
+        }
+
+        .sectionCard a:hover {
+            text-decoration: none;
+        }
+
+        .openCard {
+            background-color: #e2e3e4;
+            padding-top: 100px;
+        }
+
+        .openCard span {
+            background-color: white;
+            padding: 30px;
+            border-radius: 100px;
+        }
+
+        .openCard i {
+            color: red;
+            font-size: 20px;
+        }
+
+        .openCard p {
+            margin-top: 30px;
+        }
+
+        .ftr {
+            padding: 30px 0px;
+            border: 1px solid lightgray;
+        }
     </style>
 </head>
 
@@ -105,6 +155,12 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#section41">Front Cover</a>
                         <a class="dropdown-item" href="#section42">Matrics Summary</a>
+                        <div class="border-top my-3"></div>
+                        @if(!empty($bookSections) && count($bookSections) > 1)
+                        @foreach($bookSections as $key => $bookSection)
+                        <a class="dropdown-item" href="#section{{$key}}">{{ $bookSection->name ?? ''}}</a>
+                        @endforeach
+                        @endif
                     </div>
                 </nav>
             </div>
@@ -183,55 +239,92 @@
 
 
                 </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 text-center mt-5 mb-5">
-                <h1>Coverage</h1>
-                <hr style="height: 5px;width: 80px; background: gray;margin-left: 611px;">
-                <h4>
-                    <span>1 piece</span>
-                    <span class="text-secondary">of coverage in total</span>
-                </h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
+                @if(!empty($bookSections) && count($bookSections) > 0)
+                <div class="container">
                     <div class="row">
-                        <div class="col-md-8">
-                            <div class="card m-4" style="background: rgb(225, 223, 223);">
-                                <h3 class="ml-5 mt-3">youtube.com/channel/</h3>
-                                <div class="card m-3">
-                                    <img src="{{ asset('img/20230131070708-ipad-1112.webp') }}" alt="" width="100%" height="auto" class="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="mt-5">YOUTUBE</p>
-                            <h2 class="mt-3 mb-4">YouTube</h2>
-                            <a href="" target="_blank">youtube.com/
-                            </a>
-                            <hr class="mt-5 mr-5" style="height: 1px;width: 330px; background: lightgray;justify-content: center;">
-                            <div class="row">
-                                <div class="co-md-">
-                                    <p class="mt-3">Engagements</p>
-                                </div>
-                                <div class="co-md-4">
-                                    <h2 class="ml-5 mt-3">3.07M</h2>
-                                    <p class="ml-5 text-secondary">Total number of<br> social engagements</p>
-                                </div>
-                            </div>
+                        <div class="col-md-12 text-center mt-5 mb-5">
+                            <h1>Coverage Overview</h1>
+                            <hr style="height: 5px;width: 80px; background: red;margin:auto">
+                            <p class="overview_p"> <span> {{count($bookSections)}} piece </span> of coverage in total, grouped into <span> {{count($bookSections)}} sections.</span> Open <br> a section to view all the coverage in detail.</p>
                         </div>
                     </div>
                 </div>
+                @endif
+            </div>
+            @if(!empty($bookSections))
+            @foreach($bookSections as $key => $bookSection)
+            <div id="section{{$key}}" class="container">
+                <div class="row">
+                    <div class="col-md-12 mt-5 mb-5">
+                        <h1>{{ $bookSection->name ?? ''}}</h1>
+                    </div>
+                </div>
+                <div class="row mb-3 mt-5">
+                    @if(!empty($bookSection->slides))
+                    @foreach($bookSection->slides as $key => $slide)
+
+                    <div class="col-md-3">
+                        <div class="card text-center sectionCard">
+                            <a href="#">
+                                <p><b>{{ $slide->name }}</b></p>
+                                <img src="{{ asset('img/files/'.$slide->file_name ) }}" width="100%" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+                    @endforeach
+                    @endif
+
+                    @if(!empty($bookSection->links))
+                    @foreach($bookSection->links as $key => $link)
+
+                    <div class="col-md-3">
+                        <div class="card text-center sectionCard">
+                            <a href="#">
+                                <p><b>{{ $link->links }}</b></p>
+                            </a>
+                        </div>
+                    </div>
+
+                    @endforeach
+                    @endif
+                    <div class="col-md-3">
+                        <div class="card text-center openCard sectionCard"> 
+                            <a href="#">
+                                <span><i class="fa fa-arrow-right"></i></span>
+                                <p><b>Open This Section</b></p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            @endforeach
+            @endif
+        </div>
+    </div>
+    </div>
+    @if(!empty($bookSections) && count($bookSections) > 1)
+    <footer class="ftr">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">ss</div>
+                <div class="col-md-4">
+                    <form action="">
+                        <select class="form-control">
+                            <option> Jump to a section....</option>
+                            @foreach($bookSections as $key => $bookSection)
+                            <option value="">{{ $bookSection->name }}</option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
+                <div class="col-md-4">ss</div>
             </div>
         </div>
-    </div> -->
+    </footer>
+    @endif
+
 
 </body>
 
