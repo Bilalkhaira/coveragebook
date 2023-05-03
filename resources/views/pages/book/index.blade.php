@@ -48,6 +48,7 @@
     border: none;
     background-color: transparent;
   }
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -345,7 +346,7 @@
 
             <!-- <a href="#"><i class="fa-solid fa-arrow-up"></i></a> -->
             <!-- <a href="#"><i class="fa-solid fa-arrow-down"></i></a> -->
-            <a href="#"><i class="fa fa-trash"></i></a>
+            <a href="{{ route('book.section.delete', $slides->id ) }}" onclick="return confirm('Are you sure you want to delete section and their files');"><i class="fa fa-trash"></i></a>
           </div>
         </div>
         <div class="row pt-3 pl-5">

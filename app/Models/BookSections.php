@@ -15,4 +15,9 @@ class BookSections extends Model
     {
     	return $this->hasMany(SectionSlide::class, 'section_id');
     }
+
+    public function links()
+    {
+    	return $this->hasMany(CoverageLink::class, 'section_id');
+    }
 }

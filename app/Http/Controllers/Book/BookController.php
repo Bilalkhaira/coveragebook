@@ -127,7 +127,7 @@ class BookController extends Controller
         }
         if (!empty($request->get('bookId'))) {
             toastr()->success('File Delete Successfully');
-            return redirect()->back();
+            return redirect()->route('book.coverage', [$request->bookId, $request->sectionId]);
         }
         return response()->json(['success' => 'true']);
     }

@@ -94,7 +94,7 @@
                 </header>
             </div>
         </div>
-            <div class="row">
+        <div class="row">
             <div class="col-md-12 tab_link">
                 @if(!empty($findBook->banner_logo))
                 <img src="{{ asset('img/'.$findBook->banner_logo) }}" alt="" width="40" height="30" class="hidden ml-4 mt-0">
@@ -149,8 +149,10 @@
                 <div id="section42" class="container">
                     <div class="row">
                         <div class="col-md-12 text-center mt-5 mb-5">
+                            @if(!empty($metrics[0]))
                             <h1>Summary</h1>
                             <hr style="height: 5px;width: 80px; background: gray;margin-left: 511px;">
+                            @endif
                         </div>
                     </div>
                     <div class="row mb-3 mt-5">
@@ -159,27 +161,27 @@
                         @if($key == 0 || $key == 1)
                         <div class="col-md-6">
                             <div class="card text-center" style="width:100%;height: 300px;padding: 50px 30px;border-radius: 16px; margin-bottom:30px">
-                                <h1>{{ $metric->metricOptions->value }}</h1>
-                                <h3>{{ $metric->metricOptions->name }}</h3>
-                                <p class="text-secondary">{{ $metric->metricOptions->description }}</p>
+                                <h1>{{ $metric->value }}</h1>
+                                <h3>{{ $metric->name }}</h3>
+                                <p class="text-secondary">{{ $metric->description }}</p>
                             </div>
                         </div>
                         @else
                         <div class="col-md-3">
                             <div class="card text-center" style="width:100%;height: 300px;padding: 50px 30px;border-radius: 16px;margin-bottom:30px">
-                                <h1>{{ $metric->metricOptions->value }}</h1>
-                                <h3>{{ $metric->metricOptions->name }}</h3>
-                                <p class="text-secondary">{{ $metric->metricOptions->description }}</p>
+                                <h1>{{ $metric->value }}</h1>
+                                <h3>{{ $metric->name }}</h3>
+                                <p class="text-secondary">{{ $metric->description }}</p>
                             </div>
                         </div>
                         @endif
 
                         @endforeach
                         @endif
-                        
+
                     </div>
 
-                    
+
                 </div>
             </div>
         </div>

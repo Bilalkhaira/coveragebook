@@ -12,4 +12,9 @@ class BookFrontCover extends Model
     protected $guarded = [];
 
     public $timestamps = false;
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
 }

@@ -47,7 +47,11 @@
                     <div class="row">
                         <div class="col-md-7">
                             <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Logo</h6>
-                            <p class="clr ml-1 mb-0 text-success">{{ $book->cover_title ?? ''}} / {{ $book->cover_subtitle ?? ''}}</p>
+                            @if(!empty($book->cover_title))
+                            <p class="clr ml-1 mb-0 text-success">
+                                {{ $book->cover_title ?? ''}} / {{ $book->cover_subtitle ?? ''}}
+                            </p>
+                            @endif
                         </div>
                         <div class="col-md-4">
                             @if(!empty($book->cover_logo))
@@ -135,7 +139,7 @@
             </div>
             <div class="container-fluid">
                 <div class="row mt-5 mb-5">
-                    <div class="col-md-12 layout_main_col" >
+                    <div class="col-md-12 layout_main_col">
                         <div class="layout_main" style="background-color: {{$book->cover_bg_color ?? 'lightgray'}};@if(isset($book->visibility) && $book->visibility== 'hide') opacity: 0.6 @endif">
                             <div class="row">
                                 @if(!empty($book->cover_logo))
@@ -157,7 +161,7 @@
 
                                 @if(!empty($book->cover_image))
                                 <div class="col-md-12">
-                                <img src="{{ asset('img/fontCover/'.$book->cover_image ?? '' )}}" alt="" width="100%">
+                                    <img src="{{ asset('img/fontCover/'.$book->cover_image ?? '' )}}" alt="" width="100%">
                                 </div>
                                 @endif
                             </div>
@@ -205,7 +209,7 @@
                             </div>
                             <p>The front cover will not be shown in your book.</p>
                         </div>
-                       
+
                         <div class="col-md-2"></div>
                     </div>
                     <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">

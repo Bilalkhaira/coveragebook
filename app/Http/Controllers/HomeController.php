@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\BookSections;
 use App\Models\Collection;
 use Illuminate\Http\Request;
 use App\Models\CollectionsAndBooks;
@@ -29,8 +30,8 @@ class HomeController extends Controller
     {
         $collections = Collection::get();
 
-        $allBooks = Book::where('visibility', 'show')->orderBy('name')->get();
-
+        $allBooks = Book::with('frontCover')->where('visibility', 'show')->orderBy('name')->get();
+        
         return view('home', ['collections' => $collections, 'allBooks' => $allBooks]);
     }
 
@@ -110,7 +111,7 @@ class HomeController extends Controller
     {
         if(!empty($request->parentId))
         {
-            Book::create([
+            $query = Book::create([
                 'name' => $request->name ?? '',
                 'collection_id' =>$request->parentId,
                 'created_by' => auth()->user()->id ?? ''
@@ -118,11 +119,16 @@ class HomeController extends Controller
         }
         else
         {
-            Book::create([
+           $query = Book::create([
                 'name' => $request->name ?? '',
                 'created_by' => auth()->user()->id ?? ''
             ]);
         }
+
+        BookSections::create([
+            'name' => 'Coverage',
+            'book_id' => $query->id,
+        ]);
 
         toastr()->success('Created Successfully');
         return back();

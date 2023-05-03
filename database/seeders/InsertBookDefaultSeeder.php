@@ -16,8 +16,7 @@ class InsertBookDefaultSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['name' => 'Front Matter'],
-            ['name' => 'Coverage'],
+            ['name' => 'Front Matter']
         ];
         
         BookSections::insert($data);

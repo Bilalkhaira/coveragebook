@@ -371,9 +371,6 @@ figure figcaption {
 }
 .modal-content{
     border-radius: 25px;
-    /* padding-left: 15px; */
-    /* padding-right: 15px; */
-    /* background-color: #f5f5f5; */
 }
 .modal-body{
     border-bottom-left-radius: 25px;
@@ -385,7 +382,6 @@ figure figcaption {
 
 /* front cover page css */
 .layout_main{
-    /* background-color: #2ea591; */
     border-radius: 5px;
     padding: 50px 100px;
     color: white;
@@ -395,4 +391,7 @@ figure figcaption {
 }
 .layout_main .col-md-12{
     padding-top: 20px;
+}
+.home_link:hover{
+    text-decoration: none;
 }

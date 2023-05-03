@@ -92,6 +92,7 @@ Route::prefix('user')->group(function () {
         Route::post('/section/store', [SectionController::class, 'store'])->name('book.section.store'); //use
         Route::post('/update_status', [SectionController::class, 'updateStatus'])->name('book.section.updateStatus'); //use
         Route::get('/section/delete/{id?}', [SectionController::class, 'delete'])->name('book.section.delete'); //use
+        Route::post('/section/update', [SectionController::class, 'update'])->name('book.section.update'); //use
 
         Route::get('/share', [ShareBookController::class, 'index'])->name('book.share');
         Route::get('/preview/{id?}', [PreviewBookController::class, 'index'])->name('book.preview'); //use
@@ -103,14 +104,14 @@ Route::prefix('user')->group(function () {
         Route::post('/matrics_summary/update_visibility', [MatricsSummaryBookController::class, 'updateVisibility'])->name('book.matrics_summary.updateVisibility'); //use
         
 
-        Route::get('/fount_cover/{id?}', [BookFrontCoverController::class, 'index'])->name('book.fount_cover'); //use
-        Route::post('/fount_cover/logo', [BookFrontCoverController::class, 'StoreLogoText'])->name('book.fount_cover.StoreLogoText'); //use
-        Route::get('/fount_cover/delete/{id?}', [BookFrontCoverController::class, 'deleteLogoImage'])->name('book.fount_cover.deleteLogoImage'); //use
-        Route::post('/fount_cover/cover_image', [BookFrontCoverController::class, 'storeCoverImage'])->name('book.fount_cover.storeCoverImage'); //use
-        Route::post('/fount_cover/bg', [BookFrontCoverController::class, 'backgroundColor'])->name('book.fount_cover.backgroundColor'); //use
-        Route::post('/fount_cover/bg', [BookFrontCoverController::class, 'backgroundColor'])->name('book.fount_cover.backgroundColor'); //use
-        Route::post('/fount_cover/store_layout', [BookFrontCoverController::class, 'storeLayout'])->name('book.fount_cover.storeLayout'); //use
-        Route::post('/fount_cover/status', [BookFrontCoverController::class, 'updateStatus'])->name('book.fount_cover.updateStatus'); //use
+        Route::get('/front_cover/{id?}', [BookFrontCoverController::class, 'index'])->name('book.fount_cover'); //use
+        Route::post('/front_cover/logo', [BookFrontCoverController::class, 'StoreLogoText'])->name('book.fount_cover.StoreLogoText'); //use
+        Route::get('/front_cover/delete/{id?}', [BookFrontCoverController::class, 'deleteLogoImage'])->name('book.fount_cover.deleteLogoImage'); //use
+        Route::post('/front_cover/cover_image', [BookFrontCoverController::class, 'storeCoverImage'])->name('book.fount_cover.storeCoverImage'); //use
+        Route::post('/front_cover/bg', [BookFrontCoverController::class, 'backgroundColor'])->name('book.fount_cover.backgroundColor'); //use
+        Route::post('/front_cover/bg', [BookFrontCoverController::class, 'backgroundColor'])->name('book.fount_cover.backgroundColor'); //use
+        Route::post('/front_cover/store_layout', [BookFrontCoverController::class, 'storeLayout'])->name('book.fount_cover.storeLayout'); //use
+        Route::post('/front_cover/status', [BookFrontCoverController::class, 'updateStatus'])->name('book.fount_cover.updateStatus'); //use
 
         Route::get('/upload_covarage_file', [UploadeCoverageFile::class, 'index'])->name('book.upload_covarage_file');
         Route::get('/matrics', [BookMatricsController::class, 'index'])->name('book.matrics');
@@ -120,6 +121,9 @@ Route::prefix('user')->group(function () {
         Route::post('/coverage/link/edit', [CoverageController::class, 'editLink'])->name('book.coverage.editLink'); //use
         Route::post('/coverage/link/update', [CoverageController::class, 'updataLink'])->name('book.coverage.updataLink'); //use
         Route::get('/coverage/link/delete/{id?}', [CoverageController::class, 'deleteLink'])->name('book.coverage.deleteLink'); //use
+        Route::post('/coverage/store_layout', [CoverageController::class, 'storeLayout'])->name('book.coverage.storeLayout'); //use
+        Route::post('/coverage/sort_by', [CoverageController::class, 'sortBy'])->name('book.coverage.sortBy'); //use
+        Route::post('/coverage/updata_status', [CoverageController::class, 'updateStatus'])->name('book.coverage.updateStatus'); //use
        
     });
 

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('name');
             $table->enum('visibility', ['show', 'hide'])->default('show');
             $table->integer('section_order_id')->nullable();
+            $table->integer('layout_id')->nullable();
+            $table->text('description')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamp('created_at')->useCurrent();

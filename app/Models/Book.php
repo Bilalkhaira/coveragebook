@@ -18,4 +18,9 @@ class Book extends Model
     {
     	return $this->hasMany(BookMetricsSummary::class);
     }
+
+    public function frontCover()
+    {
+        return $this->hasOne(BookFrontCover::class);
+    }
 }

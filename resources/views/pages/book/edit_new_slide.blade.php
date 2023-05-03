@@ -41,6 +41,7 @@
                     <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure you want to delete?');"><i class="fa fa-trash"></i></button>
                     <input type="hidden" value="{{ $slide->file_name }}" name="filename">
                     <input type="hidden" value="{{ $bookId ?? ''}}" name="bookId">
+                    <input type="hidden" value="{{ $slide->section_id ?? ''}}" name="sectionId">
                 </form>
 
             </div>
@@ -78,7 +79,7 @@
                     @csrf
                     <div class="form-group">
                         <b>Name</b><br>
-                        <input type="text" class="form-control" name="name" required>
+                        <input type="text" class="form-control" name="name" value="{{ $slide->name ?? $slide->file_name }}" required>
                         <input type="hidden" name="slideId" value="{{ $slide->id ?? ''}}">
                     </div>
 
@@ -88,9 +89,6 @@
                     </div>
                 </form>
             </div>
-
-            <!-- Modal footer -->
-
 
         </div>
     </div>

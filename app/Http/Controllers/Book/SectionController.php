@@ -35,10 +35,25 @@ class SectionController extends Controller
 
     public function delete($id = '')
     {
+        $bookId = BookSections::find($id);
         SectionSlide::where('section_id', $id)->delete();
         BookSections::find($id)->delete();
+
+
         toastr()->success('Delete Successfully');
 
+        return redirect()->route('book.index', $bookId->book_id);
+    }
+
+    public function update(Request $request)
+    {
+        $section = BookSections::find($request->rowId);
+        $section->update([
+            'name' => $request->name ?? '',
+            'description' => $request->desc ?? '',
+        ]);
+
+        toastr()->success('Update Successfully');
         return redirect()->back();
     }
 }

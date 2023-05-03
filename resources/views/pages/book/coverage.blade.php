@@ -45,14 +45,17 @@
         <div class="row" id="rws" style="background: #fafafa">
             <div class="col-md-9 mt-5 pb-5">
                 <div>
-                    <a href="" class="text-success hover:text-green-darker">Coverage</a>
+                    <a href="" class="text-success hover:text-green-darker">{{ $book->name ?? ''}}</a>
                     <span class="opacity-50">/</span>
                     <span class="opacity-60">Coverage</span>
                 </div>
-                <p class="new coverage_icon">Coveragea <a href="#"> <i class="fa fa-edit"></i> </a> <a href="#"> <i class="fa fa-trash"></i></a></p>
+                <p class="new coverage_icon">{{ $sectionData->name ?? ''}}<a type="button" data-toggle="modal" data-target="#editSection"> <i class="fa fa-edit"></i> </a>
+                    <a href="{{ route('book.section.delete', $sectionData->id ) }}" onclick="return confirm('Are you sure you want to delete section and their files');"><i class="fa fa-trash"></i></a>
+                </p>
+                <p><small>{{ $sectionData->description ?? ''}}</small></p>
             </div>
             <div class="col-md-3 text-right">
-                <a href="{{ route('book.preview') }}" target="_blank">
+                <a href="{{ route('book.preview', $bookId ?? '') }}" target="_blank">
                     <button type="button" class="btn mt-5 pr-5" id="prviw" data-toggle="modal" data-target="#">
                         <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 3px;">
                         Preview Book
@@ -115,18 +118,32 @@
                     <div class="row">
                         <div class="col-md-9">
                             <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Show/hide</h6>
-                            <p class="clr ml-1 mb-0 text-success">Visible</p>
+                            <p class="clr ml-1 mb-0 text-success">{{ $sectionData->visibility ?? 'show'}}</p>
                         </div>
                         <div class="col-md-3">
+                            @if(!empty($sectionData->visibility))
+                            <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#hideShow" id="achrcrd">
+                                @if($sectionData->visibility == 'show')
+                                <i class="fa fa-eye"></i>
+                                @else
+                                <i class="fa fa-eye-slash"></i>
+                                @endif
+                            </a>
+                            @else
                             <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#hideShow" id="achrcrd">
                                 <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="27" class="">
                             </a>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
             <div class="container-fluid">
                 <div class="row coverage_select">
+                    @if(!empty($sectionSlides[0]))
+                    <div class="col-md-12">
+                        <h3>Coverage</h3>
+                    </div>
                     <!-- <div class="col-md-12">
                         <div class="inlineBlock">
                             <input type="checkbox" name="" id="select_all">
@@ -169,6 +186,7 @@
                         </div>
 
                     </div> -->
+                    @endif
 
                 </div>
                 <div class="row">
@@ -189,6 +207,7 @@
                                         <button class="dlt_btn" type="submit" onclick="return confirm('Are you sure you want to delete?');"><i class="icon fa fa-trash"></i></button>
                                         <input type="hidden" value="{{ $sectionSlide->file_name }}" name="filename">
                                         <input type="hidden" value="{{ $bookId ?? ''}}" name="bookId">
+                                        <input type="hidden" value="{{ $sectionSlide->section_id ?? ''}}" name="sectionId">
                                     </form>
 
                                 </div>
@@ -216,6 +235,10 @@
 
             <div class="container-fluid">
                 <div class="row coverage_select">
+                    @if(!empty($sectionLinks[0]))
+                    <div class="col-md-12">
+                        <h3>Coverage</h3>
+                    </div>
                     <div class="col-md-6">
                         <!-- <div class="inlineBlock">
                             <input type="checkbox" name="" id="select_all">
@@ -260,11 +283,15 @@
                     </div>
                     <div class="col-md-6 text-right">
                         <div class="btn-group">
+
                             <button type="button" class="btn btn-outline-secondary grid_view_btn"><i class="fa fa-bars"></i>Grid View</button>
                             <button type="button" class="btn btn-outline-secondary list_view_btn"><i class="fa fa-bars"></i>List View</button>
+
                         </div>
                     </div>
+                    @endif
                 </div>
+
                 <div class="row">
                     @if(!empty($sectionLinks))
                     @forelse($sectionLinks as $sectionLink)
@@ -275,9 +302,9 @@
                                     <input type="checkbox">
                                 </div>
                                 <div class="col-md-8 text-right">
-                                        <a href="{{ route('book.coverage.deleteLink', $sectionLink->id) }}" onclick="return confirm('Are you sure you want to delete?');"><i class="icon fa fa-trash"></i></a>
-                                        <input type="hidden" value="{{ $sectionLink->id ?? ''}}" id="editLinkId">
-                                        <a type="button" class="edit_link" data-toggle="modal" data-target="#editLinks"><i class="icon fa fa-edit"></i></a>
+                                    <a href="{{ route('book.coverage.deleteLink', $sectionLink->id) }}" onclick="return confirm('Are you sure you want to delete?');"><i class="icon fa fa-trash"></i></a>
+                                    <input type="hidden" value="{{ $sectionLink->id ?? ''}}" id="editLinkId">
+                                    <a type="button" class="edit_link" data-toggle="modal" data-target="#editLinks"><i class="icon fa fa-edit"></i></a>
 
                                 </div>
                             </div>
@@ -300,19 +327,7 @@
                         </div>
                     </div>
                     @empty
-                    <div class="col-md-12">
-                        <div class="coverage_links">
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <p>This section has no coverage items yet.</p>
-                                    <p>You can add new coverage straight into a section or select existing coverage & move it into this section.</p>
-                                    <button class="btn" type="button" data-toggle="modal" data-target="#addLinks"><i class="fa-solid fa-link"></i> Add Coverage Links</button>
-                                    <button class="btn"> <i class="fa-regular fa-file-image"></i> Upload Coverage Files</button>
-                                </div>
 
-                            </div>
-                        </div>
-                    </div>
                     @endforelse
                     @endif
                 </div>
@@ -327,8 +342,6 @@
 
                                 <div class="col-md-6">
                                     <input type="checkbox" name="lang">
-                                    <!-- <a href="#" class="edit_btn"><i class="fa fa-edit"></i></a> -->
-                                    <!-- <img src="{{ asset('img/bbooks.jpg') }}" alt="" width="100px" height="100px"> -->
                                     @if(!empty($sectionLink->name))
                                     <b>{{$sectionLink->name ?? ''}}</b><br>
                                     @endif
@@ -341,9 +354,9 @@
                                     @endif
                                 </div>
                                 <div class="col-md-6 text-right">
-                                <a href="{{ route('book.coverage.deleteLink', $sectionLink->id) }}" onclick="return confirm('Are you sure you want to delete?');"><i class="icon fa fa-trash"></i></a>
-                                        <input type="hidden" value="{{ $sectionLink->id ?? ''}}" id="editLinkId">
-                                        <a type="button" class="edit_link" data-toggle="modal" data-target="#editLinks"><i class="icon fa fa-edit"></i></a>
+                                    <a href="{{ route('book.coverage.deleteLink', $sectionLink->id) }}" onclick="return confirm('Are you sure you want to delete?');"><i class="icon fa fa-trash"></i></a>
+                                    <input type="hidden" value="{{ $sectionLink->id ?? ''}}" id="editLinkId">
+                                    <a type="button" class="edit_link" data-toggle="modal" data-target="#editLinks"><i class="icon fa fa-edit"></i></a>
                                 </div>
 
                             </div>
@@ -382,7 +395,8 @@
             </div>
 
             <div class="modal-body">
-                <form action="/action_page.php">
+                <form action="{{ route('book.coverage.updateStatus') }}" method="POST">
+                    @csrf
 
                     <div class="form-group text-center">
                         <p>Report on the numbers without presenting your coverage by<b> hiding this section </b> from your book. The coverage items won’t appear, but the metrics will still contribute to the metrics summary totals.</p>
@@ -392,8 +406,9 @@
                         <div class="col-md-4 text-center">
                             <p><b>Show section</b></p>
                             <div class="coverageSecDetailTab">
-                                <p class="coverageSecDetailTab_active"><i class="fa fa-eye"></i></p>
-                                <span class="coverageSecDetailTab_active"></span>
+                            <input type="hidden" id="showHide" value="show">
+                                <p class="@if(isset($sectionData->visibility) && $sectionData->visibility== 'show') ? coverageSecDetailTab_active @endif"><i class="fa fa-eye"></i></p>
+                                <span class="@if(isset($sectionData->visibility) && $sectionData->visibility== 'show') ? coverageSecDetailTab_active @endif"></span>
                             </div>
                             <p>Show this section and its coverage in your book.</p>
                         </div>
@@ -401,14 +416,17 @@
                         <div class="col-md-4 text-center">
                             <p><b>Hide section</b></p>
                             <div class="coverageSecDetailTab">
-                                <p><i class="fa fa-eye-slash"></i></p>
-                                <span></span>
+                            <input type="hidden" id="showHide" value="hide">
+                                <p class="@if(isset($sectionData->visibility) && $sectionData->visibility== 'hide') ? coverageSecDetailTab_active @endif"><i class="fa fa-eye-slash"></i></p>
+                                <span class="@if(isset($sectionData->visibility) && $sectionData->visibility== 'hide') ? coverageSecDetailTab_active @endif"></span>
                             </div>
                             <p>Hide in your book. Metrics still count towards metrics summary totals.</p>
                         </div>
                         <div class="col-md-2"></div>
                     </div>
-
+                    <input type="hidden" name="status" id="hideShowInput" value="show">
+                    <input type="hidden" name="updateRow" value="{{ $sectionData->id ?? ''}}">
+                    <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-success">Save</button>
@@ -429,17 +447,20 @@
             </div>
 
             <div class="modal-body">
-                <form action="/action_page.php">
+                <form action="{{ route('book.coverage.sortBy') }}" method="POST">
+                    @csrf
 
                     <div class="form-group">
                         <p>Sort all coverage in this section by a metric or by date.</p>
                         <p> <small> You’ll need to do this again if you change data, add coverage or manually change the order in this section.</small></p>
-                        <select name="" class="form-control" id="">
-                            <option value="">Title (A-Z)</option>
-                            <option value="">Title (Z-A)</option>
-                            <option value="">Outlet name (A-Z)</option>
-                            <option value="">Outlet name (Z-A)</option>
+                        <select name="filter" class="form-control">
+                            <option value="title_a_z">Title (A-Z)</option>
+                            <option value="title_z_a">Title (Z-A)</option>
+                            <option value="outlet_a_z">Outlet name (A-Z)</option>
+                            <option value="outlet_z_a">Outlet name (Z-A)</option>
                         </select>
+                        <input type="hidden" name="bookId"  value="{{ $bookId ?? ''}}">
+                        <input type="hidden" name="sectionId"  value="{{ $sectionId ?? ''}}">
                         <p></p>
                         <input type="checkbox" name="" id="">
                         Automatically maintain this order.
@@ -466,12 +487,43 @@
             </div>
 
             <div class="modal-body">
-                <form action="/action_page.php">
-
+                <form action="{{route('book.coverage.storeLayout')}}" method="POST">
+                    @csrf
                     <div class="form-group text-center">
                         <p>Choose how to present the coverage in this section in your book.</p>
                     </div>
                     <div class="row">
+                        @if(!empty($sectionData->layout_id))
+                        <div class="col-md-4 text-center">
+                            <p><b>{{ $allLayout[0]->name ?? 'Full Page'}}</b></p>
+                            <div class="coverageSecDetailTab">
+                                <p class="@if(isset($sectionData->layout_id) && $sectionData->layout_id==1) ? coverageSecDetailTab_active @endif"><i class="fa fa-pager"></i></p>
+                                <span class="@if(isset($sectionData->layout_id) && $sectionData->layout_id==1) ? coverageSecDetailTab_active @endif"></span>
+                                 <input type="hidden" id="layoutInput" value="{{ $allLayout[0]->id ?? ''}}">
+                            </div>
+                            <p>Great for showcasing coverage in its full glory.</p>
+                        </div>
+
+                        <div class="col-md-4 text-center">
+                            <p><b> {{ $allLayout[1]->name ?? 'Grid'}}</b></p>
+                            <div class="coverageSecDetailTab">
+                                <p class="@if(isset($sectionData->layout_id) && $sectionData->layout_id==2) ? coverageSecDetailTab_active @endif"><i class="fa-solid fa-table-cells"></i></p>
+                                <span class="@if(isset($sectionData->layout_id) && $sectionData->layout_id==2) ? coverageSecDetailTab_active @endif"></span>
+                                 <input type="hidden" id="layoutInput" value="{{ $allLayout[1]->id ?? ''}}">
+                            </div>
+                            <p>Perfect for presenting lots of coverage in a visual, easy to digest way.</p>
+                        </div>
+
+                        <div class="col-md-4 text-center">
+                            <p><b> {{ $allLayout[2]->name ?? 'List'}}</b></p>
+                            <div class="coverageSecDetailTab">
+                                <p class="@if(isset($sectionData->layout_id) && $sectionData->layout_id==3) ? coverageSecDetailTab_active @endif"><i class="fa fa-list"></i></p>
+                                <span class="@if(isset($sectionData->layout_id) && $sectionData->layout_id==3) ? coverageSecDetailTab_active @endif"></span>
+                                 <input type="hidden" id="layoutInput" value="{{ $allLayout[2]->id ?? ''}}">
+                            </div>
+                            <p>Ideal for large amounts of coverage where data is more important than visuals.</p>
+                        </div>
+                        @else
                         <div class="col-md-4 text-center">
                             <p><b>Full Page</b></p>
                             <div class="coverageSecDetailTab">
@@ -498,8 +550,10 @@
                             </div>
                             <p>Ideal for large amounts of coverage where data is more important than visuals.</p>
                         </div>
+                        @endif
                     </div>
-
+                    <input type="hidden" value="{{ $sectionData->layout_id ?? ''}}" name="layoutId" id="layoutId">
+                    <input type="hidden" value="{{ $sectionData->id ?? ''}}" name="updateRow">
                     <div class="form-group text-center">
                         <p>Hit save, then preview your book to see your chosen layout in action.</p>
                     </div>
@@ -565,8 +619,8 @@
                         <b>Choose which section to import your coverage into</b><br>
                         <small>Divide your coverage into sections for easy grouping, sorting and presentation e.g. by media type or location.</small>
                         <select class="form-control" name="sectionId">
-                            @if(!empty($sections))
-                            @foreach($sections as $section)
+                            @if(!empty($allSections))
+                            @foreach($allSections as $section)
                             <option value="{{ $section->id }}">{{ $section->name }}</option>
                             @endforeach
                             @endif
@@ -643,7 +697,38 @@
     </div>
 </div>
 
+<div class="modal" id="editSection">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
 
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Section</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form action="{{ route('book.section.update') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <b>Name</b><br>
+                        <input type="text" class="form-control" name="name" value="{{ $sectionData->name ?? ''}}" required>
+                        <input type="hidden" name="rowId" value="{{ $sectionData->id ?? ''}}">
+                    </div>
+                    <div class="form-group">
+                        <b>Description</b><br>
+                        <textarea name="desc" id="" cols="30" rows="3" class="form-control">{{ $sectionData->description ?? ''}}</textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 @endsection
@@ -660,19 +745,19 @@
 
         $.ajax({
             data: {
-                id: $(this).closest('form').find("#editLinkId").val()
+                id: $(this).closest('div').find("#editLinkId").val()
             },
             url: "{{ route('book.coverage.editLink') }}",
             type: "POST",
             dataType: "json",
 
             success: function(data) {
-           
+
                 var path = '<?php echo asset('img/files/') ?>';
                 $("body").find("#updatedId").val(data.id);
                 $("body").find("#link_name").val(data.name);
                 $("body").find("#link_desc").val(data.description);
-                $('#imagePreview').css('background-image', 'url('+path+'/' + data.image + ')');
+                $('#imagePreview').css('background-image', 'url(' + path + '/' + data.image + ')');
             }
         });
     });
@@ -745,9 +830,18 @@
 
 
     $(document).on("click", ".coverageSecDetailTab", function(e) {
+        $("body").find('#hideShowInput').val('');
         $("body").find('.coverageSecDetailTab_active').removeClass("coverageSecDetailTab_active");
         $(this).closest('.coverageSecDetailTab').find('p').addClass('coverageSecDetailTab_active');
         $(this).closest('.coverageSecDetailTab').find('span').addClass('coverageSecDetailTab_active');
+
+        var status = $(this).closest('.coverageSecDetailTab').find('#showHide').val();
+        $("body").find('#hideShowInput').val(status);
+
+        var layout = $(this).closest('.coverageSecDetailTab').find('#layoutInput').val();
+        $("body").find('#layoutId').val(layout);
+
+
 
     });
 

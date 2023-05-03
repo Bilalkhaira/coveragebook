@@ -108,7 +108,7 @@
                         <div class="cards">
 
                             @if(!empty(App\Models\BookSections::get()))
-                            @foreach(App\Models\BookSections::where('name', '!=', 'Front Matter')->get() as $sections)
+                            @foreach(App\Models\BookSections::where('name', '!=', 'Front Matter')->where('book_id', $bookId)->get() as $sections)
                             <a href="{{ route('book.coverage', [$bookId, $sections->id]) }}" id="cardwth">
                                 <div class="row">
                                     <div class="col-md-11">

@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             UsersRoleSeeder::class,
             UsersPermissionSeeder::class,
             InsertBookDefaultSeeder::class,
+            InsertCoverageLayouts::class,
         ]);
     }
 }

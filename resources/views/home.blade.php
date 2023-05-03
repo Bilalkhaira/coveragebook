@@ -60,10 +60,10 @@
     <form class="example ml-2" action="{{ route('filterBooks') }}" method="POST">
       @csrf
       <div class="row mt-4">
-        <div class="col-md-6" >
+        <div class="col-md-6">
           <div style="max-width:390px;">
             <input type="text" class="bg-white border-outline-secondary focus:border-succees" placeholder="Search books by title..." name="name">
-            
+
             <button type="submit"><i class="fa fa-search text-dark font-weight-lighter"></i></button>
             <input type="hidden" name="is_allBook" value="{{ (request()->is('user/dashboard')) ? 'yes' : '' }}">
             <input type="hidden" name="parent_id" value="{{ $parent_id ?? ''}}">
@@ -73,10 +73,10 @@
         </div>
         <div class="col-md-5 text-right">
           <select name="filter" class="borderb bg-white p-2 rounded" style="height: 38px;margin-right: 22px;" onchange="this.form.submit()">
-            <option value="assec" @if(isset($filter_name) && $filter_name == 'assec') selected ?? '' @endif>By Name (A-Z)</option>
-            <option value="desec" @if(isset($filter_name) && $filter_name == 'desec') selected ?? '' @endif>By Name (Z-A)</option>
-            <option value="recentlyCreated" @if(isset($filter_name) && $filter_name == 'recentlyCreated') selected ?? '' @endif>Created Recently Created</option>
-            <option value="recentlyUpdated" @if(isset($filter_name) && $filter_name == 'recentlyUpdated') selected ?? '' @endif>Created Recently Updated</option>
+            <option value="assec" @if(isset($filter_name) && $filter_name=='assec' ) selected ?? '' @endif>By Name (A-Z)</option>
+            <option value="desec" @if(isset($filter_name) && $filter_name=='desec' ) selected ?? '' @endif>By Name (Z-A)</option>
+            <option value="recentlyCreated" @if(isset($filter_name) && $filter_name=='recentlyCreated' ) selected ?? '' @endif>Created Recently Created</option>
+            <option value="recentlyUpdated" @if(isset($filter_name) && $filter_name=='recentlyUpdated' ) selected ?? '' @endif>Created Recently Updated</option>
           </select>
         </div>
 
@@ -87,16 +87,29 @@
       @foreach($allBooks as $allBook)
       <div class="col-md-3">
         <div class="row">
-          <a href="{{ route('book.index', $allBook->id) }}">
-            <div class="card mt-2 ml-4" style="height: 260px;width: 330px;border-radius: 14px;">
-              <img src="{{ asset('img/_20230131194939.jpg') }}" alt="" style="height: 100%;width: 100%; border-radius: 14px;">
+          <a href="{{ route('book.index', $allBook->id) }}" class="home_link">
+            <div class="card mt-2 ml-4 text-center" style="height: 300px;width: 330px;border-radius: 14px; background-color: {{$allBook->frontCover->cover_bg_color ?? '' }};">
+              @if(!empty($allBook->frontCover->cover_logo))
+              <img class="front_logo" src="{{ asset('img/fontCover/'.$allBook->frontCover->cover_logo ?? '' )}}" alt="" width="50px" height="50px" style="margin:auto">
+              @endif
+              @if(!empty($allBook->frontCover->cover_title))
+              <b>{{ $allBook->frontCover->cover_title ?? ''}}</b>
+              @endif
+
+              @if(!empty($allBook->frontCover->cover_subtitle))
+              <p>{{ $allBook->frontCover->cover_subtitle ?? ''}}</p>
+              @endif
+
+              @if(!empty($allBook->frontCover->cover_image))
+              <img class="front_img" src="{{ asset('img/fontCover/'.$allBook->frontCover->cover_image ?? '' )}}" alt="" width="80%" style="margin:auto">
+              @endif
             </div>
           </a>
           <div class="col-md-10">
             <a href="" style="text-decoration: none;">
               <h5 id="text" class="ml-4 mt-3">{{ $allBook->name ?? ''}}</h5>
               <div class="text-xs text-secondary opacity-60 ml-4">
-               {{-- {{ $allBook->created_at->format('M d, Y') }} ・ 1 item --}}
+                {{-- {{ $allBook->created_at->format('M d, Y') }} ・ 1 item --}}
               </div>
             </a>
           </div>
@@ -156,4 +169,3 @@
   </div>
 </div>
 @endsection
-

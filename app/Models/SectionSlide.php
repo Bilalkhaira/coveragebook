@@ -15,4 +15,5 @@ class SectionSlide extends Model
     {
     	return $this->belongsTo(BookSections::class, 'id');
     }
+    
 }
