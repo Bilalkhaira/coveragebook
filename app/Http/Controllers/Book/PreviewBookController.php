@@ -46,7 +46,7 @@ class PreviewBookController extends Controller
             ->where('book_id', $bookId)
             ->get();
 
-        dd($bookSections);
+        // dd($bookSections);
 
         return view('pages.book.preview_book', compact('book', 'bookId', 'metrics', 'findBook', 'bookSections'));
     }
