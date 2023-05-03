@@ -60,7 +60,7 @@
                             </a>
                             @else
                             <a href="#" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal2" id="achrcrd">
-                                <img src="{{ asset('img/mouth.png') }}" alt="" width="24" height="27" class="">
+                                <img src="{{ asset('img/default-logo.png') }}" alt="" width="24" height="27" class="">
                             </a>
                             @endif
                         </div>
@@ -82,7 +82,7 @@
                             </a>
                             @else
                             <a href="#" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal3" id="achrcrd">
-                                <img src="{{ asset('img/cover.png') }}" alt="" width="24" height="27" class="">
+                                <img src="{{ asset('img/default-logo.png') }}" alt="" width="24" height="27" class="">
                             </a>
                             @endif
 
@@ -103,9 +103,7 @@
                             <a href="" class="btn mt-1" type="button" style="background-color: {{$book->cover_bg_color}};" data-toggle="modal" data-target="#backgrountColor" id="achrcrd">
                             </a>
                             @else
-                            <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#backgrountColor" id="achrcrd">
-                                <img src="{{ asset('img/circle.png') }}" alt="" width="24" height="27" class="">
-                            </a>
+                            <a href="" class="btn mt-1" type="button" style="background-color: #cccccc" data-toggle="modal" data-target="#backgrountColor" id="achrcrd"></a>
                             @endif
                         </div>
                     </div>
@@ -240,11 +238,11 @@
                     @csrf
                     <p id="text"><b>Background color</b><br> accent colour is used on links, buttons, certain text and icons to add a customised brand flavour to the books you share.</p>
                     <div>
-                        <input type="color" id="head" name="bg_color" value="#e66465" class="form-control">
+                        <input type="color" id="head" name="bg_color" value="#cccccc" class="form-control">
                         <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
                         <input type="hidden" name="recordRowId" value="{{ $book->id ?? ''}}">
                     </div>
-                    <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="bttnn">
+                    <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="main">
                         Save
                     </button>
                     <a type="submit" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Close</a>
@@ -419,7 +417,7 @@
                         <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
                         <input type="hidden" name="recordRowId" value="{{ $book->id ?? ''}}">
 
-                        <button class="btn mt-4 mb-3" type="submit" data-component="button-element" id="bttnn">
+                        <button class="btn mt-4 mb-3" type="submit" data-component="button-element" id="main">
                             Save
                         </button>
                         <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
@@ -488,7 +486,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12 text-right">
-                                        <button disabled class="btn mt-4 mb-3" type="submit" data-component="button-element" id="bttnn">
+                                        <button disabled class="btn mt-4 mb-3" type="submit" data-component="button-element" id="main">
                                             Save
                                         </button>
                                         <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
@@ -519,7 +517,7 @@
                                                 <div id="imagePreview" style="background-image: url({{ asset('img/fontCover/'.$book->cover_image ?? '' ) }});">
                                                 </div>
                                                 @else
-                                                <div id="imagePreview" style="background-image: url(https://user.gadjian.com/static/images/personnel_boy.png);">
+                                                <div id="imagePreview" style="background-image: url({{ asset('img/default-logo.png') }});">
                                                 </div>
                                                 @endif
                                             </div>
@@ -529,7 +527,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12 text-right">
-                                        <button class="btn mt-4 mb-3" type="submit" data-component="button-element" id="bttnn">
+                                        <button class="btn mt-4 mb-3" type="submit" data-component="button-element" id="main">
                                             Save
                                         </button>
                                         <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
@@ -547,7 +545,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12 text-right">
-                                        <button class="btn mt-4 mb-3" type="submit" data-component="button-element" id="bttnn">
+                                        <button class="btn mt-4 mb-3" type="submit" data-component="button-element" id="main">
                                             Save
                                         </button>
                                         <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>
@@ -600,7 +598,7 @@
         var path = '<?php echo asset('img/fontCover/') ?>';
         $(".gambar").attr("src", "" + path + "/" + img + "");
     } else {
-        $(".gambar").attr("src", "https://user.gadjian.com/static/images/personnel_boy.png");
+        $(".gambar").attr("src", "{{ asset('img/default-logo.png') }}");
     }
 
     var $uploadCrop,
