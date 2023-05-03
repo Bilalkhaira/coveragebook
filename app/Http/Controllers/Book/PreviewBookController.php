@@ -39,14 +39,15 @@ class PreviewBookController extends Controller
         $bookSections = BookSections::whereHas('slides', function ($query) {
             $query->whereNotNull('file_name');
         })
+            ->orWhereHas('links', function ($query) {
+                $query->whereNotNull('links');
+            })
             ->with(['slides', 'links'])
             ->where('book_id', $bookId)
             ->get();
 
-        $sectionLinks = CoverageLink::where('book_id', $bookId)->get();
+        dd($bookSections);
 
-        // dd($bookSections);
-
-        return view('pages.book.preview_book', compact('book', 'bookId', 'metrics', 'findBook'));
+        return view('pages.book.preview_book', compact('book', 'bookId', 'metrics', 'findBook', 'bookSections'));
     }
 }
