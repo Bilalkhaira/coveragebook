@@ -405,13 +405,39 @@ figure figcaption {
 }
 .file_upload{
     padding: 0px 150px;
+    margin-bottom: 20px;
 }
 .buttonn{
     background-color: #02c5a3;
     color: white;
-    margin-top: 20px;
 }
 .buttonn:hover{
     background-color: #0f6c5c;
     color: white;
+}
+
+
+.link_btn .font-weight-bold{
+    color: black;
+}
+.link_btn a:hover{
+    text-decoration: none;
+}
+.show_link{
+    float: right;
+    color: gray;
+}
+.count_link{
+    color: #02c5a3;
+}
+.backlink_body{
+    width: 50%;
+    margin: auto;
+}
+
+.backlink_body .brdr{
+    padding: 50px;
+    border: 2px dashed lightgray;
+    border-radius: 10px;
+    text-align: center;
 }

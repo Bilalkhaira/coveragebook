@@ -24,7 +24,7 @@ class BookController extends Controller
 
         $metricsCount = count(BookMetricsSummary::where('book_id', $bookId)->get());
 
-        $sections = BookSections::get();
+        $sections = BookSections::where('book_id', $bookId)->get();
 
         $bookSections = BookSections::with('slides')->where('book_id', $bookId)->get();
 
@@ -151,5 +151,17 @@ class BookController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function updateBookName(Request $request)
+    {
+        $book = Book::find($request->updateId);
+
+        $book->update([
+            'name' => $request->name ?? '',
+        ]);
+        toastr()->success('Update Successfully');
+
+        return redirect()->route('book.index', $book->id);
     }
 }

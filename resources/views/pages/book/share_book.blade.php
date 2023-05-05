@@ -6,12 +6,12 @@
             <div class="row" id="rws">
                 <div class="col-md-9 mt-5">
                     <div>
-                        <a href="" class="text-success hover:text-green-darker">New Book 2023</a>
+                        <a href="{{ route('book.index', $book->id ?? '') }}" class="text-success hover:text-green-darker">{{ $book->name ?? ''}}</a>
                     </div>
                     <span class="new">Share your book</span>
                 </div>
                 <div class="col-md-3 text-right">
-                    <a href="{{ route('book.preview') }}" target="_blank">
+                    <a href="{{ route('book.preview', $book->id ?? '') }}" target="_blank">
                         <button type="button" class="btn mt-5 pr-5" id="prviw" data-toggle="modal" data-target="#">
                             <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 3px;">
                         Preview Book 

@@ -1,3 +1,4 @@
+
 <sidebar id="sidebar">
     <div class="sidebar mb-4">
         <ul>
@@ -134,7 +135,7 @@
 
             </li>
             <li>
-                <a href="{{ route('book.share') }}" class="pb-5">
+                <a href="{{ route('book.share', $bookId ?? '') }}" class="pb-5">
                     <i class="fa-solid fa-arrow-up-from-bracket" style="color: aqua;font-size: 30px;"></i><br> Share Book
                 </a>
             </li>
@@ -142,7 +143,55 @@
     </div>
 </sidebar>
 
+<div class="modal" id="addSlide">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
 
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add slides</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="form-group">
+                    <b>Choose which section to add your slides to</b><br>
+                    <small>You can move them to another section later if you need to.</small>
+                    <select class="form-control" id="addSlidParent1">
+                        @if(App\Models\BookSections::get())
+                        @php
+                        $allSections = App\Models\BookSections::where('name', '!=', 'Front Matter')->where('book_id', $bookId)->get();
+                        @endphp
+                        @foreach($allSections as $sections)
+                        <option value="{{ $sections->id }}">{{ $sections->name }}</option>
+                        @endforeach
+                        @endif
+                    </select>
+                </div>
+                <div class="form-group">
+                    <p>Add your own brand images, graphics and analysis to your book. Each file or page will be added as an individual slide. You can move and reorder them after upload.</p>
+                    <p>Supported file types: JPG, PNG, GIF, PDF</p>
+                </div>
+
+
+                <form method="post" action="{{route('book.addNewSlideFiles')}}" enctype="multipart/form-data" class="dropzone" id="dropzone">
+                    @csrf
+                    <input type="text" name="parrentId" id="parrentId1" value="{{ $allSections[0]->id ?? ''}}">
+                </form>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="add_files_btn1">Add Section</button>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+
+
+        </div>
+    </div>
+</div>
 
 
 <div class="modal" id="addSection">
@@ -234,3 +283,54 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+  $("#addSlidParent1").on("change", function() {
+    $('body').find('#parrentId1').val($(this).val());
+  });
+</script>
+<script type="text/javascript">
+  Dropzone.options.dropzone = {
+    maxFilesize: 12,
+    renameFile: function(file) {
+      var dt = new Date();
+      var time = dt.getTime();
+      return time + file.name;
+    },
+    acceptedFiles: ".jpeg,.jpg,.png,.gif,.pdf",
+    addRemoveLinks: true,
+    timeout: 5000,
+    removedfile: function(file) {
+      var name = file.upload.filename;
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+        type: 'POST',
+        url: '{{ route("book.fileDestroy") }}',
+        data: {
+          filename: name
+        },
+        success: function(data) {
+          toastr.success('Image Remove Successfully');
+        },
+        error: function(e) {
+          console.log(e);
+        }
+      });
+      var fileRef;
+      return (fileRef = file.previewElement) != null ?
+        fileRef.parentNode.removeChild(file.previewElement) : void 0;
+    },
+    success: function(file, response) {},
+    error: function(file, response) {
+      return false;
+    }
+  };
+  $('#add_files_btn1').on('click', function() {
+    toastr.success('Image Upload Successfully');
+    location.reload();
+  });
+</script>

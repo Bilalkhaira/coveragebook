@@ -370,7 +370,7 @@
                                     <p>This section has no coverage items yet.</p>
                                     <p>You can add new coverage straight into a section or select existing coverage & move it into this section.</p>
                                     <button class="btn" type="button" data-toggle="modal" data-target="#addLinks"><i class="fa-solid fa-link"></i> Add Coverage Links</button>
-                                    <button class="btn"> <i class="fa-regular fa-file-image"></i> Upload Coverage Files</button>
+                                    <a href="{{ route('book.upload_covarage_file', $bookId) }}" class="btn buttonn"> <i class="fa-regular fa-file-image"></i> Upload Coverage Files</a>
                                 </div>
 
                             </div>

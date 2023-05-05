@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Book\BookController;
 use App\Http\Controllers\User\UsersController;
 use App\Http\Controllers\Book\SectionController;
+use App\Http\Controllers\Book\BackLinkController;
 use App\Http\Controllers\Book\CoverageController;
 use App\Http\Controllers\Book\ShareBookController;
 use App\Http\Controllers\Book\UploadeCoverageFile;
@@ -88,13 +89,14 @@ Route::prefix('user')->group(function () {
         Route::post('/delete_files', [BookController::class, 'fileDestroy'])->name('book.fileDestroy'); //use
         Route::get('/edit_slide/{id?}/{bookId?}', [BookController::class, 'editSlide'])->name('book.editSlide'); //use
         Route::post('/update_slide', [BookController::class, 'updateSlide'])->name('book.updateSlide'); //use
+        Route::post('/update_book_name', [BookController::class, 'updateBookName'])->name('book.updateBookName'); //use
 
         Route::post('/section/store', [SectionController::class, 'store'])->name('book.section.store'); //use
         Route::post('/update_status', [SectionController::class, 'updateStatus'])->name('book.section.updateStatus'); //use
         Route::get('/section/delete/{id?}', [SectionController::class, 'delete'])->name('book.section.delete'); //use
         Route::post('/section/update', [SectionController::class, 'update'])->name('book.section.update'); //use
 
-        Route::get('/share', [ShareBookController::class, 'index'])->name('book.share');
+        Route::get('/share/{id?}', [ShareBookController::class, 'index'])->name('book.share');
         Route::get('/preview/{id?}', [PreviewBookController::class, 'index'])->name('book.preview'); //use
         Route::get('/preview_section/{id?}/{sectionId?}', [PreviewBookController::class, 'bookSectionPreview'])->name('book.preview.section'); //use
         Route::get('/highlights/{id?}', [BookLighlightController::class, 'index'])->name('book.highlights'); //use
@@ -103,7 +105,7 @@ Route::prefix('user')->group(function () {
         Route::post('/matrics_summary/store', [MatricsSummaryBookController::class, 'store'])->name('book.matrics_summary.store'); //use
         Route::post('/matrics_summary/store_custom_card', [MatricsSummaryBookController::class, 'storeCustomCard'])->name('book.matrics_summary.storeCustomCard'); //use
         Route::post('/matrics_summary/update_visibility', [MatricsSummaryBookController::class, 'updateVisibility'])->name('book.matrics_summary.updateVisibility'); //use
-        
+
 
         Route::get('/front_cover/{id?}', [BookFrontCoverController::class, 'index'])->name('book.fount_cover'); //use
         Route::post('/front_cover/logo', [BookFrontCoverController::class, 'StoreLogoText'])->name('book.fount_cover.StoreLogoText'); //use
@@ -125,7 +127,10 @@ Route::prefix('user')->group(function () {
         Route::post('/coverage/store_layout', [CoverageController::class, 'storeLayout'])->name('book.coverage.storeLayout'); //use
         Route::post('/coverage/sort_by', [CoverageController::class, 'sortBy'])->name('book.coverage.sortBy'); //use
         Route::post('/coverage/updata_status', [CoverageController::class, 'updateStatus'])->name('book.coverage.updateStatus'); //use
-       
-    });
 
+        Route::get('/back_links/{id?}', [BackLinkController::class, 'index'])->name('book.backLink.index'); //use
+        Route::get('/back_links/delete/{id?}', [BackLinkController::class, 'delete'])->name('book.backLink.delete'); //use
+        Route::post('/back_links/store', [BackLinkController::class, 'store'])->name('book.backLink.store'); //use
+
+    });
 });

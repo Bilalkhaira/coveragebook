@@ -41,14 +41,15 @@
     font-size: 20px;
     margin-left: 10px;
   }
-  .sec_btn form{
+
+  .sec_btn form {
     display: inline-block;
   }
-  .sec_btn button{
+
+  .sec_btn button {
     border: none;
     background-color: transparent;
   }
-
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -65,7 +66,7 @@
     <div class="row" id="rws">
       <div class="col-md-9">
         <div>
-          <a href="Edit.html" class="text-success text-decoration-none hover:text-green-darker">{{ $book->name ?? ''}}</a>
+          <a href="{{ route('book.index', $bookId) }}" class="text-success text-decoration-none hover:text-green-darker">{{ $book->name ?? ''}}</a>
           <span class="opacity-50">/</span>
           <span class="opacity-60">Book Overview</span>
         </div>
@@ -138,20 +139,20 @@
 
       <div class="col-md-3">
         <div class="card p-2 crd-heights" id="shadow" type="button">
-            <div class="row">
-              <!-- <a href="{{ route('book.matrics') }}" class="anchorTag"> -->
-              <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-8 link_btn">
+              <a href="{{ route('book.backLink.index', $bookId ?? '') }}">
                 <h6 class="ml-2 mt-1 font-weight-bold">Matrics & Links</h6>
                 <h6 class="clr ml-2">Refresh/hide/show</h6>
-              </div>
-              <div class="col-md-4">
-                <a href="{{ route('book.matrics') }}">
-                  <img src="{{ asset('img/level.png') }}" alt="" class="mt-2" style="width: 100%; height: auto; max-height: 54px">
-                </a>
-              </div>
-              <!-- </a> -->
-
+              </a>
             </div>
+            <div class="col-md-4">
+              <a href="{{ route('book.backLink.index', $bookId ?? '') }}">
+                <img src="{{ asset('img/level.png') }}" alt="" class="mt-2" style="width: 100%; height: auto; max-height: 54px">
+              </a>
+            </div>
+
+          </div>
         </div>
       </div>
 
@@ -190,12 +191,12 @@
         </a>
 
         <div class="row">
-          <div class="col-md-9"  style="padding-top: 20px">
+          <div class="col-md-9" style="padding-top: 20px">
             <span>Front Cover</span>
-            
+
           </div>
           <div class="col-md-3">
-            
+
             <div class="dropdown float-right dropleft">
               <a href="" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
                 <b>...</b>
@@ -216,13 +217,13 @@
               </div>
             </div>
           </div>
-          
+
         </div>
 
       </div>
       <div class="col-md-4">
 
-        <a href="{{ route('book.matrics_summary', $book->id ) }}" class="text-decoration-none">
+        <a href="{{ route('book.matrics_summary', $book->id ?? '' ) }}" class="text-decoration-none">
           <div class="card p-3" id="crd" style="@if(isset($book->show_matrics_summary) && $book->show_matrics_summary== 0) opacity: 0.6 @endif">
             <div class="row">
               @if(!empty($metrics))
@@ -252,7 +253,7 @@
 
         <div class="row">
           <div class="col-md-9" style="padding-top: 20px">
-              <span>Matrics Summary </span> <span class="text-secondary font-weight-bold">({{$metricsCount ?? ''}} items)</span>
+            <span>Matrics Summary </span> <span class="text-secondary font-weight-bold">({{$metricsCount ?? ''}} items)</span>
           </div>
           <div class="col-md-3">
             <div class="dropdown float-right dropleft">
@@ -262,8 +263,8 @@
               <div class="dropdown-menu">
                 <form action="{{ route('book.matrics_summary.updateVisibility') }}" method="POST">
                   @csrf
-                  <a class="dropdown-item" href="{{ route('book.matrics_summary', $book->id ) }}"><i class="fa fa-edit"></i>Edit</a>
-                  @if(!empty($book->show_matrics_summary == 1))
+                  <a class="dropdown-item" href="{{ route('book.matrics_summary', $book->id ?? '') }}"><i class="fa fa-edit"></i>Edit</a>
+                  @if(!empty($book->show_matrics_summary) && $book->show_matrics_summary == 1)
                   <button type="submit" class="dropdown-item"><i class="fa-solid fa-eye-slash"></i>Hide</button>
                   <input type="hidden" value="0" name="status">
                   @else
@@ -274,7 +275,7 @@
                 </form>
               </div>
             </div>
-            
+
           </div>
         </div>
 
@@ -303,7 +304,7 @@
                 <a class="dropdown-item" href="#"><i class="fa-solid fa-eye-slash"></i>Hide</a>
               </div>
             </div>
-            
+
           </div>
         </div>
 
@@ -355,68 +356,69 @@
       </button>
     </div>
   </div>
+  {{--
   <div class="row mt-3" style="@if(isset($slides->visibility) && $slides->visibility== 'hide') opacity: 0.6 @endif">
     <div class="col-md-12">
       <div class="card mb-4" id="crd">
         <div class="row">
           <div class="col-md-12 text-right sec_btn">
             <form action="{{ route('book.section.updateStatus') }}" method="POST">
-              @csrf
-              @if(!empty($slides->visibility) && $slides->visibility == 'show')
-              <button type="submit"><i class="fa-solid fa-eye-slash"></i></button>
-              <input type="hidden" value="hide" name="status">
-              @else
-              <button type="submit"><i class="fa-solid fa-eye"></i></button>
-              <input type="hidden" value="show" name="status">
-              @endif
-              <input type="hidden" value="{{ $slides->id ?? ''}}" name="recordRowId">
-            </form>
+  @csrf
+  @if(!empty($slides->visibility) && $slides->visibility == 'show')
+  <button type="submit"><i class="fa-solid fa-eye-slash"></i></button>
+  <input type="hidden" value="hide" name="status">
+  @else
+  <button type="submit"><i class="fa-solid fa-eye"></i></button>
+  <input type="hidden" value="show" name="status">
+  @endif
+  <input type="hidden" value="{{ $slides->id ?? ''}}" name="recordRowId">
+  </form>
 
-            <!-- <a href="#"><i class="fa-solid fa-arrow-up"></i></a> -->
-            <!-- <a href="#"><i class="fa-solid fa-arrow-down"></i></a> -->
-            <a href="{{ route('book.section.delete', $slides->id ) }}" onclick="return confirm('Are you sure you want to delete section and their files');"><i class="fa fa-trash"></i></a>
-          </div>
-        </div>
-        <div class="row pt-3 pl-5">
-          <a href="#" class="text-decoration-none ">
-            <span style="color: black;font-size:28px;font-weight: bold;">::</span>
-            <span style="color: black;font-size:18px;font-weight: bold;">Coverage</span>
-          </a>
-        </div>
-        <div class="row">
-          <div class="col-md-8">
-            @if(!empty($slides->slides[0]->file_name ?? ''))
-            <a href="#" class="text-decoration-none ">
-              <img src="{{ asset('img/files/'.$slides->slides[0]->file_name ?? '') }}" alt="" width="300" height="150" style="margin-left: 30px; margin-top: 15px">
-            </a>
-            @endif
-          </div>
-          <div class="col-md-1 text-center">
-            <h6>TOTAL</h6>
-            <div class="card text-lg-center" id="crrds">
-              <h1 class="mt-1">0</h1>
-            </div>
-            <h6>Piece</h6>
-          </div>
-          <div class="col-md-1 text-center">
-            <h6>LAYOUT</h6>
-            <div class="card text-lg-center" id="crrds">
-              <img src="{{ asset('img/layout (2).png') }}" alt="" width="40px" height="40px" style="margin-left: 15px; margin-top: 10px;margin-bottom: 0px;">
-            </div>
-            <h6>Full</h6>
-          </div>
-          <div class="col-md-1 mt-4 text-center">
-            <a href="" class="text-decoration-none">
-              <div style="width:80px;height: 80px;background: white;border-radius: 50%;box-shadow: 0 1px 9px 0 #888888;">
-                <i class="fa-sharp fa-solid fa-arrow-right pt-4" style="color: lightseagreen;font-size: 30px;"></i>
-              </div>
-            </a>
-          </div>
-        </div>
+  <!-- <a href="#"><i class="fa-solid fa-arrow-up"></i></a> -->
+  <!-- <a href="#"><i class="fa-solid fa-arrow-down"></i></a> -->
+  <a href="{{ route('book.section.delete', $slides->id ?? '' ) }}" onclick="return confirm('Are you sure you want to delete section and their files');"><i class="fa fa-trash"></i></a>
+  </div>
+  </div>
+  <div class="row pt-3 pl-5">
+    <a href="#" class="text-decoration-none ">
+      <span style="color: black;font-size:28px;font-weight: bold;">::</span>
+      <span style="color: black;font-size:18px;font-weight: bold;">Coverage</span>
+    </a>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      @if(!empty($slides->slides[0]->file_name ?? ''))
+      <a href="#" class="text-decoration-none ">
+        <img src="{{ asset('img/files/'.$slides->slides[0]->file_name ?? '') }}" alt="" width="300" height="150" style="margin-left: 30px; margin-top: 15px">
+      </a>
+      @endif
+    </div>
+    <div class="col-md-1 text-center">
+      <h6>TOTAL</h6>
+      <div class="card text-lg-center" id="crrds">
+        <h1 class="mt-1">0</h1>
       </div>
+      <h6>Piece</h6>
+    </div>
+    <div class="col-md-1 text-center">
+      <h6>LAYOUT</h6>
+      <div class="card text-lg-center" id="crrds">
+        <img src="{{ asset('img/layout (2).png') }}" alt="" width="40px" height="40px" style="margin-left: 15px; margin-top: 10px;margin-bottom: 0px;">
+      </div>
+      <h6>Full</h6>
+    </div>
+    <div class="col-md-1 mt-4 text-center">
+      <a href="" class="text-decoration-none">
+        <div style="width:80px;height: 80px;background: white;border-radius: 50%;box-shadow: 0 1px 9px 0 #888888;">
+          <i class="fa-sharp fa-solid fa-arrow-right pt-4" style="color: lightseagreen;font-size: 30px;"></i>
+        </div>
+      </a>
     </div>
   </div>
-
+  </div>
+  </div>
+  </div>
+  --}}
 
   @if(!empty($bookSections))
   @foreach($bookSections as $bookSection)
@@ -425,7 +427,7 @@
       <div class="card mb-4" id="crd">
         <div class="row">
           <div class="col-md-12 text-right sec_btn">
-          <form action="{{ route('book.section.updateStatus') }}" method="POST">
+            <form action="{{ route('book.section.updateStatus') }}" method="POST">
               @csrf
               @if(!empty($bookSection->visibility) && $bookSection->visibility == 'show')
               <button type="submit"><i class="fa-solid fa-eye-slash"></i></button>
@@ -691,13 +693,15 @@
 
         </div>
         <div class="modal-body" id="form">
-          <form action="" class="form">
+          <form action="{{ route('book.updateBookName') }}" class="form" method="POST">
+            @csrf
             <label for="" class="font-weight-bold">Name</label>
             <p class="text-secondary text-left ml-0">This is not your front cover title. It's for internal use only.</p>
 
-            <input type="text" value="New Book 2023" class="form-control">
+            <input type="text" value="{{ $book->name ?? ''}}" name="name" class="form-control">
+            <input type="hidden" name="updateId" value="{{ $book->id ?? ''}}" class="form-control">
 
-            <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="main">
+            <button class="btn mt-4 mb-3" type="submit" data-component="button-element" id="main">
               Update Book
             </button>
             <a type="button" class="btn  mt-2 ml-3" data-dismiss="modal" id="clsebtn">Cancel</a>

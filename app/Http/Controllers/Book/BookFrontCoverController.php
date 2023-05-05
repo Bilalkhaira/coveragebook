@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Book;
 
 use File;
+use App\Models\Book;
+use App\Models\Layout;
 use Illuminate\Http\Request;
 use App\Models\BookFrontCover;
 use App\Http\Controllers\Controller;
-use App\Models\Layout;
 
 class BookFrontCoverController extends Controller
 {
@@ -14,7 +15,8 @@ class BookFrontCoverController extends Controller
     {
         $book = BookFrontCover::where('book_id', $bookId)->first();
         $layout = Layout::get();
-        return view('pages.book.front_cover',  compact('book', 'bookId', 'layout'));
+        $bookData = Book::find($bookId);
+        return view('pages.book.front_cover',  compact('book', 'bookId', 'layout', 'bookData'));
     }
 
     public function StoreLogoText(Request $request)

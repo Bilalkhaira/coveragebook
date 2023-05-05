@@ -125,10 +125,12 @@ class HomeController extends Controller
             ]);
         }
 
-        BookSections::create([
-            'name' => 'Coverage',
-            'book_id' => $query->id,
-        ]);
+        $data = [
+            ['name' => 'Coverage','book_id' => $query->id],
+            ['name' => 'Front Matter','book_id' => $query->id],
+        ];
+        
+        BookSections::insert($data);
 
         toastr()->success('Created Successfully');
         return back();
