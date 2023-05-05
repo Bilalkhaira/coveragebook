@@ -18,7 +18,7 @@ class CoverageController extends Controller
     {
         $sectionSlides = SectionSlide::where('section_id', $sectionId)->get();
 
-        $allSections = BookSections::where('name', '!=', 'Front Matter')->get();
+        $allSections = BookSections::where('name', '!=', 'Front Matter')->where('book_id', $bookId)->get();
 
         $sectionData = BookSections::find($sectionId);
 

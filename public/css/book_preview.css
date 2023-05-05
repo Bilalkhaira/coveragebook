@@ -1,0 +1,132 @@
+#myScrollspy {
+    float: right;
+}
+
+.tab_link {
+    position: fixed;
+    top: 6%;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 48px;
+    background-color: white;
+    padding-top: 6px;
+}
+
+#myScrollspy button {
+    border: none;
+    background-color: transparent;
+}
+
+ul.nav-pills {
+    top: 20px;
+    position: fixed;
+}
+
+div.col-8 div {
+    height: 500px;
+}
+
+.container-fluid {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#myScrollspy i {
+    margin-right: 10px;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.layout_main {
+    border-radius: 5px;
+    padding: 50px 0px;
+    color: white;
+}
+
+.layout_main .col-md-12 {
+    padding-top: 20px;
+}
+
+#section42 {
+    padding-bottom: 50px;
+}
+
+.overview_p {
+    font-size: 1.5rem;
+    color: gray;
+}
+
+.overview_p span {
+    color: black;
+}
+
+.sectionCard {
+    width: 100%;
+    height: 300px;
+    padding: 50px 30px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+}
+
+.sectionCard:hover {
+    cursor: pointer;
+}
+
+.sectionCard a:hover {
+    text-decoration: none;
+}
+
+.sectionCard a {
+    color: black;
+}
+
+.openCard {
+    background-color: #e2e3e4;
+    padding-top: 100px;
+}
+
+.openCard span {
+    background-color: white;
+    padding: 30px;
+    border-radius: 100px;
+}
+
+.openCard i {
+    color: red;
+    font-size: 20px;
+}
+
+.openCard p {
+    margin-top: 30px;
+    color: black;
+}
+
+.ftr {
+    padding: 30px 0px;
+    border: 1px solid lightgray;
+}
+
+.oneSection {
+    margin-bottom: 50px;
+}
+
+.next_btn a span {
+    font-size: 30px;
+}
+
+.next_btn a i {
+    font-size: 22px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.next_btn a {
+    text-decoration: none;
+    color: black;
+}
+.next_btn a p{
+    margin-right: 78px;
+}

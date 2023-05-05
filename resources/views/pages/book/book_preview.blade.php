@@ -11,115 +11,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/book_preview.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
     <link rel="icon" type="image/png" href="{{ asset('img/book.png') }}" />
-    <style>
-        #myScrollspy {
-            float: right;
-        }
 
-        .tab_link {
-            position: fixed;
-            top: 6%;
-            left: 0;
-            z-index: 999;
-            width: 100%;
-            height: 48px;
-            background-color: white;
-            padding-top: 6px;
-        }
-
-        #myScrollspy button {
-            border: none;
-            background-color: transparent;
-        }
-
-        ul.nav-pills {
-            top: 20px;
-            position: fixed;
-        }
-
-        div.col-8 div {
-            height: 500px;
-        }
-
-        .container-fluid {
-            padding-left: 0px;
-            padding-right: 0px;
-        }
-
-        #myScrollspy i {
-            margin-right: 10px;
-        }
-
-        body {
-            overflow-x: hidden;
-        }
-
-        .layout_main {
-            border-radius: 5px;
-            padding: 50px 0px;
-            color: white;
-        }
-
-        .layout_main .col-md-12 {
-            padding-top: 20px;
-        }
-
-        #section42 {
-            padding-bottom: 50px;
-        }
-
-        .overview_p {
-            font-size: 1.5rem;
-            color: gray;
-        }
-
-        .overview_p span {
-            color: black;
-        }
-
-        .sectionCard {
-            width: 100%;
-            height: 300px;
-            padding: 50px 30px;
-            border-radius: 16px;
-            margin-bottom: 30px;
-        }
-
-        .sectionCard:hover {
-            cursor: pointer;
-        }
-
-        .sectionCard a:hover {
-            text-decoration: none;
-        }
-
-        .openCard {
-            background-color: #e2e3e4;
-            padding-top: 100px;
-        }
-
-        .openCard span {
-            background-color: white;
-            padding: 30px;
-            border-radius: 100px;
-        }
-
-        .openCard i {
-            color: red;
-            font-size: 20px;
-        }
-
-        .openCard p {
-            margin-top: 30px;
-        }
-
-        .ftr {
-            padding: 30px 0px;
-            border: 1px solid lightgray;
-        }
-    </style>
 </head>
 
 <body>
@@ -207,7 +102,7 @@
                         <div class="col-md-12 text-center mt-5 mb-5">
                             @if(!empty($metrics[0]))
                             <h1>Summary</h1>
-                            <hr style="height: 5px;width: 80px; background: gray;margin-left: 511px;">
+                            <hr style="height: 5px;width: 80px; background: {{ $findBook->accent_color ?? ''}};margin-left: 511px;">
                             @endif
                         </div>
                     </div>
@@ -239,12 +134,12 @@
 
 
                 </div>
-                @if(!empty($bookSections) && count($bookSections) > 0)
+                @if(!empty($bookSections) && count($bookSections) > 1)
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-center mt-5 mb-5">
                             <h1>Coverage Overview</h1>
-                            <hr style="height: 5px;width: 80px; background: red;margin:auto">
+                            <hr style="height: 5px;width: 80px; background: {{ $findBook->accent_color ?? ''}};margin:auto">
                             <p class="overview_p"> <span> {{count($bookSections)}} piece </span> of coverage in total, grouped into <span> {{count($bookSections)}} sections.</span> Open <br> a section to view all the coverage in detail.</p>
                         </div>
                     </div>
@@ -254,6 +149,7 @@
             @if(!empty($bookSections))
             @foreach($bookSections as $key => $bookSection)
             <div id="section{{$key}}" class="container">
+                @if(count($bookSections) > 1)
                 <div class="row">
                     <div class="col-md-12 mt-5 mb-5">
                         <h1>{{ $bookSection->name ?? ''}}</h1>
@@ -265,7 +161,7 @@
 
                     <div class="col-md-3">
                         <div class="card text-center sectionCard">
-                            <a href="#">
+                            <a href="{{ route('book.preview.section', [$bookId, $bookSection->id] )}}">
                                 <p><b>{{ $slide->name }}</b></p>
                                 <img src="{{ asset('img/files/'.$slide->file_name ) }}" width="100%" alt="">
                             </a>
@@ -280,7 +176,7 @@
 
                     <div class="col-md-3">
                         <div class="card text-center sectionCard">
-                            <a href="#">
+                            <a href="{{ route('book.preview.section', [$bookId, $bookSection->id] )}}">
                                 <p><b>{{ $link->links }}</b></p>
                             </a>
                         </div>
@@ -289,14 +185,57 @@
                     @endforeach
                     @endif
                     <div class="col-md-3">
-                        <div class="card text-center openCard sectionCard"> 
-                            <a href="#">
-                                <span><i class="fa fa-arrow-right"></i></span>
+                        <div class="card text-center openCard sectionCard">
+                            <a href="{{ route('book.preview.section', [$bookId, $bookSection->id] )}}">
+                                <span><i style="color: {{ $findBook->accent_color ?? ''}};" class="fa fa-arrow-right"></i></span>
                                 <p><b>Open This Section</b></p>
                             </a>
                         </div>
                     </div>
                 </div>
+                @else
+                <div class="row">
+                    <div class="col-md-12 mt-5 mb-5 text-center">
+                        <h1>{{ $bookSection->name ?? ''}}</h1>
+                        <hr style="height: 5px;width: 80px; background: {{ $findBook->accent_color ?? ''}};margin:auto">
+                    </div>
+                </div>
+                <div class="row mb-3 mt-5">
+                    @if(!empty($bookSection->slides))
+                    @foreach($bookSection->slides as $key => $slide)
+
+                    <div class="col-md-12 oneSection">
+                        <div class="text-center">
+                            <img src="{{ asset('img/files/'.$slide->file_name ) }}" width="100%" alt="">
+                        </div>
+                    </div>
+
+                    @endforeach
+                    @endif
+
+                    @if(!empty($bookSection->links))
+                    @foreach($bookSection->links as $key => $link)
+                    @if(!empty($link->image))
+                    <div class="col-md-12 oneSection">
+                        <div class="text-center">
+                            <a href="{{ $link->links }}" target="_blank">
+                                <img src="{{ asset('img/files/'.$link->image) }}" width="100%" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    @else
+                    <div class="col-md-12 oneSection">
+                        <div class="card text-center sectionCard">
+                            <a href="{{ $link->links }}" target="_blank">
+                                <p><b>{{ $link->links }}</b></p>
+                            </a>
+                        </div>
+                    </div>
+                    @endif
+                    @endforeach
+                    @endif
+                </div>
+                @endif
 
             </div>
             @endforeach
@@ -308,18 +247,29 @@
     <footer class="ftr">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">ss</div>
+                <div class="col-md-4"></div>
                 <div class="col-md-4">
-                    <form action="">
-                        <select class="form-control">
-                            <option> Jump to a section....</option>
+                  
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" style="width: 100%;">
+                        Jump To A Section
+                        </button>
+                        <div class="dropdown-menu" style="width: 100%;">
                             @foreach($bookSections as $key => $bookSection)
-                            <option value="">{{ $bookSection->name }}</option>
+                            <a class="dropdown-item" href="{{ route('book.preview.section', [$bookId, $bookSection->id] )}}">{{ $bookSection->name }}</a>
                             @endforeach
-                        </select>
-                    </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4">ss</div>
+                <div class="col-md-4 text-right next_btn">
+                    {{--
+                    <a href="{{ route('book.preview.section', [$bookId, $bookSections[0]->id] )}}">
+                        <span style="color: {{ $findBook->accent_color ?? ''}}">Next Section</span>
+                        <i style="color: {{ $findBook->accent_color ?? ''}};" class="fa fa-arrow-right"></i>
+                        <p>{{ $bookSections[0]->name }}</p>
+                    </a>
+                    --}}
+                </div>
             </div>
         </div>
     </footer>

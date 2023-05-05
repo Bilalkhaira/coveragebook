@@ -96,6 +96,7 @@ Route::prefix('user')->group(function () {
 
         Route::get('/share', [ShareBookController::class, 'index'])->name('book.share');
         Route::get('/preview/{id?}', [PreviewBookController::class, 'index'])->name('book.preview'); //use
+        Route::get('/preview_section/{id?}/{sectionId?}', [PreviewBookController::class, 'bookSectionPreview'])->name('book.preview.section'); //use
         Route::get('/highlights/{id?}', [BookLighlightController::class, 'index'])->name('book.highlights'); //use
 
         Route::get('/matrics_summary/{id?}', [MatricsSummaryBookController::class, 'index'])->name('book.matrics_summary'); //use
@@ -113,7 +114,7 @@ Route::prefix('user')->group(function () {
         Route::post('/front_cover/store_layout', [BookFrontCoverController::class, 'storeLayout'])->name('book.fount_cover.storeLayout'); //use
         Route::post('/front_cover/status', [BookFrontCoverController::class, 'updateStatus'])->name('book.fount_cover.updateStatus'); //use
 
-        Route::get('/upload_covarage_file', [UploadeCoverageFile::class, 'index'])->name('book.upload_covarage_file');
+        Route::get('/upload_covarage_file/{id?}', [UploadeCoverageFile::class, 'index'])->name('book.upload_covarage_file');
         Route::get('/matrics', [BookMatricsController::class, 'index'])->name('book.matrics');
 
         Route::get('/coverage/{id?}/{sectionId?}', [CoverageController::class, 'index'])->name('book.coverage'); //use

@@ -27,7 +27,7 @@
                             </div>
                         </a>
 
-                        <a class="" id="cardwth" href="{{ route('book.upload_covarage_file') }}">
+                        <a class="" id="cardwth" href="{{ route('book.upload_covarage_file', $bookId) }}">
                             <div class="row" style="flex-wrap: initial;">
                                 <div class="col-md-1 pt-1">
                                     <img class="card-img-left example-card-img-responsive" src="{{ asset('img/sharicon.png') }}" alt="" width="30" height="30" />
@@ -199,22 +199,28 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="/action_page.php">
+                <form method="POST" action="{{route('book.coverage.storeLinks')}}">
+                    @csrf
                     <div class="form-group">
                         <label class="font-weight-bold" for="email">Paste the URLs to your coverage in here:</label>
                         <p>Add your links to online articles, social media posts, YouTube videos... Maximum 250 at a time. 199 remaining in your plan</p>
-                        <textarea class="form-control" name="" id="" cols="30" rows="4" placeholder="awesomewebsite.com/yourcoverage"></textarea>
+                        <textarea name="link" id="" cols="30" rows="5" class="form-control" placeholder="awesomewebsite.com/yourcoverage" required></textarea>
+                        <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
                     </div>
                     <div class="form-group">
                         <label for="pwd" class="font-weight-bold">Choose which section to import your coverage into:</label>
                         <p>Divide your coverage into sections for easy grouping, sorting and presentation e.g. by media type or location.</p>
-                        <select class="form-control" name="" id="">
-                            <option value="">Coverage</option>
+                        <select class="form-control" name="sectionId">
+                            @if(App\Models\BookSections::get())
+                            @foreach(App\Models\BookSections::where('name', '!=', 'Front Matter')->where('book_id', $bookId)->get() as $sections)
+                            <option value="{{ $sections->id }}">{{ $sections->name }}</option>
+                            @endforeach
+                            @endif
                         </select>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <a href="#">Create a new section</a>
-                    </div>
+                    </div> -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-success">Add Coverage</button>

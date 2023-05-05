@@ -395,3 +395,23 @@ figure figcaption {
 .home_link:hover{
     text-decoration: none;
 }
+
+
+
+/* file upload css */
+.file_upload_slct{
+    width: 40%;
+    margin: auto;
+}
+.file_upload{
+    padding: 0px 150px;
+}
+.buttonn{
+    background-color: #02c5a3;
+    color: white;
+    margin-top: 20px;
+}
+.buttonn:hover{
+    background-color: #0f6c5c;
+    color: white;
+}

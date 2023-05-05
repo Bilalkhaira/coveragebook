@@ -46,8 +46,40 @@ class PreviewBookController extends Controller
             ->where('book_id', $bookId)
             ->get();
 
-        // dd($bookSections);
 
-        return view('pages.book.preview_book', compact('book', 'bookId', 'metrics', 'findBook', 'bookSections'));
+        return view('pages.book.book_preview', compact('book', 'bookId', 'metrics', 'findBook', 'bookSections'));
+    }
+
+    public function bookSectionPreview($bookId = '', $sectionId = '')
+    {
+
+        $findBook = Book::find($bookId);
+
+        $allSections = BookSections::whereHas('slides', function ($query) {
+            $query->whereNotNull('file_name');
+        })
+            ->orWhereHas('links', function ($query) {
+                $query->whereNotNull('links');
+            })
+            ->with(['slides', 'links'])
+            ->where('book_id', $bookId)
+            ->get();
+
+            // $bookSections = BookSections::whereHas('slides', function ($query) {
+            //     $query->whereNotNull('file_name');
+            // })
+            //     ->orWhereHas('links', function ($query) {
+            //         $query->whereNotNull('links');
+            //     })
+            //     ->with(['slides', 'links'])
+            //     ->where('book_id', $bookId)
+            //     ->simplePaginate(1, ['*'], 'page', 2);
+
+                $bookSections = BookSections::where('id', $sectionId)->get();
+
+           
+
+
+        return view('pages.book.book_preview_section', compact('allSections', 'bookId', 'findBook', 'bookSections'));
     }
 }
