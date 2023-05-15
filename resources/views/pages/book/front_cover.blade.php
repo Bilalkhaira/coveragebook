@@ -96,7 +96,7 @@
                     <div class="row">
                         <div class="col-md-7">
                             <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Bg Color</h6>
-                            <p class="clr ml-1 mb-0 text-success">{{ $book->cover_bg_color ?? '#werrt23'}}</p>
+                            <p class="clr ml-1 mb-0 text-success">{{ $book->cover_bg_color ?? '#ffffff'}}</p>
                         </div>
                         <div class="col-md-4">
                             @if(!empty($book->cover_bg_color))
@@ -238,7 +238,7 @@
                     @csrf
                     <p id="text"><b>Background color</b><br> accent colour is used on links, buttons, certain text and icons to add a customised brand flavour to the books you share.</p>
                     <div>
-                        <input type="color" id="head" name="bg_color" value="#cccccc" class="form-control">
+                        <input type="color" id="head" name="bg_color" value="{{ $book->cover_bg_color ?? '#d3d3d3'}}" class="form-control">
                         <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
                         <input type="hidden" name="recordRowId" value="{{ $book->id ?? ''}}">
                     </div>

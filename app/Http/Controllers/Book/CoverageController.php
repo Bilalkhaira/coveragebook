@@ -106,6 +106,7 @@ class CoverageController extends Controller
 
     public function updataLink(Request $request)
     {
+        //return $request->input()
         $imgpath = public_path('img/files/');
 
         $link = CoverageLink::find($request->updatedId);

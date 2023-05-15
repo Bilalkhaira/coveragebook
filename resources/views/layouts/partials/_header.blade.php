@@ -44,7 +44,8 @@
                             <a type="" class="nav-link text-white ml-5 dropdown-toggle" data-toggle="dropdown" href="#"><img src="{{ asset ('img/g circle.png') }}" alt="" width="21" height="21"> My Acount
                             </a>
                             <div class="dropdown-menu">
-
+                                <a class="dropdown-item" style="color: #626060;" href="#">{{ucfirst(Auth::user()->name)}}<br><i class="fas fa-user" style="color: #d3d3d3;"></i> <span style="font-size: 14px;color: #d3d3d3">{{ ucfirst(Str::limit(Auth::user()->email, 20, '...')) }}</span></a>
+                                <hr style="margin-top: 0px;margin-bottom: 0px;">
                                 <a class="dropdown-item" style="color: #626060;" href=""><img src="{{ asset('img/setting.png') }}" alt="" class="mr-1" width="18" height="18">Account Settings</a>
 
                                 <a class="dropdown-item" style="color: #626060;" style="color: #626060;" href=""><img src="{{ asset('img/team.png') }}" alt="" class="mr-1" width="21" height="21">My Team</a>

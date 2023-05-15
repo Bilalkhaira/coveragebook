@@ -239,6 +239,7 @@
 
 .new {
     font-size: 60px;
+    font-weight: 300;
 }
 
 .neww {
@@ -257,4 +258,8 @@
     height: 100px;
     max-height: 100px;
     min-height: 100px;
+}
+.book-count{
+    font-size: 15px;
+    font-weight:500;
 }

@@ -50,6 +50,7 @@
     border: none;
     background-color: transparent;
   }
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -172,7 +173,7 @@
       <div class="col-md-4">
 
         <a href="{{ route('book.fount_cover', $book->id ?? '') }}" class="text-decoration-none">
-          <div class="card text-center frontcoverCard" id="crd" style="background-color: {{$frontCover->cover_bg_color ?? '' }};@if(isset($frontCover->visibility) && $frontCover->visibility== 'hide') opacity: 0.6 @endif">
+          <div class="card text-center frontcoverCard" id="crd" style="background-color: {{$frontCover->cover_bg_color ?? '' }};@if(isset($frontCover->visibility) && $frontCover->visibility== 'hide') opacity: 0.6 @endif;overflow: hidden;">
             @if(!empty($frontCover->cover_logo))
             <img class="front_logo" src="{{ asset('img/fontCover/'.$frontCover->cover_logo ?? '' )}}" alt="" width="50px" height="50px">
             @endif
@@ -185,7 +186,7 @@
             @endif
 
             @if(!empty($frontCover->cover_image))
-            <img class="front_img" src="{{ asset('img/fontCover/'.$frontCover->cover_image ?? '' )}}" alt="" width="100%">
+            <img class="front_img" src="{{ asset('img/fontCover/'.$frontCover->cover_image ?? '' )}}" alt="" width="100%"  style="height: 100%!important">
             @endif
           </div>
         </a>
@@ -660,7 +661,7 @@
             @csrf
             <p id="text">The accent colour is used on links, buttons, certain text and icons to add a customised brand flavour to the books you share.</p>
             <div>
-              <input type="color" id="head" name="bg_color" value="#cccccc" class="form-control">
+              <input type="color" id="head" name="bg_color" value="{{ $book->accent_color ?? '#abb2ba'}}" class="form-control">
               <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
             </div>
             <button class="btn mt-4 mb-3" type="submit" name="" value="" data-component="button-element" id="main">

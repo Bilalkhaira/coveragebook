@@ -81,13 +81,13 @@
 
       </div>
     </form>
-    <div class="row pt-4">
+    <div class="row pt-4 pl-4">
       @if(!empty($allBooks))
       @foreach($allBooks as $allBook)
-      <div class="col-md-3">
+      <div class="col-md-6 col-lg-3 col-sm-12">
         <div class="row">
           <a href="{{ route('book.index', $allBook->id) }}" class="home_link">
-            <div class="card mt-2 ml-4 text-center" style="height: 300px;width: 330px;border-radius: 14px; background-color: {{$allBook->frontCover->cover_bg_color ?? '' }};">
+            <div class="card mt-2 text-center" style="height: 400px;width: 250px;border-radius: 14px; background-color: {{$allBook->frontCover->cover_bg_color ?? '' }};">
               @if(!empty($allBook->frontCover->cover_logo))
               <img class="front_logo" src="{{ asset('img/fontCover/'.$allBook->frontCover->cover_logo ?? '' )}}" alt="" width="50px" height="50px" style="margin:auto">
               @endif
@@ -100,7 +100,7 @@
               @endif
 
               @if(!empty($allBook->frontCover->cover_image))
-              <img class="front_img" src="{{ asset('img/fontCover/'.$allBook->frontCover->cover_image ?? '' )}}" alt="" width="80%" style="margin:auto">
+              <img class="front_img img-fluid" src="{{ asset('img/fontCover/'.$allBook->frontCover->cover_image ?? '' )}}" alt="" width="200px" height="200px" style="margin:auto">
               @endif
             </div>
           </a>

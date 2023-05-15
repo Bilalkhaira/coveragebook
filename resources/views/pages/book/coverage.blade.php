@@ -28,6 +28,9 @@
         background-color: #208775;
         color: white;
     }
+    .mr-row{
+        margin-right: 10px!important;
+    }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -67,7 +70,7 @@
 
             <div class="col-md-2 mr-3">
                 <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#addSlid">
-                    <div class="row">
+                    <div class="row mr-row no-gutters">
                         <div class="col-md-9">
                             <h6 class="ml-1 mb-0 mt-1 font-weight-bold">Custom Slides</h6>
                             <p class="clr ml-1 mb-0 text-success">Add images and analytics</p>
@@ -83,7 +86,7 @@
 
             <div class="col-md-2 mr-3">
                 <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#layout">
-                    <div class="row">
+                    <div class="row mr-row no-gutters">
                         <div class="col-md-9">
                             <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Coverage Layout</h6>
                             <p class="clr ml-1 mb-0 text-success">Full Page</p>
@@ -99,7 +102,7 @@
 
             <div class="col-md-2 mr-3">
                 <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#sortBy">
-                    <div class="row">
+                    <div class="row mr-row no-gutters">
                         <div class="col-md-9">
                             <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Sort covarage by</h6>
                             <p class="clr ml-1 mb-0 text-success">On-off sort</p>
@@ -115,7 +118,7 @@
 
             <div class="col-md-2">
                 <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#hideShow">
-                    <div class="row">
+                    <div class="row mr-row no-gutters">
                         <div class="col-md-9">
                             <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Show/hide</h6>
                             <p class="clr ml-1 mb-0 text-success">{{ $sectionData->visibility ?? 'show'}}</p>

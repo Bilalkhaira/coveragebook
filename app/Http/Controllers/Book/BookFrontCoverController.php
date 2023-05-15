@@ -71,20 +71,11 @@ class BookFrontCoverController extends Controller
 
     public function storeCoverImage(Request $request)
     {
-
         $imgpath = public_path('img/fontCover/');
-
         if (!empty($request->recordRowId)) {
-
             $book = BookFrontCover::find($request->recordRowId);
 
-            if (empty($request->file_photo)) {
-                $imagePath =  $imgpath . $book->cover_image ?? '';
-
-                if (File::exists($imagePath)) {
-                    File::delete($imagePath);
-                }
-            } else {
+            if (!empty($request->file_photo)) {
                 $imagePath =  $imgpath . $book->cover_image ?? '';
 
                 if (File::exists($imagePath)) {
@@ -96,12 +87,32 @@ class BookFrontCoverController extends Controller
                 $fileName = time() . '.' . $file->clientExtension();
                 $file->move($destinationPath, $fileName);
                 $updateimage = $fileName;
-            }
 
-            $book->update([
-                'cover_image' => $updateimage ?? '',
-                'cover_image_title' => $request->title ?? '',
-            ]);
+                $book->update([
+                    'cover_image' => $updateimage ?? '',
+                    'cover_image_title' => $request->title ?? '',
+                ]);
+            }
+            else
+            {  
+                if(isset($request->title) && $request->title =="None")
+                {
+                    $imagePath =  $imgpath . $book->cover_image ?? '';
+                    if (File::exists($imagePath)) {
+                        File::delete($imagePath);
+                    }
+                    $book->update([
+                        'cover_image' =>'',
+                        'cover_image_title' => $request->title ?? '',
+                    ]);
+                }
+                else{
+                    $book->update([
+                        'cover_image_title' => $request->title ?? '',
+                    ]);
+                }
+
+            }
             toastr()->success('Updated Successfully');
         } else {
             if (!empty($request->file_photo)) {

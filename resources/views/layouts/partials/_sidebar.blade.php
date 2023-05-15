@@ -8,17 +8,21 @@
           <i class="fa-solid fa-folder-plus mr-1" style="font-size: 20px;"></i> New Collection</a>
       </li>
       <li>
-        <a href="{{ route('dashboard') }}" style="font-weight: bold;">
-          <i class="fa-solid fa-folder mr-2" style="font-size: 20px; color: rgb(178, 175, 175);"></i>All Books
+        @php 
+          $total_books = App\Models\Book::count();
+        @endphp
+        <a href="{{ route('dashboard') }}" style="font-weight: 500;">
+          <i class="fa-solid fa-folder mr-2" style="font-size: 20px; color: rgb(178, 175, 175);"></i>All Books <span class="book-count">({{$total_books??'0'}})</span>
         </a>
 
         @if(!empty(App\Models\Collection::get()))
         @foreach(App\Models\Collection::get() as $collection)
         @php
         $count = App\Models\Collection::get();
+        $book_count = App\Models\Book::where('collection_id',$collection->id)->count();
         @endphp
-        <a href="{{ route('collectionBooks', $collection->id)}}" style="font-weight: bold;">
-          <i class="fa-solid fa-folder mr-2" style="font-size: 20px; color: rgb(178, 175, 175);"></i> {{$collection->name}}
+        <a href="{{ route('collectionBooks', $collection->id)}}" style="font-weight: 500;">
+          <i class="fa-solid fa-folder mr-2" style="font-size: 20px; color: rgb(178, 175, 175);"></i> {{$collection->name}} <span class="book-count">({{$book_count?? '0'}})</span>
         </a>
         @endforeach
         @endif
