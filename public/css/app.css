@@ -263,3 +263,31 @@
     font-size: 15px;
     font-weight:500;
 }
+.cover_page_link{
+    color:black;
+}
+.cover_page_link:hover{
+    color:black;
+}
+.overlay_cover_page_link{
+    color:white;
+}
+.overlay_cover_page_link:hover{
+    color:white;
+}
+.front_logo{
+    border-radius: 100%;
+}
+.cover-card{
+    height: 300px;
+}
+.overlay{
+   background-image: linear-gradient(to left, rgba(255,0,0,0), rgb(10 10 10));
+
+}
+.clr {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
