@@ -31,11 +31,11 @@
                         <div class="col-md-7">
                             <h6 class="ml-1 mb-0 mt-1 font-weight-bold">Layout</h6>
                             <p class="clr ml-1 mb-0 text-success">
-                                @if($book->layout_id ==1)
+                                @if(isset($book->layout_id) && $book->layout_id ==1)
                                 Stacked
-                                @elseif($book->layout_id ==2)
+                                @elseif(isset($book->layout_id) && $book->layout_id ==2)
                                 Side-by-Side
-                                @elseif($book->layout_id ==3)
+                                @elseif(isset($book->layout_id) && $book->layout_id ==3)
                                 Overlay
                                 @else
                                 Default
