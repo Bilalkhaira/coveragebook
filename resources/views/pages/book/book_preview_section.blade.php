@@ -79,7 +79,14 @@
 
                     <div class="col-md-12 oneSection">
                         <div class="text-center">
+                            @if(substr($slide->file_name, strpos($slide->file_name, ".") + 1) == 'pdf')
+
+                            <object data="{{ asset('img/files/'.$slide->file_name) }}" type="application/pdf" width="100%" height="600px">
+                                <p>Unable to display PDF file. <a href="{{ asset('img/files/'.$slide->file_name) }}">Download</a> instead.</p>
+                            </object>
+                            @else
                             <img src="{{ asset('img/files/'.$slide->file_name ) }}" width="100%" alt="">
+                            @endif
                         </div>
                     </div>
 
@@ -114,7 +121,7 @@
         </div>
     </div>
     </div>
-    
+
     <footer class="ftr">
         <div class="container">
             <div class="row">
@@ -123,8 +130,8 @@
                     @if($bookSections->currentPage() > 1)
                     <a href="{{ $bookSections->previousPageUrl() }}">
                     <i style="color: {{ $findBook->accent_color ?? ''}};" class="fa fa-arrow-left"></i>
-                        <span style="color: {{ $findBook->accent_color ?? ''}}">Previous Section</span>
-                        
+                    <span style="color: {{ $findBook->accent_color ?? ''}}">Previous Section</span>
+
                     </a>
                     @endif
                     --}}
@@ -145,8 +152,8 @@
                     {{--
                     @if($bookSections->hasMorePages())
                     <a href="{{ $bookSections->nextPageUrl() }}">
-                        <span style="color: {{ $findBook->accent_color ?? ''}}">Next Section</span>
-                        <i style="color: {{ $findBook->accent_color ?? ''}};" class="fa fa-arrow-right"></i>
+                    <span style="color: {{ $findBook->accent_color ?? ''}}">Next Section</span>
+                    <i style="color: {{ $findBook->accent_color ?? ''}};" class="fa fa-arrow-right"></i>
                     </a>
                     @endif
                     --}}

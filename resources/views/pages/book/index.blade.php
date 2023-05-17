@@ -50,7 +50,6 @@
     border: none;
     background-color: transparent;
   }
-
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -186,7 +185,7 @@
             @endif
 
             @if(!empty($frontCover->cover_image))
-            <img class="front_img" src="{{ asset('img/fontCover/'.$frontCover->cover_image ?? '' )}}" alt="" width="100%"  style="height: 100%!important">
+            <img class="front_img" src="{{ asset('img/fontCover/'.$frontCover->cover_image ?? '' )}}" alt="" width="100%" style="height: 100%!important">
             @endif
           </div>
         </a>
@@ -451,11 +450,19 @@
             <span style="color: black;font-size:18px;font-weight: bold;">{{ $bookSection->name ?? ''}}</span>
           </a>
         </div>
-        <div class="row">
+        <div class="row section_row">
           <div class="col-md-8">
             @if(!empty($bookSection->slides[0]->file_name ?? ''))
             <a href="#" class="text-decoration-none ">
+              
+              @if(substr($bookSection->slides[0]->file_name, strpos($bookSection->slides[0]->file_name, ".") + 1) == 'pdf')
+
+              <object data="{{ asset('img/files/'.$bookSection->slides[0]->file_name) }}" type="application/pdf" width="300px" height="150px">
+                <p>Unable to display PDF file. <a href="{{ asset('img/files/'.$bookSection->slides[0]->file_name) }}">Download</a> instead.</p>
+              </object>
+              @else
               <img src="{{ asset('img/files/'.$bookSection->slides[0]->file_name ?? '') }}" alt="" width="300" height="150" style="margin-left: 30px; margin-top: 15px">
+              @endif
             </a>
             @endif
           </div>

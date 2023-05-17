@@ -26,7 +26,7 @@ class BookController extends Controller
 
         $sections = BookSections::where('book_id', $bookId)->get();
 
-        $bookSections = BookSections::with('slides')->where('book_id', $bookId)->get();
+        $bookSections = BookSections::with('slides')->where('name', '!=', 'Front Matter')->where('book_id', $bookId)->get();
 
         $slides = BookSections::with('slides')->where('name', 'Front Matter')->first();
 

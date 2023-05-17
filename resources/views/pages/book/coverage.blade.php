@@ -28,8 +28,9 @@
         background-color: #208775;
         color: white;
     }
-    .mr-row{
-        margin-right: 10px!important;
+
+    .mr-row {
+        margin-right: 10px !important;
     }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
@@ -145,7 +146,7 @@
                 <div class="row coverage_select">
                     @if(!empty($sectionSlides[0]))
                     <div class="col-md-12">
-                        <h3>Coverage</h3>
+                        <h3>Custom Slides</h3>
                     </div>
                     <!-- <div class="col-md-12">
                         <div class="inlineBlock">
@@ -217,7 +218,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
+                                    @if(substr($sectionSlide->file_name, strpos($sectionSlide->file_name, ".") + 1) == 'pdf')
+
+                                    <object data="{{ asset('img/files/'.$sectionSlide->file_name) }}" type="application/pdf" width="100%" height="335px">
+                                        <p>Unable to display PDF file. <a href="{{ asset('img/files/'.$sectionSlide->file_name) }}">Download</a> instead.</p>
+                                    </object>
+                                    @else
                                     <img src="{{ asset('img/files/'.$sectionSlide->file_name) }}" alt="">
+                                    @endif
                                 </div>
                             </div>
                             <div class="row edit">
@@ -409,7 +417,7 @@
                         <div class="col-md-4 text-center">
                             <p><b>Show section</b></p>
                             <div class="coverageSecDetailTab">
-                            <input type="hidden" id="showHide" value="show">
+                                <input type="hidden" id="showHide" value="show">
                                 <p class="@if(isset($sectionData->visibility) && $sectionData->visibility== 'show') ? coverageSecDetailTab_active @endif"><i class="fa fa-eye"></i></p>
                                 <span class="@if(isset($sectionData->visibility) && $sectionData->visibility== 'show') ? coverageSecDetailTab_active @endif"></span>
                             </div>
@@ -419,7 +427,7 @@
                         <div class="col-md-4 text-center">
                             <p><b>Hide section</b></p>
                             <div class="coverageSecDetailTab">
-                            <input type="hidden" id="showHide" value="hide">
+                                <input type="hidden" id="showHide" value="hide">
                                 <p class="@if(isset($sectionData->visibility) && $sectionData->visibility== 'hide') ? coverageSecDetailTab_active @endif"><i class="fa fa-eye-slash"></i></p>
                                 <span class="@if(isset($sectionData->visibility) && $sectionData->visibility== 'hide') ? coverageSecDetailTab_active @endif"></span>
                             </div>
@@ -462,8 +470,8 @@
                             <option value="outlet_a_z">Outlet name (A-Z)</option>
                             <option value="outlet_z_a">Outlet name (Z-A)</option>
                         </select>
-                        <input type="hidden" name="bookId"  value="{{ $bookId ?? ''}}">
-                        <input type="hidden" name="sectionId"  value="{{ $sectionId ?? ''}}">
+                        <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
+                        <input type="hidden" name="sectionId" value="{{ $sectionId ?? ''}}">
                         <p></p>
                         <input type="checkbox" name="" id="">
                         Automatically maintain this order.
@@ -502,7 +510,7 @@
                             <div class="coverageSecDetailTab">
                                 <p class="@if(isset($sectionData->layout_id) && $sectionData->layout_id==1) ? coverageSecDetailTab_active @endif"><i class="fa fa-pager"></i></p>
                                 <span class="@if(isset($sectionData->layout_id) && $sectionData->layout_id==1) ? coverageSecDetailTab_active @endif"></span>
-                                 <input type="hidden" id="layoutInput" value="{{ $allLayout[0]->id ?? ''}}">
+                                <input type="hidden" id="layoutInput" value="{{ $allLayout[0]->id ?? ''}}">
                             </div>
                             <p>Great for showcasing coverage in its full glory.</p>
                         </div>
@@ -512,7 +520,7 @@
                             <div class="coverageSecDetailTab">
                                 <p class="@if(isset($sectionData->layout_id) && $sectionData->layout_id==2) ? coverageSecDetailTab_active @endif"><i class="fa-solid fa-table-cells"></i></p>
                                 <span class="@if(isset($sectionData->layout_id) && $sectionData->layout_id==2) ? coverageSecDetailTab_active @endif"></span>
-                                 <input type="hidden" id="layoutInput" value="{{ $allLayout[1]->id ?? ''}}">
+                                <input type="hidden" id="layoutInput" value="{{ $allLayout[1]->id ?? ''}}">
                             </div>
                             <p>Perfect for presenting lots of coverage in a visual, easy to digest way.</p>
                         </div>
@@ -522,7 +530,7 @@
                             <div class="coverageSecDetailTab">
                                 <p class="@if(isset($sectionData->layout_id) && $sectionData->layout_id==3) ? coverageSecDetailTab_active @endif"><i class="fa fa-list"></i></p>
                                 <span class="@if(isset($sectionData->layout_id) && $sectionData->layout_id==3) ? coverageSecDetailTab_active @endif"></span>
-                                 <input type="hidden" id="layoutInput" value="{{ $allLayout[2]->id ?? ''}}">
+                                <input type="hidden" id="layoutInput" value="{{ $allLayout[2]->id ?? ''}}">
                             </div>
                             <p>Ideal for large amounts of coverage where data is more important than visuals.</p>
                         </div>

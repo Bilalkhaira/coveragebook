@@ -446,13 +446,13 @@
                             </div>
                             <div class="modal-body" id="form">
                                 <ul class="nav nav-tabs font_cover_tab" role="tablist">
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a class="nav-link active" data-toggle="tab" href="#home">
                                             <p><span class="circle"></span><b>Montage</b></p>
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#menu1">
+                                        <a class="nav-link active" data-toggle="tab" href="#menu1">
                                             <p><span class="circle"></span><b>Custom Image</b></p>
                                         </a>
                                     </li>
@@ -465,7 +465,7 @@
 
                                 <!-- Tab panes -->
                                 <div class="tab-content font_cover_tabContent">
-                                    <div id="home" class="container tab-pane active"><br>
+                                    <!-- <div id="home" class="container tab-pane active"><br>
                                         <form action="{{ route('book.fount_cover.storeCoverImage')}}" method="POST">
                                             @csrf
                                             <div class="row">
@@ -497,8 +497,8 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </div>
-                                    <div id="menu1" class="container tab-pane fade"><br>
+                                    </div> -->
+                                    <div id="menu1" class="container tab-pane active"><br>
                                         <form action="{{ route('book.fount_cover.storeCoverImage')}}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="row">

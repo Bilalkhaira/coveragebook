@@ -134,3 +134,6 @@ form.example::after {
     clear: both;
     display: table;
 }
+.section_row{
+    padding-left: 100px;
+}

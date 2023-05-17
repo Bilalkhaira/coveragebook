@@ -99,14 +99,14 @@
                 </div>
                 <div id="section42" class="container">
                     <div class="row">
-                        <div class="col-md-12 text-center mt-5 mb-5">
+                        <div class="col-md-12 text-center mt-5">
                             @if(!empty($metrics[0]))
                             <h1>Summary</h1>
                             <hr style="height: 5px;width: 80px; background: {{ $findBook->accent_color ?? ''}};margin-left: 511px;">
                             @endif
                         </div>
                     </div>
-                    <div class="row mb-3 mt-5">
+                    <div class="row">
                         @if(!empty($metrics))
                         @foreach($metrics as $key => $metric)
                         @if($key == 0 || $key == 1)
@@ -162,8 +162,15 @@
                     <div class="col-md-3">
                         <div class="card text-center sectionCard">
                             <a href="{{ route('book.preview.section', [$bookId, $bookSection->id] )}}">
-                                <p><b>{{ $slide->name }}</b></p>
+                                
+                                @if(substr($slide->file_name, strpos($slide->file_name, ".") + 1) == 'pdf')
+
+                                <object data="{{ asset('img/files/'.$slide->file_name) }}" type="application/pdf" width="100%" height="260px">
+                                    <p>Unable to display PDF file. <a href="{{ asset('img/files/'.$slide->file_name) }}">Download</a> instead.</p>
+                                </object>
+                                @else
                                 <img src="{{ asset('img/files/'.$slide->file_name ) }}" width="100%" alt="">
+                                @endif
                             </a>
                         </div>
                     </div>
@@ -177,7 +184,12 @@
                     <div class="col-md-3">
                         <div class="card text-center sectionCard">
                             <a href="{{ route('book.preview.section', [$bookId, $bookSection->id] )}}">
+                                @if($link->image)
+                                <img src="{{ asset('img/files/'.$link->image ) }}" width="100%" alt="">
+                                @else
                                 <p><b>{{ $link->links }}</b></p>
+                                @endif
+
                             </a>
                         </div>
                     </div>
@@ -195,18 +207,26 @@
                 </div>
                 @else
                 <div class="row">
-                    <div class="col-md-12 mt-5 mb-5 text-center">
+                    <div class="col-md-12 text-center">
                         <h1>{{ $bookSection->name ?? ''}}</h1>
                         <hr style="height: 5px;width: 80px; background: {{ $findBook->accent_color ?? ''}};margin:auto">
                     </div>
                 </div>
-                <div class="row mb-3 mt-5">
+                <div class="row mt-3">
                     @if(!empty($bookSection->slides))
                     @foreach($bookSection->slides as $key => $slide)
 
                     <div class="col-md-12 oneSection">
                         <div class="text-center">
+                            @if(substr($slide->file_name, strpos($slide->file_name, ".") + 1) == 'pdf')
+
+                            <object data="{{ asset('img/files/'.$slide->file_name) }}" type="application/pdf" width="100%" height="600px">
+                                <p>Unable to display PDF file. <a href="{{ asset('img/files/'.$slide->file_name) }}">Download</a> instead.</p>
+                            </object>
+                            @else
                             <img src="{{ asset('img/files/'.$slide->file_name ) }}" width="100%" alt="">
+                            @endif
+
                         </div>
                     </div>
 
@@ -249,10 +269,10 @@
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                  
+
                     <div class="dropdown">
                         <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" style="width: 100%;">
-                        Jump To A Section
+                            Jump To A Section
                         </button>
                         <div class="dropdown-menu" style="width: 100%;">
                             @foreach($bookSections as $key => $bookSection)
@@ -264,9 +284,9 @@
                 <div class="col-md-4 text-right next_btn">
                     {{--
                     <a href="{{ route('book.preview.section', [$bookId, $bookSections[0]->id] )}}">
-                        <span style="color: {{ $findBook->accent_color ?? ''}}">Next Section</span>
-                        <i style="color: {{ $findBook->accent_color ?? ''}};" class="fa fa-arrow-right"></i>
-                        <p>{{ $bookSections[0]->name }}</p>
+                    <span style="color: {{ $findBook->accent_color ?? ''}}">Next Section</span>
+                    <i style="color: {{ $findBook->accent_color ?? ''}};" class="fa fa-arrow-right"></i>
+                    <p>{{ $bookSections[0]->name }}</p>
                     </a>
                     --}}
                 </div>
