@@ -42,7 +42,7 @@
         <div class="row">
             <div class="col-md-12 tab_link">
                 @if(!empty($findBook->banner_logo))
-                <img src="{{ asset('img/'.$findBook->banner_logo) }}" alt="" width="40" height="30" class="hidden ml-4 mt-0">
+                <img src="{{ asset('img/'.$findBook->banner_logo) }}" alt="" width="40" class="hidden ml-4 mt-0">
                 @endif
                 <nav id="myScrollspy">
 
@@ -162,7 +162,7 @@
                     <div class="col-md-3">
                         <div class="card text-center sectionCard">
                             <a href="{{ route('book.preview.section', [$bookId, $bookSection->id] )}}">
-                                
+
                                 @if(substr($slide->file_name, strpos($slide->file_name, ".") + 1) == 'pdf')
 
                                 <object data="{{ asset('img/files/'.$slide->file_name) }}" type="application/pdf" width="100%" height="260px">
@@ -182,13 +182,17 @@
                     @foreach($bookSection->links as $key => $link)
 
                     <div class="col-md-3">
-                        <div class="card text-center sectionCard">
+                        <div class="card sectionCard">
                             <a href="{{ route('book.preview.section', [$bookId, $bookSection->id] )}}">
                                 @if($link->image)
                                 <img src="{{ asset('img/files/'.$link->image ) }}" width="100%" alt="">
                                 @else
-                                <p><b>{{ $link->links }}</b></p>
+                                <img class="front_img img-fluid" src="{{ asset('img/fontCover/11.png' ?? '' )}}" alt="" width="100%">
                                 @endif
+                                <div>
+                                    <span><b>{{ $link->name ?? ''}}</b></span>
+                                    <p class="card-text">{{ \Illuminate\Support\Str::words(strip_tags($link->description), '8') }}</p>
+                                </div>
 
                             </a>
                         </div>
@@ -235,23 +239,23 @@
 
                     @if(!empty($bookSection->links))
                     @foreach($bookSection->links as $key => $link)
-                    @if(!empty($link->image))
-                    <div class="col-md-12 oneSection">
-                        <div class="text-center">
-                            <a href="{{ $link->links }}" target="_blank">
+                    <div class="col-md-12">
+                        <div class="row preview_link_card">
+                            <div class="col-md-8">
+                                @if(!empty($link->image))
                                 <img src="{{ asset('img/files/'.$link->image) }}" width="100%" alt="">
-                            </a>
+                                @else
+                                <img class="front_img img-fluid" src="{{ asset('img/fontCover/11.png' ?? '' )}}" alt="" width="100%">
+                                @endif
+                            </div>
+                            <div class="col-md-4">
+                                <p><b>{{ $link->name ?? ''}}</b></p>
+                                <p>{{ $link->description ?? ''}}</p>
+                                <a href="{{$link->link}}">{{ $link->links ?? ''}}</a>
+                            </div>
                         </div>
                     </div>
-                    @else
-                    <div class="col-md-12 oneSection">
-                        <div class="card text-center sectionCard">
-                            <a href="{{ $link->links }}" target="_blank">
-                                <p><b>{{ $link->links }}</b></p>
-                            </a>
-                        </div>
-                    </div>
-                    @endif
+                   
                     @endforeach
                     @endif
                 </div>

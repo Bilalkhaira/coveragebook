@@ -66,7 +66,7 @@ body {
 .sectionCard {
     width: 100%;
     height: 300px;
-    padding: 20px 25px;
+    /* padding: 20px 25px; */
     border-radius: 16px;
     margin-bottom: 30px;
     overflow: hidden;
@@ -82,6 +82,12 @@ body {
 
 .sectionCard a {
     color: black;
+}
+.sectionCard a p{
+    padding-left: 10px;
+}
+.sectionCard a span{
+    margin: 10px;
 }
 
 .openCard {
@@ -130,4 +136,15 @@ body {
 }
 .next_btn a p{
     margin-right: 78px;
+}
+.preview_link_card{
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 20px;
+}
+.preview_link_card a{
+    color: #07a19a;
+}
+.preview_link_card .col-md-4{
+    /* padding-top: 100px; */
 }

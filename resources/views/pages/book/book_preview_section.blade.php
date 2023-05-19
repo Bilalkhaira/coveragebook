@@ -95,23 +95,22 @@
 
                     @if(!empty($bookSections[0]->links))
                     @foreach($bookSections[0]->links as $key => $link)
-                    @if(!empty($link->image))
-                    <div class="col-md-12 oneSection">
-                        <div class="text-center">
-                            <a href="{{ $link->links }}" target="_blank">
+                    <div class="col-md-12">
+                        <div class="row preview_link_card">
+                            <div class="col-md-8">
+                                @if(!empty($link->image))
                                 <img src="{{ asset('img/files/'.$link->image) }}" width="100%" alt="">
-                            </a>
+                                @else
+                                <img class="front_img img-fluid" src="{{ asset('img/fontCover/11.png' ?? '' )}}" alt="" width="100%">
+                                @endif
+                            </div>
+                            <div class="col-md-4">
+                                <p><b>{{ $link->name ?? ''}}</b></p>
+                                <p>{{ $link->description ?? ''}}</p>
+                                <a href="{{$link->link}}">{{ $link->links ?? ''}}</a>
+                            </div>
                         </div>
                     </div>
-                    @else
-                    <div class="col-md-12 oneSection">
-                        <div class="card text-center sectionCard">
-                            <a href="{{ $link->links }}" target="_blank">
-                                <p><b>{{ $link->links }}</b></p>
-                            </a>
-                        </div>
-                    </div>
-                    @endif
                     @endforeach
                     @endif
                 </div>

@@ -481,7 +481,7 @@
             <h6>Full</h6>
           </div>
           <div class="col-md-1 mt-4 text-center">
-            <a href="" class="text-decoration-none">
+            <a href="{{ route('book.coverage', [$bookId, $bookSection->id]) }}" class="text-decoration-none">
               <div style="width:80px;height: 80px;background: white;border-radius: 50%;box-shadow: 0 1px 9px 0 #888888;">
                 <i class="fa-sharp fa-solid fa-arrow-right pt-4" style="color: lightseagreen;font-size: 30px;"></i>
               </div>

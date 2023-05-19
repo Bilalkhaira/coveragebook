@@ -315,8 +315,14 @@
                                 <div class="col-md-8 text-right">
                                     <a href="{{ route('book.coverage.deleteLink', $sectionLink->id) }}" onclick="return confirm('Are you sure you want to delete?');"><i class="icon fa fa-trash"></i></a>
                                     <input type="hidden" value="{{ $sectionLink->id ?? ''}}" id="editLinkId">
-                                    <a type="button" class="edit_link" data-toggle="modal" data-target="#editLinks"><i class="icon fa fa-edit"></i></a>
-
+                                    <a href="{{ route('book.highlights.store', $sectionLink->id ?? '') }}" class="coverage_highlight_btn">
+                                        @if($sectionLink->hightlight_status == 'active')
+                                        <i class="bookmark fa-solid fa-star"></i>
+                                        @else
+                                        <i class="fa-regular fa-star"></i>
+                                        @endif
+                                    </a>
+                                    <a class="edit_link" data-toggle="modal" data-target="#editLinks"><i class="icon fa fa-edit"></i></a>
                                 </div>
                             </div>
                             <div class="row">

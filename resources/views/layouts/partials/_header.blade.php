@@ -27,7 +27,7 @@
                     <!-- <li class="nav-item ml-5 justify-content-center">
                         <a class="nav-link" href="#" style="color: rgb(254 197 122)"><i class="fa-solid fa-heart mr-1"></i>Upgrade Now</a>
                     </li> -->
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <div class="dropdown">
                             <a type="" class="nav-link text-white dropdown-toggle" data-toggle="dropdown" href="#"><img src="{{asset ('img/qstmrk.png') }}" alt="" width="18" height="18"> Help & Advice
                             </a>
@@ -38,7 +38,7 @@
                                 <a class="dropdown-item" href="">Example Reorts</a>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <div class="dropdown dropdown-menu-right">
                             <a type="" class="nav-link text-white ml-5 dropdown-toggle" data-toggle="dropdown" href="#"><img src="{{ asset ('img/g circle.png') }}" alt="" width="21" height="21"> My Acount

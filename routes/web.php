@@ -100,6 +100,7 @@ Route::prefix('user')->group(function () {
         Route::get('/preview/{id?}', [PreviewBookController::class, 'index'])->name('book.preview'); //use
         Route::get('/preview_section/{id?}/{sectionId?}', [PreviewBookController::class, 'bookSectionPreview'])->name('book.preview.section'); //use
         Route::get('/highlights/{id?}', [BookLighlightController::class, 'index'])->name('book.highlights'); //use
+        Route::get('/highlights/store/{id?}', [BookLighlightController::class, 'store'])->name('book.highlights.store'); //use
 
         Route::get('/matrics_summary/{id?}', [MatricsSummaryBookController::class, 'index'])->name('book.matrics_summary'); //use
         Route::post('/matrics_summary/store', [MatricsSummaryBookController::class, 'store'])->name('book.matrics_summary.store'); //use

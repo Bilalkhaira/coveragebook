@@ -441,3 +441,24 @@ figure figcaption {
     border-radius: 10px;
     text-align: center;
 }
+#copy_text{
+    display: none;
+}
+.coverage_highlight_btn{
+    color: gray;
+}
+.bookmark{
+    color: #fec878;
+}
+.hightligh_a{
+    color: black;
+}
+.hightligh_a:hover{
+    text-decoration: none;
+    color: black;
+}
+.pp{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
