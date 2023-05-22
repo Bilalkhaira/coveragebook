@@ -148,3 +148,32 @@ body {
 .preview_link_card .col-md-4{
     /* padding-top: 100px; */
 }
+
+.coverage_grid_view {
+    margin-top: 50px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.coverage_grid_view i {
+    margin-left: 5px;
+}
+
+.coverage_grid_view img {
+    width: 100%;
+    height: 300px;
+    margin-top: 15px;
+}
+
+.coverage_grid_view .edit {
+    border-top: 1px solid lightgray;
+    padding: 15px;
+}
+.high_preview a{
+    color: black;
+}
+.high_preview a:hover{
+    text-decoration: none;
+    color: black;
+}

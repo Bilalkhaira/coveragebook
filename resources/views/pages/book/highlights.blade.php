@@ -56,6 +56,8 @@
                             <a href="{{ $sectionLink->links ?? ''}}" class="hightligh_a" target="_blank">
                                 @if(!empty($sectionLink->image))
                                 <img src="{{ asset('img/files/'.$sectionLink->image) }}" alt="">
+                                @else
+                                <img src="{{ asset('img/fontCover/11.png' ?? '' )}}" alt="" width="100%">
                                 @endif
 
                                 @if(!empty($sectionLink->name))
@@ -66,6 +68,7 @@
                                 @endif
                             </a>
                         </div>
+
                     </div>
 
                 </div>

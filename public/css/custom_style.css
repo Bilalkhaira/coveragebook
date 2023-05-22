@@ -462,3 +462,10 @@ figure figcaption {
     top: 0;
     right: 0;
 }
+.index_highlights{
+    color: black;
+}
+.index_highlights:hover{
+    text-decoration: none;
+    color: black;
+}

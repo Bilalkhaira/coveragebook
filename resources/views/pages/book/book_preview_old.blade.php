@@ -56,9 +56,7 @@
                         <div class="border-top my-3"></div>
                         @if(!empty($bookSections) && count($bookSections) > 1)
                         @foreach($bookSections as $key => $bookSection)
-                        @if(count($bookSection->slides) > 0 || count($bookSection->links) > 0)
                         <a class="dropdown-item" href="#section{{$key}}">{{ $bookSection->name ?? ''}}</a>
-                        @endif
                         @endforeach
                         @endif
                     </div>
@@ -184,11 +182,11 @@
 
 
 
-                @if(!empty($bookSections) && count($bookSection->slides) > 0 || count($bookSection->links) > 0)
+                @if(!empty($bookSections) && count($bookSections) > 1)
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-center mt-5 mb-5">
-                            <h1>Coverage Overview </h1>
+                            <h1>Coverage Overview</h1>
                             <hr style="height: 5px;width: 80px; background: {{ $findBook->accent_color ?? ''}};margin:auto">
                             <p class="overview_p"> <span> {{count($bookSections)}} piece </span> of coverage in total, grouped into <span> {{count($bookSections)}} sections.</span> Open <br> a section to view all the coverage in detail.</p>
                         </div>
@@ -200,7 +198,6 @@
             @foreach($bookSections as $key => $bookSection)
             <div id="section{{$key}}" class="container">
                 @if(count($bookSections) > 1)
-                @if(count($bookSection->slides) > 0 || count($bookSection->links) > 0)
                 <div class="row">
                     <div class="col-md-12 mt-5 mb-5">
                         <h1>{{ $bookSection->name ?? ''}}</h1>
@@ -260,7 +257,6 @@
                         </div>
                     </div>
                 </div>
-                @endif
                 @else
                 <div class="row">
                     <div class="col-md-12 text-center">
@@ -332,9 +328,7 @@
                         </button>
                         <div class="dropdown-menu" style="width: 100%;">
                             @foreach($bookSections as $key => $bookSection)
-                            @if(count($bookSection->slides) > 0 || count($bookSection->links) > 0)
                             <a class="dropdown-item" href="{{ route('book.preview.section', [$bookId, $bookSection->id] )}}">{{ $bookSection->name }}</a>
-                            @endif
                             @endforeach
                         </div>
                     </div>

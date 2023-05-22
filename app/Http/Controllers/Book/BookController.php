@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Book;
 
 use File;
 use App\Models\Book;
+use App\Models\BookFile;
+use App\Models\BookSections;
+use App\Models\CoverageLink;
+use App\Models\SectionSlide;
 use Illuminate\Http\Request;
 use App\Models\BookFrontCover;
 use App\Models\BookMetricsSummary;
 use App\Http\Controllers\Controller;
-use App\Models\BookFile;
-use App\Models\BookSections;
-use App\Models\SectionSlide;
 
 class BookController extends Controller
 {
@@ -30,7 +31,9 @@ class BookController extends Controller
 
         $slides = BookSections::with('slides')->where('name', 'Front Matter')->first();
 
-        return view('pages.book.index', compact('book', 'bookId', 'frontCover', 'metricsCount', 'metrics', 'slides', 'sections', 'bookSections'));
+        $bookHighLights = CoverageLink::where('book_id', $bookId)->where('hightlight_status', '!=', 'inactive')->get();
+
+        return view('pages.book.index', compact('book', 'bookId', 'frontCover', 'metricsCount', 'metrics', 'slides', 'sections', 'bookSections', 'bookHighLights'));
     }
 
     public function storeBookLogo(Request $request)

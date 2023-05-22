@@ -281,67 +281,114 @@
 
       </div>
       <div class="col-md-4">
-
-        <a href="{{ route('book.highlights', $book->id ?? '') }}" class="text-decoration-none">
+        <a href="{{ route('book.highlights', $book->id ?? '') }}" class="text-decoration-none index_highlights">
           <div class="card text-center p-3" id="crd">
-            <i class="fa fa-star" style="font-size: 40px;margin-top: 60px;color: #fec878"></i>
-            <p class="mt-3" style="color: black;">Showcase your best bits by clicking the star <br> icons on each piece of coverage </p>
-          </div>
-        </a>
-
-        <div class="row">
-          <div class="col-md-9">
-            <div class="col-md-9" style="padding-top: 20px">
-              <span>Highlights </span> <span class="text-secondary font-weight-bold">(0 items)</span>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="dropdown float-right dropleft mt-0">
-              <a href="{{ route('book.highlights', $book->id ?? '') }}" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
-                <b class="mt-0">...</b>
-              </a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#"><i class="fa-solid fa-eye-slash"></i>Hide</a>
+            @if(!empty($bookHighLights[0]))
+            <div class="row">
+              @foreach($bookHighLights as $key => $bookHighLight)
+              @if(count($bookHighLights) == 1)
+              <div class="col-md-12">
+                @if(!empty($bookHighLight->image))
+                <img src="{{ asset('img/files/'.$bookHighLight->image) }}" style="height:250px">
+                @else
+                <img src="{{ asset('img/fontCover/11.png' ?? '' )}}" style="height:250px">
+                @endif
               </div>
+              
+
+              @elseif(count($bookHighLights) == 2)
+              <div class="col-md-6">
+                @if(!empty($bookHighLight->image))
+                <img src="{{ asset('img/files/'.$bookHighLight->image) }}" style="height:250px">
+                @else
+                <img src="{{ asset('img/fontCover/11.png' ?? '' )}}" style="height:250px">
+                @endif
+              </div>
+              
+
+              @elseif(count($bookHighLights) == 3)
+              <div class="col-md-4">
+                @if(!empty($bookHighLight->image))
+                <img src="{{ asset('img/files/'.$bookHighLight->image) }}" style="height:250px">
+                @else
+                <img src="{{ asset('img/fontCover/11.png' ?? '' )}}" style="height:250px">
+                @endif
+              </div>
+              @else
+              @if($key < 5 ) <div class="col-md-3">
+                @if(!empty($bookHighLight->image))
+                <img src="{{ asset('img/files/'.$bookHighLight->image) }}" style="height:250px">
+                @else
+                <img src="{{ asset('img/fontCover/11.png' ?? '' )}}" style="height:250px">
+                @endif
             </div>
+            @endif
+            @endif
 
+
+
+            @endforeach
+          </div>
+          @else
+          <i class="fa fa-star" style="font-size: 40px;margin-top: 60px;color: #fec878"></i>
+          <p class="mt-3" style="color: black;">Showcase your best bits by clicking the star <br> icons on each piece of coverage </p>
+          @endif
+      </div>
+      </a>
+
+      <div class="row">
+        <div class="col-md-9">
+          <div class="col-md-9" style="padding-top: 20px">
+            <span>Highlights </span> <span class="text-secondary font-weight-bold">(0 items)</span>
           </div>
         </div>
-
-
-      </div>
-
-    </div>
-    <div class="row mb-2">
-      @if(!empty($slides))
-      @foreach($slides->slides as $slide)
-      <div class="col-md-4">
-
-        <a href="{{ route('book.highlights', $book->id ?? '') }}" class="text-decoration-none">
-          <div class="card text-center p-3" id="crd">
-            <img src="{{ asset('img/files/'.$slide->file_name) }}" width="100%" height="100%">
-          </div>
-        </a>
-
-        <p style="color: black;display: inline-block;">{{ $slide->name ?? $slide->file_name }}</p>
-        <div class="dropdown float-right dropleft">
-          <a href="" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
-            <b>...</b>
-          </a>
-          <form action="{{ route('book.fileDestroy') }}" method="POST">
-            @csrf
+        <div class="col-md-3">
+          <div class="dropdown float-right dropleft mt-0">
+            <a href="{{ route('book.highlights', $book->id ?? '') }}" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
+              <b class="mt-0">...</b>
+            </a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="{{ route('book.editSlide', [$slide->id, $bookId] ) }}"><i class="fa fa-edit"></i>Edit</a>
-              <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure you want to delete?');"><i class="fa fa-trash"></i>Delete</button>
-              <input type="hidden" value="{{ $slide->file_name }}" name="filename">
-              <input type="hidden" value="{{ $bookId ?? ''}}" name="bookId">
-          </form>
+              <a class="dropdown-item" href="#"><i class="fa-solid fa-eye-slash"></i>Hide</a>
+            </div>
+          </div>
+
         </div>
       </div>
 
+
     </div>
-    @endforeach
-    @endif
+
+  </div>
+  <div class="row mb-2">
+    @if(!empty($slides))
+    @foreach($slides->slides as $slide)
+    <div class="col-md-4">
+
+      <a href="{{ route('book.highlights', $book->id ?? '') }}" class="text-decoration-none">
+        <div class="card text-center p-3" id="crd">
+          <img src="{{ asset('img/files/'.$slide->file_name) }}" width="100%" height="100%">
+        </div>
+      </a>
+
+      <p style="color: black;display: inline-block;">{{ $slide->name ?? $slide->file_name }}</p>
+      <div class="dropdown float-right dropleft">
+        <a href="" type="" class="text-success" data-toggle="dropdown" style="font-size: 28px;text-decoration: none;">
+          <b>...</b>
+        </a>
+        <form action="{{ route('book.fileDestroy') }}" method="POST">
+          @csrf
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{ route('book.editSlide', [$slide->id, $bookId] ) }}"><i class="fa fa-edit"></i>Edit</a>
+            <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure you want to delete?');"><i class="fa fa-trash"></i>Delete</button>
+            <input type="hidden" value="{{ $slide->file_name }}" name="filename">
+            <input type="hidden" value="{{ $bookId ?? ''}}" name="bookId">
+        </form>
+      </div>
+    </div>
+
+  </div>
+  @endforeach
+  @endif
 
   </div>
   <hr style="margin-top: 50px;">
@@ -454,7 +501,7 @@
           <div class="col-md-8">
             @if(!empty($bookSection->slides[0]->file_name ?? ''))
             <a href="#" class="text-decoration-none ">
-              
+
               @if(substr($bookSection->slides[0]->file_name, strpos($bookSection->slides[0]->file_name, ".") + 1) == 'pdf')
 
               <object data="{{ asset('img/files/'.$bookSection->slides[0]->file_name) }}" type="application/pdf" width="300px" height="150px">

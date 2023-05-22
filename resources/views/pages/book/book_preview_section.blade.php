@@ -42,7 +42,7 @@
         <div class="row">
             <div class="col-md-12 tab_link">
                 @if(!empty($findBook->banner_logo))
-                <img src="{{ asset('img/'.$findBook->banner_logo) }}" alt="" width="40" height="30" class="hidden ml-4 mt-0">
+                <img src="{{ asset('img/'.$findBook->banner_logo) }}" alt="" width="40" class="hidden ml-4 mt-0">
                 @endif
                 <nav id="myScrollspy">
 
@@ -53,7 +53,9 @@
                         <div class="border-top my-3"></div>
                         @if(!empty($allSections) && count($allSections) > 1)
                         @foreach($allSections as $key => $bookSection)
+                        @if(count($bookSection->slides) > 0 || count($bookSection->links) > 0)
                         <a class="dropdown-item" href="{{ route('book.preview.section', [$bookId, $bookSection->id] )}}">{{ $bookSection->name ?? ''}}</a>
+                        @endif
                         @endforeach
                         @endif
                     </div>
@@ -142,7 +144,9 @@
                         </button>
                         <div class="dropdown-menu" style="width: 100%;">
                             @foreach($allSections as $key => $bookSection)
+                            @if(count($bookSection->slides) > 0 || count($bookSection->links) > 0)
                             <a class="dropdown-item" href="{{ route('book.preview.section', [$bookId, $bookSection->id] )}}">{{ $bookSection->name }}</a>
+                            @endif
                             @endforeach
                         </div>
                     </div>

@@ -332,12 +332,17 @@
                                     @endif
                                     @if(!empty($sectionLink->image))
                                     <img src="{{ asset('img/files/'.$sectionLink->image) }}" alt="">
+                                    @else
+                                    <img src="{{ asset('img/fontCover/11.png' ?? '' )}}" alt="" width="100%">
                                     @endif
 
                                     @if(!empty($sectionLink->description))
                                     <p> {{ $sectionLink->description ?? '' }} </p>
                                     @endif
-                                    <a class="btn btn-outline-primary btn-sm float-right" href="{{ $sectionLink->links ?? ''}}" target="_blank">read More</a>
+                                    
+                                </div>
+                                <div class="col-md-12">
+                                <a class="btn btn-outline-primary btn-sm mt-3 float-right" href="{{ $sectionLink->links ?? ''}}" target="_blank">read More</a>
                                 </div>
                             </div>
 
@@ -363,7 +368,9 @@
                                     <b>{{$sectionLink->name ?? ''}}</b><br>
                                     @endif
                                     @if(!empty($sectionLink->image))
-                                    <img src="{{ asset('img/files/'.$sectionLink->image) }}" width="100px" height="100px" alt="">
+                                    <img src="{{ asset('img/files/'.$sectionLink->image) }}" width="100px" alt="">
+                                    @else
+                                    <img src="{{ asset('img/fontCover/11.png' ?? '' )}}" alt="" width="100%">
                                     @endif
 
                                     @if(!empty($sectionLink->description))

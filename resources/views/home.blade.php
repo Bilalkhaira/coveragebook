@@ -194,8 +194,8 @@
                       </a>
                       <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{ route('book.index', $allBook->id) }}">Edit</a>
-                        <a class="dropdown-item" href="#">Share</a>
-                        <a class="dropdown-item" href="#">Copy</a>
+                        <a class="dropdown-item" href="{{ route('book.share', $allBook->id ?? '') }}">Share</a>
+                        <!-- <a class="dropdown-item" href="#">Copy</a> -->
                         <a class="dropdown-item" href="{{ route('archived', $allBook->id) }}">Archive</a>
                       </div>
                     </div>
