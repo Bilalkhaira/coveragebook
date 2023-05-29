@@ -10,45 +10,45 @@
 
 @section('content')
 <section class="body">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-md-12 upload_covargeFile">
-                <h1>Upload Coverage Files</h1>
-                <p><b>STEP 1 OF 2</b></p>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group text-center">
-                    <b>Choose which section to add your slides to</b><br>
-                    <select class="form-control file_upload_slct" id="addSlidParent">
-                        @if(!empty($allSections))
-                        @foreach($allSections as $section)
-                        <option value="{{ $section->id }}">{{ $section->name }}</option>
-                        @endforeach
-                        @endif
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <p><b>Drag and drop files (maximum 50 at a time) on the upload area below.</b><br>
-                    Supported file types: JPG, PNG, GIF, MP3, MP4, WMV, MOV, PDF<br>
-                    Maximum file size is 250 Megabytes</p>
-            </div>
-            <div class="col-md-12 file_upload">
-                <form method="post" action="{{route('book.addNewSlideFiles')}}" enctype="multipart/form-data" class="dropzone" id="dropzone">
-                    @csrf
-                    <input type="hidden" name="parrentId" id="parrentId" value="{{ $allSections[0]->id ?? ''}}">
-                </form>
-
-            </div>
-
-            <div class="col-md-12 text-center">
-                <button type="button" class="btn buttonn" id="add_files_btn">Create</button>
-            </div>
-
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12 upload_covargeFile">
+        <h1>Upload Coverage Files</h1>
+        <p><b>STEP 1 </b></p>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group text-center">
+          <b>Choose which section to add your slides to</b><br>
+          <select class="form-control file_upload_slct" id="addSlidParent">
+            @if(!empty($allSections))
+            @foreach($allSections as $section)
+            <option value="{{ $section->id }}">{{ $section->name }}</option>
+            @endforeach
+            @endif
+          </select>
         </div>
+      </div>
+
+      <div class="col-md-12">
+        <p><b>Drag and drop files (maximum 50 at a time) on the upload area below.</b><br>
+          Supported file types: JPG, PNG, GIF, MP3, MP4, WMV, MOV, PDF<br>
+          Maximum file size is 250 Megabytes</p>
+      </div>
+      <div class="col-md-12 file_upload">
+        <form method="post" action="{{route('book.addNewSlideFiles')}}" enctype="multipart/form-data" class="dropzone" id="dropzone">
+          @csrf
+          <input type="hidden" name="parrentId" id="parrentId" value="{{ $allSections[0]->id ?? ''}}">
+        </form>
+
+      </div>
+
+      <div class="col-md-12 text-center">
+        <button type="button" class="btn buttonn" id="add_files_btn">Create</button>
+      </div>
 
     </div>
+
+  </div>
 </section>
 
 
@@ -101,8 +101,11 @@
     }
   };
   $('#add_files_btn').on('click', function() {
-    location.reload();
     toastr.success('Image Upload Successfully');
+
+    setTimeout(function() {
+      location.reload();
+    }, 2000);
   });
 </script>
 

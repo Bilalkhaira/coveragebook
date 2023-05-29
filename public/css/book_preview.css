@@ -147,6 +147,7 @@ body {
 }
 .preview_link_card .col-md-4{
     /* padding-top: 100px; */
+    overflow: hidden;
 }
 
 .coverage_grid_view {

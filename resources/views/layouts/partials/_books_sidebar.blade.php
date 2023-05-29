@@ -177,7 +177,7 @@
 
                 <form method="post" action="{{route('book.addNewSlideFiles')}}" enctype="multipart/form-data" class="dropzone" id="dropzone">
                     @csrf
-                    <input type="text" name="parrentId" id="parrentId1" value="{{ $allSections[0]->id ?? ''}}">
+                    <input type="hidden" name="parrentId" id="parrentId1" value="{{ $allSections[0]->id ?? ''}}">
                 </form>
 
                 <div class="modal-footer">

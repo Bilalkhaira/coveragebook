@@ -154,7 +154,7 @@
                         <div class="col-md-4">
                             <div class="coverage_grid_view high_preview">
 
-                                <a href="{{ $bookHighLight->links ?? ''}}" class="hightligh_a" target="_blank">
+                                <!-- <a href="#" class="hightligh_a"> -->
                                     @if(!empty($bookHighLight->image))
                                     <img src="{{ asset('img/files/'.$bookHighLight->image) }}" alt="">
                                     @else
@@ -167,7 +167,7 @@
                                     @if(!empty($bookHighLight->description))
                                     <p> {{ $bookHighLight->description ?? '' }} </p>
                                     @endif
-                                </a>
+                                <!-- </a> -->
 
 
                             </div>
@@ -184,7 +184,7 @@
 
 
 
-                @if(!empty($bookSections) && count($bookSection->slides) > 0 || count($bookSection->links) > 0)
+                @if(!empty($bookSections) && isset($bookSections->slides) && count($bookSections->slides) > 0 || isset($bookSections->links) && count($bookSections->links) > 0)
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-center mt-5 mb-5">
@@ -263,10 +263,12 @@
                 @endif
                 @else
                 <div class="row">
+                    @if(!empty($bookSection->slides[0]) || !empty($bookSection->links[0]))
                     <div class="col-md-12 text-center">
                         <h1>{{ $bookSection->name ?? ''}}</h1>
                         <hr style="height: 5px;width: 80px; background: {{ $findBook->accent_color ?? ''}};margin:auto">
                     </div>
+                    @endif
                 </div>
                 <div class="row mt-3">
                     @if(!empty($bookSection->slides))

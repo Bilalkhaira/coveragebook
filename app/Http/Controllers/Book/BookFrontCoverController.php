@@ -58,7 +58,7 @@ class BookFrontCoverController extends Controller
                 $file->move($destinationPath, $fileName);
             }
             BookFrontCover::create([
-                'cover_logo' => $updateimage ?? '',
+                'cover_logo' => $fileName ?? '',
                 'cover_title' => $request->title ?? '',
                 'book_id' => $request->bookId ?? '',
                 'cover_subtitle' => $request->sub_title ?? '',

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrentOnUpdate()->nullable();
-            $table->enum('hightlight_status', ['active', 'inactive'])->default('active');
+            $table->enum('hightlight_status', ['active', 'inactive'])->default('inactive');
         });
     }
 
