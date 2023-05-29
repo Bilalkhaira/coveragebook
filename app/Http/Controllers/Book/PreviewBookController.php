@@ -49,13 +49,23 @@ class PreviewBookController extends Controller
 
         $bookSections = BookSections::where('book_id', $bookId)
             ->where('name', '!=', 'Front Matter')
+            ->where('visibility', 'show')
             ->with(['slides', 'links'])
             ->get();
 
+        $getSectionIds = BookSections::where('book_id', $bookId)
+            ->where('name', '!=', 'Front Matter')
+            ->where('visibility', 'show')
+            ->get('id');
 
+        $sectionsIds = [];
 
+        foreach ($getSectionIds as $getSectionId) {
+            $sectionsIds[] = $getSectionId->id;
+        }
 
-        $bookHighLights = CoverageLink::where('book_id', $bookId)->where('hightlight_status', '!=', 'inactive')->get();
+        $bookHighLights = CoverageLink::whereIn('section_id', $sectionsIds)->where('hightlight_status', '!=', 'inactive')->get();
+        // $bookHighLights = CoverageLink::where('book_id', $bookId)->where('hightlight_status', '!=', 'inactive')->get();
 
         return view('pages.book.book_preview', compact('book', 'bookId', 'metrics', 'findBook', 'bookSections', 'bookHighLights'));
     }
@@ -89,6 +99,7 @@ class PreviewBookController extends Controller
 
         $allSections = BookSections::where('book_id', $bookId)
             ->where('name', '!=', 'Front Matter')
+            ->where('visibility', 'show')
             ->with(['slides', 'links'])
             ->get();
 

@@ -414,7 +414,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h4 class="modal-title">Edit section details</h4>
+                <h4 class="modal-title">Hide/Show Sections</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
