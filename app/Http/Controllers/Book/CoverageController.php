@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Book;
 
 use File;
+use Goutte\Client;
 use App\Models\BookSections;
 use App\Models\SectionSlide;
 use Illuminate\Http\Request;
@@ -58,8 +59,6 @@ class CoverageController extends Controller
 
         $book = Book::find($bookId);
 
-        // $sectionLinks = CoverageLink::where('section_id', $sectionId)->where('book_id', $bookId)->get();
-
         $sectionLinks = CoverageLink::query()
             ->when(($request->filter == 'title_a_z'), function (Builder $query) {
                 $query->orderBy('name');
@@ -84,12 +83,31 @@ class CoverageController extends Controller
 
     public function storeLinks(Request $request)
     {
-        CoverageLink::create([
-            'section_id' => $request->sectionId,
-            'book_id' => $request->bookId,
-            'links' => $request->link
-        ]);
+        foreach ($request->links as $link) {
+            $url = $link;
 
+            $client = new Client();
+            $crawler = $client->request('GET', $url);
+
+            $imageURL = null;
+
+            $crawler->filter('img')->each(function ($node) use (&$imageURL) {
+                $imageURL = $node->attr('src');
+                return false;
+            });
+            $crawler->filter('meta[name="description"]')->each(function ($node) use (&$description) {
+                $description = $node->attr('content');
+                return false;
+            });
+
+            CoverageLink::create([
+                'section_id' => $request->sectionId,
+                'book_id' => $request->bookId,
+                'links' => $link,
+                'description' => $description ?? '',
+                'image' => $imageURL ?? ''
+            ]);
+        }
         toastr()->success('Save Links Successfully');
 
         return redirect()->route('book.coverage', [$request->bookId, $request->sectionId]);
@@ -106,7 +124,6 @@ class CoverageController extends Controller
 
     public function updataLink(Request $request)
     {
-        //return $request->input()
         $imgpath = public_path('img/files/');
 
         $link = CoverageLink::find($request->updatedId);

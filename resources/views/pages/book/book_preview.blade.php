@@ -20,7 +20,7 @@
 <body>
     <!-- header start -->
     <div class="container-fluid">
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-12">
                 <header id="header">
                     <nav class="navbar  navbar-default navbar-fixed-top justify-content-center  navbar-expand-lg" style="position: fixed; left:0; right: 0; z-index: 1; height: 60px;
@@ -38,7 +38,7 @@
                     </nav>
                 </header>
             </div>
-        </div>
+        </div> -->
         <div class="row">
             <div class="col-md-12 tab_link">
                 @if(!empty($findBook->banner_logo))
@@ -46,7 +46,7 @@
                 @endif
                 <nav id="myScrollspy">
 
-                    <button class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"> <i style="color: {{ $findBook->accent_color ?? ''}};" class="fa fa-bars"></i>Contents</button>
+                    <button class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"> <i style="color: {{ $findBook->accent_color ?? ''}};" class="fa fa-bars"></i>Report</button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#section41">Front Cover</a>
                         <a class="dropdown-item" href="#section42">Matrics Summary</a>
@@ -76,7 +76,7 @@
                             <div class="row">
                                 @if(!empty($book->cover_logo))
                                 <div class="col-md-12 text-center">
-                                    <img src="{{ asset('img/fontCover/'.$book->cover_logo ?? '' )}}" alt="" width="150px" height="150px">
+                                    <img src="{{ asset('img/fontCover/'.$book->cover_logo ?? '' )}}" alt="" width="150px" height="auto">
                                 </div>
                                 @endif
                                 @if(!empty($book->cover_title))
@@ -155,18 +155,18 @@
                             <div class="coverage_grid_view high_preview">
 
                                 <!-- <a href="#" class="hightligh_a"> -->
-                                    @if(!empty($bookHighLight->image))
-                                    <img src="{{ asset('img/files/'.$bookHighLight->image) }}" alt="">
-                                    @else
-                                    <img src="{{ asset('img/fontCover/11.png' ?? '' )}}" alt="" width="100%">
-                                    @endif
+                                @if(!empty($bookHighLight->image))
+                                <img src="{{ asset('img/files/'.$bookHighLight->image) }}" alt="">
+                                @else
+                                <img src="{{ asset('img/fontCover/11.png' ?? '' )}}" alt="" width="100%">
+                                @endif
 
-                                    @if(!empty($bookHighLight->name))
-                                    <p><b> {{ $bookHighLight->name ?? '' }} </b></p>
-                                    @endif
-                                    @if(!empty($bookHighLight->description))
-                                    <p> {{ $bookHighLight->description ?? '' }} </p>
-                                    @endif
+                                @if(!empty($bookHighLight->name))
+                                <p><b> {{ $bookHighLight->name ?? '' }} </b></p>
+                                @endif
+                                @if(!empty($bookHighLight->description))
+                                <p> {{ $bookHighLight->description ?? '' }} </p>
+                                @endif
                                 <!-- </a> -->
 
 
@@ -212,7 +212,7 @@
 
                     <div class="col-md-3">
                         <div class="card text-center sectionCard">
-                            <a href="{{ route('book.preview.section', [$bookId, $bookSection->id] )}}">
+                            <a href="{{ route('book.preview.section', [$bookSection->id, $findBook->slug ?? ''] )}}">
 
                                 @if(substr($slide->file_name, strpos($slide->file_name, ".") + 1) == 'pdf')
 
@@ -234,9 +234,15 @@
 
                     <div class="col-md-3">
                         <div class="card sectionCard">
-                            <a href="{{ route('book.preview.section', [$bookId, $bookSection->id] )}}">
+                            <a href="{{ route('book.preview.section', [$bookSection->id, $findBook->slug ?? ''] )}}">
                                 @if($link->image)
-                                <img src="{{ asset('img/files/'.$link->image ) }}" width="100%" alt="">
+                                
+                                @if (strpos($link->image, "/") !== false)
+                                <img src="{{ $link->image }}" width="100%" height="180px">
+                                @else
+                                <img src="{{ asset('img/files/'.$link->image ) }}" width="100%" height="180px">
+                                @endif
+
                                 @else
                                 <img class="front_img img-fluid" src="{{ asset('img/fontCover/11.png' ?? '' )}}" alt="" width="100%">
                                 @endif
@@ -253,7 +259,7 @@
                     @endif
                     <div class="col-md-3">
                         <div class="card text-center openCard sectionCard">
-                            <a href="{{ route('book.preview.section', [$bookId, $bookSection->id] )}}">
+                            <a href="{{ route('book.preview.section', [$bookSection->id, $findBook->slug ?? ''] )}}">
                                 <span><i style="color: {{ $findBook->accent_color ?? ''}};" class="fa fa-arrow-right"></i></span>
                                 <p><b>Open This Section</b></p>
                             </a>
@@ -335,7 +341,7 @@
                         <div class="dropdown-menu" style="width: 100%;">
                             @foreach($bookSections as $key => $bookSection)
                             @if(count($bookSection->slides) > 0 || count($bookSection->links) > 0)
-                            <a class="dropdown-item" href="{{ route('book.preview.section', [$bookId, $bookSection->id] )}}">{{ $bookSection->name }}</a>
+                            <a class="dropdown-item" href="{{ route('book.preview.section', [$bookSection->id, $findBook->slug ?? ''] )}}">{{ $bookSection->name }}</a>
                             @endif
                             @endforeach
                         </div>

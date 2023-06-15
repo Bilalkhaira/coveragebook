@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('book_metrics_summaries', function (Blueprint $table) {
+        Schema::create('metric_groups', function (Blueprint $table) {
             $table->id();
-            $table->integer('book_id');
-            $table->integer('metric_id')->nullable();
-            $table->string('group_id')->nullable();
-            $table->integer('metric_option_id');
+            $table->string('name');
+            $table->string('metric_id');
+
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamp('created_at')->useCurrent();
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('book_metrics_summaries');
+        Schema::dropIfExists('metric_groups');
     }
 };

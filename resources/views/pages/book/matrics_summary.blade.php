@@ -87,8 +87,8 @@
     }
 
     .activeTab {
-        border: 1px solid #02c5a3;
-        background-color: white;
+        border: 1px solid #02c5a3 !important;
+        background-color: white !important;
     }
 
     .activecheckbox {
@@ -99,6 +99,42 @@
     .bookMetric {
         margin-bottom: 20px;
         margin-top: 20px;
+    }
+
+    #group_name {
+        width: 80%;
+        float: right;
+    }
+
+    .dlt_fa {
+        background-color: red;
+    }
+
+    .dlt_fa:hover {
+        color: white;
+    }
+
+    .mtric_group {
+        text-align: center;
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #fafafa;
+        margin-bottom: 15px;
+        cursor: pointer;
+    }
+
+    .mtric_group .checkbox {
+        display: block;
+        background-color: white;
+        width: 26px;
+        margin: auto;
+        border-radius: 100px;
+        border: 1px solid lightgray;
+        color: white;
+    }
+    #getGroupId{
+        visibility: hidden;
     }
 </style>
 @endsection
@@ -116,7 +152,7 @@
                 <p class="new mtrics_h">Metrics Summary</p>
             </div>
             <div class="col-md-3 text-right">
-                <a href="{{ route('book.preview', $book->id ?? '') }}" target="_blank">
+                <a href="{{ route('book.preview', $book->slug ?? '') }}" target="_blank">
                     <button type="button" class="btn mt-5 pr-5" id="prviw" data-toggle="modal" data-target="#">
                         <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 3px;">
                         Preview Book
@@ -216,7 +252,7 @@
             <div class="col-md-6">
                 <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#matrics">
                     <div class="card p-3" style="border-radius: 16px;background: lightgray;">
-                        <div class="row" >
+                        <div class="row">
                             <div class="col-md-2 pt-2">
                                 <img class="card-img-left example-card-img-responsive" src="{{ asset('img/lus.png') }}" alt="" width="80" height="80" />
                             </div>
@@ -262,6 +298,43 @@
                         </nav>
                         <div class="col-md-2"></div>
                         <div class="col-md-10 fram_dv">
+                            @if(!empty($metric_groups[0]))
+                            <div id="" class="" style="padding: 20px;">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <b>Metric Groups</b>
+
+                                        <hr>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    @foreach($metric_groups as $key => $metric_group)
+                                    <div class="col-md-3">
+                                        <div class="mtric_group @if(in_array($metric_group->id, $bookGroupIds ?? [])) ? activeTab @endif">
+                                            <a href="{{ route('book.matrics_summary.deleteGroup', $metric_group->id) }}" onclick="return confirm('Are you sure you want to delete?')" class="questonIcon dlt_fa"><i class="fa fa-trash"></i></a>
+                                            <span class="checkbox @if(in_array($metric_group->id, $bookGroupIds ?? [])) ? activecheckbox @endif"><i class="fa fa-check"></i></span>
+                                            <h6>{{ $metric_group->name }}</h6>
+                                            <input id="metrics_ids" type="hidden" value="{{ $metric_group->metric_id}}">
+                                            @if(in_array($metric_group->id, $bookGroupIds ?? []))
+                                            <input name="groupIds[]" id="select_unselect" type="hidden" value="{{ $metric_group->id }}">
+                                            @else
+                                            <input name="groupIds[]" id="select_unselect" type="hidden" value="">
+                                            @endif
+                                            <textarea id="getGroupId">{{ $metric_group->id }}</textarea>
+                                        </div>
+                                    </div>
+
+                                    @endforeach
+                                </div>
+
+                            </div>
+                            @endif
+
+
+
+
+
                             @if(!empty($metrics))
                             @foreach($metrics as $key => $metric)
                             <div id="section{{$key}}" class="" style="padding: 20px;">
@@ -276,12 +349,12 @@
                                     @if(!empty($metric->options))
                                     @foreach($metric->options as $key => $option)
                                     <div class="col-md-3">
-                                        <div class="mtric_option @if(in_array($option->id, $bookOptionsIds)) ? activeTab @endif">
+                                        <div class="mtric_option metric_group_options @if(in_array($option->id, $bookOptionsIds)) ? activeTab @endif">
                                             <span class="questonIcon" data-toggle="tooltip" data-placement="top" title="{{ $option->description ?? ''}}"><i class="fa fa-question"></i></span>
                                             <span class="checkbox @if(in_array($option->id, $bookOptionsIds)) ? activecheckbox @endif"><i class="fa fa-check"></i></span>
                                             <h6>{{ $option->name }}</h6>
                                             <p>{{ $option->value }}</p>
-                                            <input type="hidden" value="{{ $option->id }}" id="get_option_id">
+                                            <input class="get_optionsId_forgroup" type="hidden" value="{{ $option->id }}" id="get_option_id">
                                             @if(in_array($option->id, $bookOptionsIds))
                                             <input type="hidden" name="options[]" id="put_option_id" value="{{ $option->id }}">
                                             @else
@@ -300,8 +373,14 @@
                     </div>
 
                     <div class="modal-footer ftr">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Save</button>
+                        <input type="hidden" name="group_name" id="group_name">
+
+                        <div>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success" formaction="{{ route('book.matrics_summary.store') }}">Save</button>
+                            <button type="submit" class="btn btn-success" id="group_btn" formaction="{{ route('book.matrics_summary.storeGroup') }}">Create Group</button>
+                        </div>
+
                     </div>
                 </form>
             </div>
@@ -399,20 +478,58 @@
     </div>
 </div>
 <script>
-    $(document).on("click", ".coverageSecDetailTab", function(e) {
-        $("body").find('#hideShowInput').val('');
-        $("body").find('.coverageSecDetailTab_active').removeClass("coverageSecDetailTab_active");
-        $(this).closest('.coverageSecDetailTab').find('p').addClass('coverageSecDetailTab_active');
-        $(this).closest('.coverageSecDetailTab').find('span').addClass('coverageSecDetailTab_active');
+    $(document).on("click", ".mtric_group", function(e) {
+        var ids = JSON.parse($(this).find('#metrics_ids').val());
 
-        var status = $(this).closest('.coverageSecDetailTab').find('#showHide').val();
-        $("body").find('#hideShowInput').val(status);
+        var inputs = document.querySelectorAll('.get_optionsId_forgroup');
 
-        var layout = $(this).closest('.coverageSecDetailTab').find('#layoutInput').val();
-        $("body").find('#layoutId').val(layout);
+        if ($(this).closest('.mtric_group').find('#select_unselect').val()) {
 
-    });
+            $(this).find('#select_unselect').val('');
+            $(this).find('.checkbox').removeClass('activecheckbox');
+            $(this).removeClass('activeTab');
 
+            inputs.forEach(function(input) {
+                ids.forEach(function(key) {
+                    if (key === input.value) {
+                        var inputs = document.querySelector('input[value="' + input.value + '"]');
+
+                        var closestDiv = inputs.closest('div');
+                        closestDiv.classList.remove('activeTab');
+
+                        var closest = closestDiv.querySelector('.checkbox');
+                        closest.classList.remove('activecheckbox');
+
+                        var input_val = closestDiv.querySelector('#put_option_id');
+                        input_val.value = '';
+                    }
+                });
+            });
+        } else {
+            $(this).find('.checkbox').addClass('activecheckbox');
+            $(this).addClass('activeTab');
+            var getGroupId = $(this).find('#getGroupId').val();
+            $(this).find('#select_unselect').val(getGroupId);
+            inputs.forEach(function(input) {
+                ids.forEach(function(key) {
+                    if (key === input.value) {
+                        var inputs = document.querySelector('input[value="' + input.value + '"]');
+
+                        var closestDiv = inputs.closest('div');
+                        closestDiv.classList.add('activeTab');
+
+                        var closest = closestDiv.querySelector('.checkbox');
+                        closest.classList.add('activecheckbox');
+
+                        var input_val = closestDiv.querySelector('#put_option_id');
+                        input_val.value = inputs.value;
+                    }
+                });
+            });
+
+        }
+
+    })
 
     $(document).on("click", ".mtric_option", function(e) {
 
@@ -433,6 +550,28 @@
         }
 
     });
+
+
+    $(document).on("click", "#group_btn", function(e) {
+        var name = prompt('Please Enter Group Name');
+        $("body").find('#group_name').val(name);
+    })
+    $(document).on("click", ".coverageSecDetailTab", function(e) {
+        $("body").find('#hideShowInput').val('');
+        $("body").find('.coverageSecDetailTab_active').removeClass("coverageSecDetailTab_active");
+        $(this).closest('.coverageSecDetailTab').find('p').addClass('coverageSecDetailTab_active');
+        $(this).closest('.coverageSecDetailTab').find('span').addClass('coverageSecDetailTab_active');
+
+        var status = $(this).closest('.coverageSecDetailTab').find('#showHide').val();
+        $("body").find('#hideShowInput').val(status);
+
+        var layout = $(this).closest('.coverageSecDetailTab').find('#layoutInput').val();
+        $("body").find('#layoutId').val(layout);
+
+    });
+
+
+
 
     $(function() {
         $('[data-toggle="tooltip"]').tooltip()

@@ -14,8 +14,9 @@ use App\Http\Controllers\Controller;
 
 class PreviewBookController extends Controller
 {
-    public function index($bookId = '')
+    public function index($slug = '')
     {
+        $bookId = (Book::where('slug', $slug)->first('id'))->id;
 
         $book = BookFrontCover::where('book_id', $bookId)->where('visibility', 'show')->first();
 
@@ -70,8 +71,9 @@ class PreviewBookController extends Controller
         return view('pages.book.book_preview', compact('book', 'bookId', 'metrics', 'findBook', 'bookSections', 'bookHighLights'));
     }
 
-    public function bookSectionPreview($bookId = '', $sectionId = '')
+    public function bookSectionPreview($sectionId = '', $slug = '', )
     {
+        $bookId = (Book::where('slug', $slug)->first('id'))->id;
 
         $findBook = Book::find($bookId);
 

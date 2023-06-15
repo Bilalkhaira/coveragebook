@@ -99,7 +99,7 @@ class MetricsSummarySeeder extends Seeder
 
 
         $domain_authority_id = Metric::create([
-            'name' => 'domain_authority',
+            'name' => 'Domain Authority',
         ]);
 
         $domain_authority_data = [
@@ -109,8 +109,8 @@ class MetricsSummarySeeder extends Seeder
         MetricsOption::insert($domain_authority_data);
 
         $metric_data = [
-            ['name' => 'Your custom metrics'],
-            ['name' => 'Your custom summary cards'],
+            // ['name' => 'Your custom metrics'],
+            ['name' => 'Your Custom Summary Cards'],
         ]; 
         Metric::insert($metric_data);
     }

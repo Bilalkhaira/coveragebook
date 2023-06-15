@@ -59,7 +59,7 @@
                 <p><small>{{ $sectionData->description ?? ''}}</small></p>
             </div>
             <div class="col-md-3 text-right">
-                <a href="{{ route('book.preview', $bookId ?? '') }}" target="_blank">
+                <a href="{{ route('book.preview', $book->slug ?? '') }}" target="_blank">
                     <button type="button" class="btn mt-5 pr-5" id="prviw" data-toggle="modal" data-target="#">
                         <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 3px;">
                         Preview Book
@@ -331,7 +331,13 @@
                                     <p><b>{{$sectionLink->name ?? ''}}</b></p>
                                     @endif
                                     @if(!empty($sectionLink->image))
+
+                                    @if (strpos($sectionLink->image, "/") !== false)
+                                    <img src="{{ $sectionLink->image }}" alt="">
+                                    @else
                                     <img src="{{ asset('img/files/'.$sectionLink->image) }}" alt="">
+                                    @endif
+
                                     @else
                                     <img src="{{ asset('img/fontCover/11.png' ?? '' )}}" alt="" width="100%">
                                     @endif
@@ -339,10 +345,10 @@
                                     @if(!empty($sectionLink->description))
                                     <p> {{ $sectionLink->description ?? '' }} </p>
                                     @endif
-                                    
+
                                 </div>
                                 <div class="col-md-12">
-                                <a class="btn btn-outline-primary btn-sm mt-3 float-right" href="{{ $sectionLink->links ?? ''}}" target="_blank">read More</a>
+                                    <a class="btn btn-outline-primary btn-sm mt-3 float-right" href="{{ $sectionLink->links ?? ''}}" target="_blank">read More</a>
                                 </div>
                             </div>
 
@@ -635,10 +641,23 @@
                         <p><b>Paste the URLs to your coverage in here</b></p>
                         <p> <small> Add your links to online articles, social media posts, YouTube videos... Maximum 250 at a time. 199 remaining in your plan </small></p>
                     </div>
-                    <div class="form-group">
-                        <textarea name="link" id="" cols="30" rows="5" class="form-control" placeholder="awesomewebsite.com/yourcoverage" required></textarea>
-                        <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
+
+                    <div class="append-elements">
+                        <div class="row mb-3">
+                            <div class="col-md-11">
+                                <textarea name="links[]" id="" cols="30" rows="2" class="form-control" placeholder="awesomewebsite.com/yourcoverage" required></textarea>
+                                <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
+                            </div>
+
+                        </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-md-11">
+                            <button style="float: right;" class="btn btn-success btn-sm add_more">Add More Link</button>
+                        </div>
+                    </div>
+
+
                     <div class="form-group">
                         <b>Choose which section to import your coverage into</b><br>
                         <small>Divide your coverage into sections for easy grouping, sorting and presentation e.g. by media type or location.</small>
@@ -759,6 +778,20 @@
 @section('scripts')
 
 <script type="text/javascript">
+    $(document).on('click', '.add_more', function(e) {
+        e.preventDefault();
+        var data;
+        data = '<div class="row mb-3"><div class="col-md-11"><textarea name="links[]" cols="30" rows="2" class="form-control" placeholder="awesomewebsite.com/yourcoverage" required></textarea></div>';
+        data += '<div class="col-md-1"><a class="remove_more"> <i style="color:red" class="fa fa-trash"></i></a></div>';
+        $('.append-elements').append(data);
+    });
+    $(document).on('click', '.remove_more', function() {
+        $(this).closest('.row').remove();
+    });
+
+
+
+
     $(document).on("click", ".edit_link", function(e) {
         e.preventDefault();
         $.ajaxSetup({
@@ -781,7 +814,11 @@
                 $("body").find("#updatedId").val(data.id);
                 $("body").find("#link_name").val(data.name);
                 $("body").find("#link_desc").val(data.description);
-                $('#imagePreview').css('background-image', 'url(' + path + '/' + data.image + ')');
+                if (data.image.includes("/")) {
+                    $('#imagePreview').css('background-image', 'url(' + data.image + ')');
+                } else {
+                    $('#imagePreview').css('background-image', 'url(' + path + '/' + data.image + ')');
+                }
             }
         });
     });
@@ -791,7 +828,7 @@
 
 
     Dropzone.options.dropzone = {
-        maxFilesize: 12,
+        maxFilesize: 60,
         renameFile: function(file) {
             var dt = new Date();
             var time = dt.getTime();

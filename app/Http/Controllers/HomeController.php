@@ -8,6 +8,7 @@ use App\Models\Collection;
 use Illuminate\Http\Request;
 use App\Models\CollectionsAndBooks;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -114,14 +115,16 @@ class HomeController extends Controller
             $query = Book::create([
                 'name' => $request->name ?? '',
                 'collection_id' =>$request->parentId,
-                'created_by' => auth()->user()->id ?? ''
+                'created_by' => auth()->user()->id ?? '',
+                'slug' => Str::slug($request->name)
             ]);
         }
         else
         {
            $query = Book::create([
                 'name' => $request->name ?? '',
-                'created_by' => auth()->user()->id ?? ''
+                'created_by' => auth()->user()->id ?? '',
+                'slug' => Str::slug($request->name)
             ]);
         }
 

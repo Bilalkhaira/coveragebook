@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('collection_id')->nullable()->comment('foreign key from collection table');
             $table->string('name');
+            $table->string('slug');
             $table->string('banner_logo')->nullable();
             $table->string('accent_color')->nullable();
             $table->enum('visibility', ['show', 'hide'])->default('show');

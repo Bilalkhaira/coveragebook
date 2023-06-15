@@ -70,7 +70,7 @@
         </a>
       </div>
       <div class="col-md-3 text-right">
-        <a href="{{ route('book.preview', $book->id ?? '') }}" target="_blank">
+        <a href="{{ route('book.preview', $book->slug ?? '') }}" target="_blank">
           <button type="button" class="btn" id="prviw" data-toggle="modal" data-target="#">
             <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 3px;">
             Preview Book
@@ -288,7 +288,7 @@
                 <img src="{{ asset('img/fontCover/11.png' ?? '' )}}" style="height:250px">
                 @endif
               </div>
-              
+
 
               @elseif(count($bookHighLights) == 2)
               <div class="col-md-6">
@@ -298,7 +298,7 @@
                 <img src="{{ asset('img/fontCover/11.png' ?? '' )}}" style="height:250px">
                 @endif
               </div>
-              
+
 
               @elseif(count($bookHighLights) == 3)
               <div class="col-md-4">
@@ -770,6 +770,7 @@
 
 @endsection
 @section('scripts')
+
 <script>
   $("#addSlidParent").on("change", function() {
     $('body').find('#parrentId').val($(this).val());
@@ -777,7 +778,7 @@
 </script>
 <script type="text/javascript">
   Dropzone.options.dropzone = {
-    maxFilesize: 12,
+    maxFilesize: 50,
     renameFile: function(file) {
       var dt = new Date();
       var time = dt.getTime();
@@ -815,7 +816,9 @@
   };
   $('#add_files_btn').on('click', function() {
     toastr.success('Image Upload Successfully');
-    location.reload();
+    setTimeout(function() {
+      location.reload();
+    }, 2000);
   });
 </script>
 

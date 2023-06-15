@@ -97,13 +97,14 @@ Route::prefix('user')->group(function () {
         Route::post('/section/update', [SectionController::class, 'update'])->name('book.section.update'); //use
 
         Route::get('/share/{id?}', [ShareBookController::class, 'index'])->name('book.share');
-        Route::get('/preview/{id?}', [PreviewBookController::class, 'index'])->name('book.preview'); //use
-        Route::get('/preview_section/{id?}/{sectionId?}', [PreviewBookController::class, 'bookSectionPreview'])->name('book.preview.section'); //use
+       
         Route::get('/highlights/{id?}', [BookLighlightController::class, 'index'])->name('book.highlights'); //use
         Route::get('/highlights/store/{id?}', [BookLighlightController::class, 'store'])->name('book.highlights.store'); //use
 
         Route::get('/matrics_summary/{id?}', [MatricsSummaryBookController::class, 'index'])->name('book.matrics_summary'); //use
         Route::post('/matrics_summary/store', [MatricsSummaryBookController::class, 'store'])->name('book.matrics_summary.store'); //use
+        Route::post('/matrics_summary/store-group', [MatricsSummaryBookController::class, 'storeGroup'])->name('book.matrics_summary.storeGroup'); //use
+        Route::get('/matrics_summary/delete-group/{id?}', [MatricsSummaryBookController::class, 'deleteGroup'])->name('book.matrics_summary.deleteGroup'); //use
         Route::post('/matrics_summary/store_custom_card', [MatricsSummaryBookController::class, 'storeCustomCard'])->name('book.matrics_summary.storeCustomCard'); //use
         Route::post('/matrics_summary/update_visibility', [MatricsSummaryBookController::class, 'updateVisibility'])->name('book.matrics_summary.updateVisibility'); //use
 
@@ -135,3 +136,6 @@ Route::prefix('user')->group(function () {
 
     });
 });
+
+Route::get('/{slug?}', [PreviewBookController::class, 'index'])->name('book.preview'); //use
+Route::get('/{sectionId?}/{lsug?}', [PreviewBookController::class, 'bookSectionPreview'])->name('book.preview.section'); //use
