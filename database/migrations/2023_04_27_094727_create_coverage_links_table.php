@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('links')->nullable();
             $table->string('image')->nullable();
             $table->string('name')->nullable();
-            $table->string('description')->nullable();
+            $table->mediumText('description')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrentOnUpdate()->nullable();
             $table->enum('hightlight_status', ['active', 'inactive'])->default('inactive');

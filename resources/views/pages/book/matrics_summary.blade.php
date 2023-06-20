@@ -133,7 +133,8 @@
         border: 1px solid lightgray;
         color: white;
     }
-    #getGroupId{
+
+    #getGroupId {
         visibility: hidden;
     }
 </style>
@@ -154,7 +155,7 @@
             <div class="col-md-3 text-right">
                 <a href="{{ route('book.preview', $book->slug ?? '') }}" target="_blank">
                     <button type="button" class="btn mt-5 pr-5" id="prviw" data-toggle="modal" data-target="#">
-                        <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 3px;">
+                        <img src="{{ asset('img/eye.png') }}" alt="" width="24" style="margin-right: 9; margin-bottom: 3px;">
                         Preview Book
                     </button>
                 </a>
@@ -170,7 +171,7 @@
                         </div>
                         <div class="col-md-4 text-right">
                             <a href="" class="btn mt-2" style="background: lavender;">
-                                <img src="{{ asset('img/book.png') }}" alt="" width="30" height="30" class="">
+                                <img src="{{ asset('img/book.png') }}" alt="" width="30" class="">
                             </a>
                         </div>
                     </div>
@@ -482,17 +483,18 @@
         var ids = JSON.parse($(this).find('#metrics_ids').val());
 
         var inputs = document.querySelectorAll('.get_optionsId_forgroup');
-
+        var inputId = 'get_option_id'; //new
         if ($(this).closest('.mtric_group').find('#select_unselect').val()) {
 
             $(this).find('#select_unselect').val('');
             $(this).find('.checkbox').removeClass('activecheckbox');
             $(this).removeClass('activeTab');
-
+            
             inputs.forEach(function(input) {
                 ids.forEach(function(key) {
                     if (key === input.value) {
-                        var inputs = document.querySelector('input[value="' + input.value + '"]');
+                        // var inputs = document.querySelector('input[value="' + input.value + '"]');
+                        var inputs = document.querySelector(`input[value="${input.value}"][id="${inputId}"]`);
 
                         var closestDiv = inputs.closest('div');
                         closestDiv.classList.remove('activeTab');
@@ -513,7 +515,9 @@
             inputs.forEach(function(input) {
                 ids.forEach(function(key) {
                     if (key === input.value) {
-                        var inputs = document.querySelector('input[value="' + input.value + '"]');
+                        // var inputs = document.querySelector('input[value="' + input.value + '"]');
+                        // var inputs = document.querySelector(`input[value="${input.value}"][id="get_option_id"]`);
+                        var inputs = document.querySelector(`input[value="${input.value}"][id="${inputId}"]`);
 
                         var closestDiv = inputs.closest('div');
                         closestDiv.classList.add('activeTab');

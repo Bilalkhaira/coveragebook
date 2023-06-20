@@ -86,19 +86,22 @@ class CoverageController extends Controller
         foreach ($request->links as $link) {
             $url = $link;
 
-            $client = new Client();
-            $crawler = $client->request('GET', $url);
+            try {
+                $client = new Client();
+                $crawler = $client->request('GET', $url);
 
-            $imageURL = null;
+                $imageURL = null;
 
-            $crawler->filter('img')->each(function ($node) use (&$imageURL) {
-                $imageURL = $node->attr('src');
-                return false;
-            });
-            $crawler->filter('meta[name="description"]')->each(function ($node) use (&$description) {
-                $description = $node->attr('content');
-                return false;
-            });
+                $crawler->filter('img')->each(function ($node) use (&$imageURL) {
+                    $imageURL = $node->attr('src');
+                    return false;
+                });
+                $crawler->filter('meta[name="description"]')->each(function ($node) use (&$description) {
+                    $description = $node->attr('content');
+                    return false;
+                });
+            } catch (\Exception $e) {}
+
 
             CoverageLink::create([
                 'section_id' => $request->sectionId,

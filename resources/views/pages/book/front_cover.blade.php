@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-md-4 text-right">
                            <a href="#" class="btn mt-1" type="button" id="achrcrd">
-                            <img src="{{ asset('img/layout (2).png') }}" alt="" width="24" height="27" class="">
+                            <img src="{{ asset('img/layout (2).png') }}" alt="" width="24" class="">
                         </a>
                     </div>
                 </div>
@@ -65,11 +65,11 @@
                     <div class="col-md-4">
                         @if(!empty($book->cover_logo))
                         <a href="#" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal2" id="achrcrd">
-                            <img src="{{ asset('img/fontCover/'.$book->cover_logo ?? '') }}" alt="" width="24" height="27" class="">
+                            <img src="{{ asset('img/fontCover/'.$book->cover_logo ?? '') }}" alt="" width="24" class="">
                         </a>
                         @else
                         <a href="#" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal2" id="achrcrd">
-                            <img src="{{ asset('img/default-logo.png') }}" alt="" width="24" height="27" class="">
+                            <img src="{{ asset('img/default-logo.png') }}" alt="" width="24" class="">
                         </a>
                         @endif
                     </div>
@@ -87,11 +87,11 @@
                     <div class="col-md-4">
                         @if(!empty($book->cover_image))
                         <a href="#" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal3" id="achrcrd">
-                            <img src="{{ asset('img/fontCover/'.$book->cover_image ?? '') }}" alt="" width="24" height="27" class="">
+                            <img src="{{ asset('img/fontCover/'.$book->cover_image ?? '') }}" alt="" width="24" class="">
                         </a>
                         @else
                         <a href="#" class="btn mt-1" type="button" data-toggle="modal" data-target="#modal3" id="achrcrd">
-                            <img src="{{ asset('img/default-logo.png') }}" alt="" width="24" height="27" class="">
+                            <img src="{{ asset('img/default-logo.png') }}" alt="" width="24" class="">
                         </a>
                         @endif
 
@@ -137,7 +137,7 @@
                         </a>
                         @else
                         <a href="" class="btn mt-1" type="button" data-toggle="modal" data-target="#hideShow" id="achrcrd">
-                            <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="27" class="">
+                            <img src="{{ asset('img/eye.png') }}" alt="" width="24" class="">
                         </a>
                         @endif
                     </div>
@@ -151,7 +151,7 @@
                         <div class="row">
                             @if(!empty($book->cover_logo))
                             <div class="col-md-12 text-center">
-                                <img src="{{ asset('img/fontCover/'.$book->cover_logo ?? '' )}}" alt="" width="150px" height="150px">
+                                <img src="{{ asset('img/fontCover/'.$book->cover_logo ?? '' )}}" alt="" width="150px">
                             </div>
                             @endif
                             @if(!empty($book->cover_title))

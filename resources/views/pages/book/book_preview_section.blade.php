@@ -18,27 +18,8 @@
 </head>
 
 <body>
-    <!-- header start -->
     <div class="container-fluid">
-        <!-- <div class="row">
-            <div class="col-md-12">
-                <header id="header">
-                    <nav class="navbar  navbar-default navbar-fixed-top justify-content-center  navbar-expand-lg" style="position: fixed; left:0; right: 0; z-index: 1; height: 60px;
-                        background: rgb(8, 161, 154);">
-                        <span><b>This is a preview of your book.
-                                <a class="text-dark" href="#">
-                                    <span>Go back to editing</span>
-                                </a>
-                                <span>or</span>
-                                <a class="text-dark" href="#">
-                                    <span> share your book</span>
-                                </a>
-                            </b>
-                        </span>
-                    </nav>
-                </header>
-            </div>
-        </div> -->
+       
         <div class="row">
             <div class="col-md-12 tab_link">
                 @if(!empty($findBook->banner_logo))
@@ -63,13 +44,13 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid responsive_fluid">
         <div class="row">
 
             @if(!empty($bookSections))
             <div class="container">
 
-                <div class="row">
+                <div class="row h1_row">
                     <div class="col-md-12 mt-5 mb-5 text-center">
                         <h1>{{ $bookSections[0]->name ?? ''}}</h1>
                         <hr style="height: 5px;width: 80px; background: {{ $findBook->accent_color ?? ''}};margin:auto">
@@ -97,7 +78,7 @@
 
                     @if(!empty($bookSections[0]->links))
                     @foreach($bookSections[0]->links as $key => $link)
-                    <div class="col-md-12">
+                    <div class="col-md-12 responsive_margin">
                         <div class="row preview_link_card">
                             <div class="col-md-8">
                                 @if(!empty($link->image))
@@ -124,7 +105,6 @@
             </div>
             @endif
         </div>
-    </div>
     </div>
 
     <footer class="ftr">

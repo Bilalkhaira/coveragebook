@@ -18,27 +18,8 @@
 </head>
 
 <body>
-    <!-- header start -->
     <div class="container-fluid">
-        <!-- <div class="row">
-            <div class="col-md-12">
-                <header id="header">
-                    <nav class="navbar  navbar-default navbar-fixed-top justify-content-center  navbar-expand-lg" style="position: fixed; left:0; right: 0; z-index: 1; height: 60px;
-                        background: rgb(8, 161, 154);">
-                        <span><b>This is a preview of your book.
-                                <a class="text-dark" href="#">
-                                    <span>Go back to editing</span>
-                                </a>
-                                <span>or</span>
-                                <a class="text-dark" href="#">
-                                    <span> share your book</span>
-                                </a>
-                            </b>
-                        </span>
-                    </nav>
-                </header>
-            </div>
-        </div> -->
+
         <div class="row">
             <div class="col-md-12 tab_link">
                 @if(!empty($findBook->banner_logo))
@@ -107,7 +88,7 @@
                         <div class="col-md-12 text-center mt-5">
                             @if(!empty($metrics[0]))
                             <h1>Summary</h1>
-                            <hr style="height: 5px;width: 80px; background: {{ $findBook->accent_color ?? ''}};margin-left: 511px;">
+                            <hr class="hding_brdr" style="height: 5px;width: 80px; background: {{ $findBook->accent_color ?? ''}};margin-left: 511px;">
                             @endif
                         </div>
                     </div>
@@ -144,7 +125,7 @@
                     <div class="row">
                         <div class="col-md-12 text-center mt-5">
                             <h1>Highlights</h1>
-                            <hr style="height: 5px;width: 80px; background: {{ $findBook->accent_color ?? ''}};margin-left: 511px;">
+                            <hr class="hding_brdr" style="height: 5px;width: 80px; background: {{ $findBook->accent_color ?? ''}};margin-left: 511px;">
                         </div>
                     </div>
                     <div class="row">
@@ -154,9 +135,15 @@
                         <div class="col-md-4">
                             <div class="coverage_grid_view high_preview">
 
-                                <!-- <a href="#" class="hightligh_a"> -->
                                 @if(!empty($bookHighLight->image))
+
+
+                                @if (strpos($bookHighLight->image, "/") !== false)
+                                <img src="{{ $bookHighLight->image }}" alt="">
+                                @else
                                 <img src="{{ asset('img/files/'.$bookHighLight->image) }}" alt="">
+                                @endif
+
                                 @else
                                 <img src="{{ asset('img/fontCover/11.png' ?? '' )}}" alt="" width="100%">
                                 @endif
@@ -167,7 +154,6 @@
                                 @if(!empty($bookHighLight->description))
                                 <p> {{ $bookHighLight->description ?? '' }} </p>
                                 @endif
-                                <!-- </a> -->
 
 
                             </div>
@@ -198,7 +184,7 @@
             </div>
             @if(!empty($bookSections))
             @foreach($bookSections as $key => $bookSection)
-            <div id="section{{$key}}" class="container">
+            <div id="section{{$key}}" class="container responsive_">
                 @if(count($bookSections) > 1)
                 @if(count($bookSection->slides) > 0 || count($bookSection->links) > 0)
                 <div class="row">
@@ -236,7 +222,7 @@
                         <div class="card sectionCard">
                             <a href="{{ route('book.preview.section', [$bookSection->id, $findBook->slug ?? ''] )}}">
                                 @if($link->image)
-                                
+
                                 @if (strpos($link->image, "/") !== false)
                                 <img src="{{ $link->image }}" width="100%" height="180px">
                                 @else
@@ -326,7 +312,7 @@
             @endif
         </div>
     </div>
-    </div>
+    <!-- </div> -->
     @if(!empty($bookSections) && count($bookSections) > 1)
     <footer class="ftr">
         <div class="container">

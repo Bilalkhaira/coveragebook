@@ -16,7 +16,7 @@
             <div class="col-md-3 text-right">
                 <a href="{{ route('book.preview', $book->slug ?? '') }}" target="_blank">
                     <button type="button" class="btn mt-5 pr-5" id="prviw" data-toggle="modal" data-target="#">
-                        <img src="{{ asset('img/eye.png') }}" alt="" width="24" height="24" style="margin-right: 9; margin-bottom: 3px;">
+                        <img src="{{ asset('img/eye.png') }}" alt="" width="24" style="margin-right: 9; margin-bottom: 3px;">
                         Preview Book
                     </button>
                 </a>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-md-4 text-right">
                             <a href="" class="btn mt-2" style="background: lavender;">
-                                <img src="{{ asset('img/eye.png') }}" alt="" width="30" height="30" class="">
+                                <img src="{{ asset('img/eye.png') }}" alt="" width="30" class="">
                             </a>
                         </div>
                     </div>
@@ -55,7 +55,12 @@
                         <div class="col-md-12">
                             <a href="{{ $sectionLink->links ?? ''}}" class="hightligh_a" target="_blank">
                                 @if(!empty($sectionLink->image))
+                               
+                                @if (strpos($sectionLink->image, "/") !== false)
+                                <img src="{{ $sectionLink->image }}" alt="">
+                                @else
                                 <img src="{{ asset('img/files/'.$sectionLink->image) }}" alt="">
+                                @endif
                                 @else
                                 <img src="{{ asset('img/fontCover/11.png' ?? '' )}}" alt="" width="100%">
                                 @endif

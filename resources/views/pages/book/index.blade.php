@@ -156,7 +156,7 @@
       <div class="col-md-12">
         <p class="neww ml-1">FRONT MATTER</p>
         <button type="button" class="btn mt-4 mb-3 pr-2 text-secondary" style="float: right;" id="prviw" data-toggle="modal" data-target="#addNewSlide">
-          <img src="{{ asset('img/p box.png') }}" alt="" width="24" height="24">
+          <img src="{{ asset('img/p box.png') }}" alt="" width="24">
           Add a New Slide
         </button>
       </div>
