@@ -82,7 +82,7 @@
     <div class="row mt-2">
 
       <div class="col-md-3">
-        <div class="card p-2 crd-heights" id="shadow" type="button" data-toggle="modal" data-target="#modal1">
+        <div class="card p-2 matric_height" id="shadow" type="button" data-toggle="modal" data-target="#modal1">
           <div class="row">
             <div class="col-md-8">
               <h6 class="ml-2 mt-1 font-weight-bold">Banner Logo</h6>
@@ -111,7 +111,7 @@
       </div>
 
       <div class="col-md-3">
-        <div class="card p-2 crd-heights" id="shadow" type="button" data-toggle="modal" data-target="#modal2">
+        <div class="card p-2 matric_height" id="shadow" type="button" data-toggle="modal" data-target="#modal2">
           <div class="row">
             <div class="col-md-8">
               <h6 class="ml-2 mt-1 font-weight-bold">Accent color</h6>
@@ -132,7 +132,7 @@
       </div>
 
       <div class="col-md-3">
-        <div class="card p-2 crd-heights" id="shadow" type="button">
+        <div class="card p-2 matric_height" id="shadow" type="button">
           <div class="row">
             <div class="col-md-8 link_btn">
               <a href="{{ route('book.backLink.index', $bookId ?? '') }}">

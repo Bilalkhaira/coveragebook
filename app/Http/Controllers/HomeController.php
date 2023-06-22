@@ -19,7 +19,20 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth', 'verified'])->except('home');
+    }
+
+    public function home()
+    {
+        if (auth()->check()) {
+            $collections = Collection::get();
+
+            $allBooks = Book::with('frontCover')->where('visibility', 'show')->orderBy('name')->get();
+
+            return view('home', ['collections' => $collections, 'allBooks' => $allBooks]);
+        } else {
+            return view('auth.login');
+        }
     }
 
     /**
@@ -32,7 +45,7 @@ class HomeController extends Controller
         $collections = Collection::get();
 
         $allBooks = Book::with('frontCover')->where('visibility', 'show')->orderBy('name')->get();
-        
+
         return view('home', ['collections' => $collections, 'allBooks' => $allBooks]);
     }
 
@@ -49,10 +62,10 @@ class HomeController extends Controller
     {
         $collections = Collection::get();
 
-        if (!empty($request->is_allBook) OR $request->identify == 'allBook') {
+        if (!empty($request->is_allBook) or $request->identify == 'allBook') {
             $allBooks = Book::query()
                 ->when($request->name, function (Builder $query, string $search) {
-                    $query->where('name', 'LIKE', '%'.$search.'%');
+                    $query->where('name', 'LIKE', '%' . $search . '%');
                 })
                 ->when(($request->filter == 'desec'), function (Builder $query) {
                     $query->orderBy('name', 'DESC');
@@ -66,12 +79,12 @@ class HomeController extends Controller
                 ->where('visibility', 'show')
                 ->get();
 
-                $identify = 'allBook';
-                $parent_id = '';
+            $identify = 'allBook';
+            $parent_id = '';
         } else {
             $allBooks = Book::query()
                 ->when($request->name, function (Builder $query, string $search) {
-                    $query->where('name', 'LIKE', '%'.$search.'%');
+                    $query->where('name', 'LIKE', '%' . $search . '%');
                 })
                 ->when(($request->filter == 'desec'), function (Builder $query) {
                     $query->orderBy('name', 'DESC');
@@ -85,10 +98,10 @@ class HomeController extends Controller
                 ->where('visibility', 'show')
                 ->get();
 
-                $identify = 'notAllBook';
-                $parent_id = $request->parent_id;
+            $identify = 'notAllBook';
+            $parent_id = $request->parent_id;
         }
-        if(!empty($request->filter)) {
+        if (!empty($request->filter)) {
             $filter_name = $request->filter;
         } else {
             $filter_name = '';
@@ -110,18 +123,15 @@ class HomeController extends Controller
 
     public function storeBook(Request $request)
     {
-        if(!empty($request->parentId))
-        {
+        if (!empty($request->parentId)) {
             $query = Book::create([
                 'name' => $request->name ?? '',
-                'collection_id' =>$request->parentId,
+                'collection_id' => $request->parentId,
                 'created_by' => auth()->user()->id ?? '',
                 'slug' => Str::slug($request->name)
             ]);
-        }
-        else
-        {
-           $query = Book::create([
+        } else {
+            $query = Book::create([
                 'name' => $request->name ?? '',
                 'created_by' => auth()->user()->id ?? '',
                 'slug' => Str::slug($request->name)
@@ -129,17 +139,17 @@ class HomeController extends Controller
         }
 
         $data = [
-            ['name' => 'Coverage','book_id' => $query->id],
-            ['name' => 'Front Matter','book_id' => $query->id],
+            ['name' => 'Coverage', 'book_id' => $query->id],
+            ['name' => 'Front Matter', 'book_id' => $query->id],
         ];
-        
+
         BookSections::insert($data);
 
         toastr()->success('Created Successfully');
         return back();
     }
 
-    public function archived($id) 
+    public function archived($id)
     {
         $book = Book::find($id);
 
@@ -149,6 +159,5 @@ class HomeController extends Controller
 
         toastr()->success('Archived Successfully');
         return back();
-
     }
 }

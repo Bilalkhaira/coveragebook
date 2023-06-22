@@ -13,6 +13,11 @@ use App\Http\Controllers\Controller;
 class MatricsSummaryBookController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     public function index($bookId = '')
     {
         $metric_groups = MetricGroup::get();

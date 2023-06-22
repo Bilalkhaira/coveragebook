@@ -12,9 +12,17 @@ use App\Models\Book;
 use App\Models\CoverageLayout;
 use App\Models\CoverageLink;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class CoverageController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
+
     public function index($bookId = '', $sectionId = '')
     {
         $sectionSlides = SectionSlide::where('section_id', $sectionId)->get();
@@ -93,15 +101,36 @@ class CoverageController extends Controller
                 $imageURL = null;
 
                 $crawler->filter('img')->each(function ($node) use (&$imageURL) {
-                    $imageURL = $node->attr('src');
-                    return false;
+
+                    $image_URL = $node->attr('src');
+                    if (
+                        !Str::contains($image_URL, 'twitter')
+                        && !Str::contains($image_URL, 'facebook')
+                        && !Str::contains($image_URL, 'youtube')
+                        && !Str::contains($image_URL, 'linkedin')
+                        && !Str::contains($image_URL, 'instagram')
+                        && !Str::contains($image_URL, 'icon')
+                        && !Str::contains($image_URL, 'fb')
+                        && !Str::contains($image_URL, 'logo')
+                    ) {
+                        $imageURL = $image_URL;
+                        return false;
+                    }
                 });
+
+                if (empty($imageURL)) {
+                    $crawler->filter('header a img')->each(function ($node) use (&$imageURL) {
+                        $imageURL = $node->attr('src');
+                        return false;
+                    });
+                }
+
                 $crawler->filter('meta[name="description"]')->each(function ($node) use (&$description) {
                     $description = $node->attr('content');
                     return false;
                 });
-            } catch (\Exception $e) {}
-
+            } catch (\Exception $e) {
+            }
 
             CoverageLink::create([
                 'section_id' => $request->sectionId,

@@ -10,6 +10,13 @@ use Illuminate\Http\Request;
 
 class SectionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
+    
     public function store(Request $request)
     {
         BookSections::create([

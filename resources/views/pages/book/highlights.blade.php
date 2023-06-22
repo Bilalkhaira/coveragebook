@@ -24,7 +24,7 @@
         </div>
         <div class="row mt-2">
             <div class="col-md-3">
-                <div class="card p-1" id="shadow" type="button" data-toggle="modal" data-target="#hideShow">
+                <div class="card p-1 matric_height" id="shadow" type="button" data-toggle="modal" data-target="#hideShow">
                     <div class="row">
                         <div class="col-md-8">
                             <h6 class="ml-2 mt-1">Show/hide Highlights</h6>

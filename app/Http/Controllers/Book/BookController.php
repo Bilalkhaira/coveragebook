@@ -15,6 +15,10 @@ use App\Http\Controllers\Controller;
 
 class BookController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
     public function index($bookId = '')
     {
         $frontCover = BookFrontCover::where('book_id', $bookId)->first();

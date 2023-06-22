@@ -48,9 +48,11 @@ Route::get('/migrate', function () {
 });
 
 
-Route::get('/', function () {
-    return view('auth.login');
-})->name('home');
+// Route::get('/', function () {
+//     return view('auth.login');
+// })->name('home');
+
+Route::get('/', [HomeController::class, 'home'])->name('home'); //use
 
 
 Auth::routes(['verify' => true]);

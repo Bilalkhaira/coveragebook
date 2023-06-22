@@ -11,7 +11,7 @@
         @php 
           $total_books = App\Models\Book::count();
         @endphp
-        <a href="{{ route('dashboard') }}" style="font-weight: 500;">
+        <a href="{{ route('dashboard') }}" style="font-weight: 500;" class="menu-item">
           <i class="fa-solid fa-folder mr-2" style="font-size: 20px; color: rgb(178, 175, 175);"></i>All Books <span class="book-count">({{$total_books??'0'}})</span>
         </a>
 
@@ -21,7 +21,7 @@
         $count = App\Models\Collection::get();
         $book_count = App\Models\Book::where('collection_id',$collection->id)->count();
         @endphp
-        <a href="{{ route('collectionBooks', $collection->id)}}" style="font-weight: 500;">
+        <a href="{{ route('collectionBooks', $collection->id)}}" style="font-weight: 500;" class="menu-item">
           <i class="fa-solid fa-folder mr-2" style="font-size: 20px; color: rgb(178, 175, 175);"></i> {{$collection->name}} <span class="book-count">({{$book_count?? '0'}})</span>
         </a>
         @endforeach
@@ -57,3 +57,12 @@
     </ul>
   </div>
 </sidebar>
+<script>
+    var path = window.location.href;
+    $(".menu-item").each(function() {
+        if (this.href === path) {
+            $(this).addClass("homemenuactive");
+        }
+    });
+
+</script>

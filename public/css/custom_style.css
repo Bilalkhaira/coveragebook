@@ -103,7 +103,18 @@ body {
 }
 
 
+.matric_height {
+    height: 85px;
+}
 
+.menuactive {
+    background: #31383f;
+    color: white;
+}
+.homemenuactive{
+    background: rgb(193, 224, 246);
+    color: black;
+}
 
 
 #images_fram {
@@ -212,6 +223,11 @@ body {
     border: 1px solid lightgray;
     border-radius: 5px;
     padding: 15px;
+    height: 460px;
+}
+
+.slide_view {
+    height: 360px !important;
 }
 
 .coverage_grid_view i {
@@ -220,7 +236,7 @@ body {
 
 .coverage_grid_view img {
     width: 100%;
-    height: 300px;
+    max-height: 250px;
     margin-top: 15px;
 }
 
@@ -276,29 +292,35 @@ body {
     border: 1px solid #41c3ad !important;
     background-color: #e3efee;
 }
-.cover_layout_new{
+
+.cover_layout_new {
     background-color: #41c3ad;
     padding: 1px 4px;
     border-radius: 10px;
 }
+
 .anchorTag {
     color: black;
 }
-.anchorTag:hover{
+
+.anchorTag:hover {
     text-decoration: none;
     color: black;
 }
-.color_layout_dv{
+
+.color_layout_dv {
     border: 1px solid lightgray !important;
     background-color: #e3efee;
     padding-top: 15px;
     padding-left: 15px;
 }
-.color_layout_dv i{
+
+.color_layout_dv i {
     margin-right: 5px;
     color: #41c3ad;
 }
-.color_layout_dv a{
+
+.color_layout_dv a {
     color: #41c3ad;
 }
 
@@ -338,41 +360,47 @@ figure figcaption {
 
 
 
-.font_cover_tab .nav-link{
+.font_cover_tab .nav-link {
     padding: 0px;
     color: black;
 }
 
-.font_cover_tab > .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+.font_cover_tab>.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
     padding-bottom: 0px;
     background-color: transparent;
     border-color: transparent;
 }
 
-.font_cover_tab .nav-link.active p{
+.font_cover_tab .nav-link.active p {
     border-color: 1px solid #41c3ad !important;
     background-color: #e3efee !important;
 }
-.font_cover_tab .circle{
+
+.font_cover_tab .circle {
     border: 1px solid lightgray;
     border-radius: 50px;
     padding: 0px 8px;
     margin-right: 10px;
 }
-.font_cover_tab p{
+
+.font_cover_tab p {
     border: 1px solid lightgray;
     border-radius: 5px;
     padding: 16px 25px;
     margin-right: 10px;
     background-color: white;
 }
-.font_cover_tabContent img{
+
+.font_cover_tabContent img {
     border-radius: 10px;
 }
-.modal-content{
+
+.modal-content {
     border-radius: 25px;
 }
-.modal-body{
+
+.modal-body {
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
     background-color: #f5f5f5 !important;
@@ -381,91 +409,109 @@ figure figcaption {
 
 
 /* front cover page css */
-.layout_main{
+.layout_main {
     border-radius: 5px;
     padding: 50px 100px;
     color: white;
 }
-.layout_main_col{
+
+.layout_main_col {
     padding: 0px 120px;
 }
-.layout_main .col-md-12{
+
+.layout_main .col-md-12 {
     padding-top: 20px;
 }
-.home_link:hover{
+
+.home_link:hover {
     text-decoration: none;
 }
 
 
 
 /* file upload css */
-.file_upload_slct{
+.file_upload_slct {
     width: 40%;
     margin: auto;
 }
-.file_upload{
+
+.file_upload {
     padding: 0px 150px;
     margin-bottom: 20px;
 }
-.buttonn{
+
+.buttonn {
     background-color: #02c5a3;
     color: white;
 }
-.buttonn:hover{
+
+.buttonn:hover {
     background-color: #0f6c5c;
     color: white;
 }
 
 
-.link_btn .font-weight-bold{
+.link_btn .font-weight-bold {
     color: black;
 }
-.link_btn a:hover{
+
+.link_btn a:hover {
     text-decoration: none;
 }
-.show_link{
+
+.show_link {
     float: right;
     color: gray;
 }
-.count_link{
+
+.count_link {
     color: #02c5a3;
 }
-.backlink_body{
+
+.backlink_body {
     width: 50%;
     margin: auto;
 }
 
-.backlink_body .brdr{
+.backlink_body .brdr {
     padding: 50px;
     border: 2px dashed lightgray;
     border-radius: 10px;
     text-align: center;
 }
-#copy_text{
+
+#copy_text {
     display: none;
 }
-.coverage_highlight_btn{
+
+.coverage_highlight_btn {
     color: gray;
 }
-.bookmark{
+
+.bookmark {
     color: #fec878;
 }
-.hightligh_a{
+
+.hightligh_a {
     color: black;
 }
-.hightligh_a:hover{
+
+.hightligh_a:hover {
     text-decoration: none;
     color: black;
 }
-.pp{
+
+.pp {
     position: absolute;
     top: 0;
     right: 0;
 }
-.index_highlights{
+
+.index_highlights {
     color: black;
 }
-.index_highlights:hover{
+
+.index_highlights:hover {
     text-decoration: none;
     color: black;
 }

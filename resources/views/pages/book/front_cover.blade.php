@@ -26,9 +26,9 @@
         <div class="row mt-2 mb-5 justify-content-center no-gutters">
 
             <div class="col-md-2 mr-3">
-                <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#modal12">
+                <div class="card p-2 matric_height" id="shadow" type="button" data-toggle="modal" data-target="#modal12">
                     <div class="row">
-                        <div class="col-md-7">
+                        <div class="col-md-8">
                             <h6 class="ml-1 mb-0 mt-1 font-weight-bold">Layout</h6>
                             <p class="clr ml-1 mb-0 text-success">
                                 @if(isset($book->layout_id) && $book->layout_id ==1)
@@ -52,9 +52,9 @@
         </div>
 
         <div class="col-md-2 mr-3">
-            <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#modal2">
+            <div class="card p-2 matric_height" id="shadow" type="button" data-toggle="modal" data-target="#modal2">
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-8">
                         <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Logo</h6>
                         @if(!empty($book->cover_title))
                         <p class="clr ml-1 mb-0 text-success">
@@ -78,9 +78,9 @@
         </div>
 
         <div class="col-md-2 mr-3">
-            <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#modal3">
+            <div class="card p-2 matric_height" id="shadow" type="button" data-toggle="modal" data-target="#modal3">
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-8">
                         <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Cover Img</h6>
                         <p class="clr ml-1 mb-0 text-success">{{ $book->cover_image_title ?? ''}}</p>
                     </div>
@@ -101,9 +101,9 @@
         </div>
 
         <div class="col-md-2 mr-3">
-            <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#backgrountColor">
+            <div class="card p-2 matric_height" id="shadow" type="button" data-toggle="modal" data-target="#backgrountColor">
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-8">
                         <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Bg Color</h6>
                         <p class="clr ml-1 mb-0 text-success">{{ $book->cover_bg_color ?? '#ffffff'}}</p>
                     </div>
@@ -120,9 +120,9 @@
         </div>
 
         <div class="col-md-2">
-            <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#hideShow">
+            <div class="card p-2 matric_height" id="shadow" type="button" data-toggle="modal" data-target="#hideShow">
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-8">
                         <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Show/hide</h6>
                         <p class="clr ml-1 mb-0 text-success">{{ $book->visibility ?? 'show'}}</p>
                     </div>

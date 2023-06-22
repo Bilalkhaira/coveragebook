@@ -163,7 +163,7 @@
         </div>
         <div class="row mt-2">
             <div class="col-md-3">
-                <div class="card p-1" id="shadow" type="button" data-toggle="modal" data-target="#matrics">
+                <div class="card p-1 matric_height" id="shadow" type="button" data-toggle="modal" data-target="#matrics">
                     <div class="row">
                         <div class="col-md-8">
                             <h5 class="ml-2 mt-1">Choose Metrics</h5>
@@ -178,7 +178,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card p-1" id="shadow" type="button" data-toggle="modal" data-target="#hideShow">
+                <div class="card p-1 matric_height" id="shadow" type="button" data-toggle="modal" data-target="#hideShow">
                     <div class="row">
                         <div class="col-md-8">
                             <h5 class="ml-2 mt-1">Show/hide</h5>
@@ -204,7 +204,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card p-1" id="shadow" type="button" data-toggle="modal" data-target="#addCard">
+                <div class="card p-1 matric_height" id="shadow" type="button" data-toggle="modal" data-target="#addCard">
                     <div class="row">
                         <div class="col-md-8">
                             <h5 class="ml-2 mt-1">Add Cards</h5>

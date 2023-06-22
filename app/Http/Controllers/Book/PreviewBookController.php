@@ -16,13 +16,13 @@ class PreviewBookController extends Controller
 {
     public function index($slug = '')
     {
-        $bookId = (Book::where('slug', $slug)->first('id'))->id;
+        $bookId = (Book::where('slug', $slug)->first('id'))->id ?? '';
 
         $book = BookFrontCover::where('book_id', $bookId)->where('visibility', 'show')->first();
 
         $findBook = Book::find($bookId);
 
-        if ($findBook->show_matrics_summary == 1) {
+        if (!empty($findBook->show_matrics_summary) && $findBook->show_matrics_summary == 1) {
 
             $getBookOptions = BookMetricsSummary::where('book_id', $bookId)->get('metric_option_id');
 

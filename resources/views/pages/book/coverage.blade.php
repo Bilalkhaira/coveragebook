@@ -70,7 +70,7 @@
         <div class="row mt-2 mb-5 no-gutters">
 
             <div class="col-md-2 mr-3">
-                <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#addSlid">
+                <div class="card p-2 matric_height" id="shadow" type="button" data-toggle="modal" data-target="#addSlid">
                     <div class="row mr-row no-gutters">
                         <div class="col-md-9">
                             <h6 class="ml-1 mb-0 mt-1 font-weight-bold">Custom Slides</h6>
@@ -86,7 +86,7 @@
             </div>
 
             <div class="col-md-2 mr-3">
-                <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#layout">
+                <div class="card p-2 matric_height" id="shadow" type="button" data-toggle="modal" data-target="#layout">
                     <div class="row mr-row no-gutters">
                         <div class="col-md-9">
                             <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Coverage Layout</h6>
@@ -102,7 +102,7 @@
             </div>
 
             <div class="col-md-2 mr-3">
-                <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#sortBy">
+                <div class="card p-2 matric_height" id="shadow" type="button" data-toggle="modal" data-target="#sortBy">
                     <div class="row mr-row no-gutters">
                         <div class="col-md-9">
                             <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Sort covarage by</h6>
@@ -118,7 +118,7 @@
             </div>
 
             <div class="col-md-2">
-                <div class="card p-2" id="shadow" type="button" data-toggle="modal" data-target="#hideShow">
+                <div class="card p-2 matric_height" id="shadow" type="button" data-toggle="modal" data-target="#hideShow">
                     <div class="row mr-row no-gutters">
                         <div class="col-md-9">
                             <h6 class="ml-1 mb-0 mt-1  font-weight-bold">Show/hide</h6>
@@ -197,15 +197,12 @@
                     @if(!empty($sectionSlides))
                     @foreach($sectionSlides as $sectionSlide)
                     <div class="col-md-3">
-                        <div class="coverage_grid_view">
+                        <div class="coverage_grid_view slide_view">
                             <div class="row">
                                 <div class="col-md-4">
                                     <input type="checkbox">
                                 </div>
                                 <div class="col-md-8 text-right">
-                                    <!-- <a href="#"><i class="fa fa-copy"></i></a> -->
-                                    <!-- <a href="#"><i class="fa fa-star"></i></a> -->
-                                    <!-- <a href="#"><i class="icon fa fa-trash"></i></a> -->
                                     <form action="{{ route('book.fileDestroy') }}" method="POST">
                                         @csrf
                                         <button class="dlt_btn" type="submit" onclick="return confirm('Are you sure you want to delete?');"><i class="icon fa fa-trash"></i></button>
@@ -343,12 +340,12 @@
                                     @endif
 
                                     @if(!empty($sectionLink->description))
-                                    <p> {{ $sectionLink->description ?? '' }} </p>
+                                    <p>{{ \Illuminate\Support\Str::limit(\Illuminate\Support\Str::words($sectionLink->description, 15), 100, '...') }} </p>
                                     @endif
 
                                 </div>
                                 <div class="col-md-12">
-                                    <a class="btn btn-outline-primary btn-sm mt-3 float-right" href="{{ $sectionLink->links ?? ''}}" target="_blank">read More</a>
+                                    <a class="btn btn-outline-primary btn-sm" href="{{ $sectionLink->links ?? ''}}" target="_blank">read More</a>
                                 </div>
                             </div>
 

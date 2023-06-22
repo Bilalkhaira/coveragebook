@@ -1,11 +1,10 @@
-
 <sidebar id="sidebar">
     <div class="sidebar mb-4">
         <ul>
-            <li class="lii">
+            <li class="lii plus_menu">
                 <!-- Default dropleft button -->
                 <div class="btn-group dropright">
-                    <a href="#" type="" class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a href="#" type="" class="menu-item" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="{{ asset('img/plus.png') }}" alt="" width="60" height="60"><br> Add
                     </a>
 
@@ -80,28 +79,28 @@
             </li>
             <li>
 
-                <a href="{{ route('book.index', $bookId ?? '') }}">
+                <a href="{{ route('book.index', $bookId ?? '') }}" class="menu-item">
                     <i class="fa-solid fa-book-open" style="font-size: 30px;"></i><br> Book <br> Overview</a>
             </li>
             <li>
-                <a href="{{ route('book.fount_cover', $bookId ?? '') }}" class="pt-4">
+                <a href="{{ route('book.fount_cover', $bookId ?? '') }}" class="pt-4 menu-item">
                     <i class="fa-solid fa-image" style="font-size: 30px;"></i><br> Front Cover
                 </a>
             </li>
             <li>
-                <a href="{{ route('book.matrics_summary', $bookId ?? '') }}">
+                <a href="{{ route('book.matrics_summary', $bookId ?? '') }}" class="menu-item">
                     <i class="fa-solid fa-chart-simple" style="color: white;font-size: 30px;"></i><br> Matrics summary
                 </a>
             </li>
             <li>
-                <a href="{{ route('book.highlights', $bookId ?? '') }}">
+                <a href="{{ route('book.highlights', $bookId ?? '') }}" class="menu-item">
                     <img src="{{ asset('img/star.png') }}" alt="" width="50" height="50"><br> Highlights
                 </a>
             </li>
-            <li class="lii">
+            <li class="lii covearge_active">
                 <!-- Default dropleft button -->
                 <div class="btn-group dropright">
-                    <a href="#" type="" class="" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                    <a href="#" type="" class="menu-item" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
                         <i class="fa-solid fa-layer-group" style="font-size: 30px;"></i><br> Coverage
                     </a>
 
@@ -135,7 +134,7 @@
 
             </li>
             <li>
-                <a href="{{ route('book.share', $bookId ?? '') }}" class="pb-5">
+                <a href="{{ route('book.share', $bookId ?? '') }}" class="pb-5 menu-item">
                     <i class="fa-solid fa-arrow-up-from-bracket" style="color: aqua;font-size: 30px;"></i><br> Share Book
                 </a>
             </li>
@@ -253,7 +252,7 @@
                     <div class="form-group">
                         <label class="font-weight-bold" for="email">Paste the URLs to your coverage in here:</label>
                         <p>Add your links to online articles, social media posts, YouTube videos... Maximum 250 at a time. 199 remaining in your plan</p>
-                        <textarea name="link" id="" cols="30" rows="5" class="form-control" placeholder="awesomewebsite.com/yourcoverage" required></textarea>
+                        <textarea name="links[]" id="" cols="30" rows="5" class="form-control" placeholder="awesomewebsite.com/yourcoverage" required></textarea>
                         <input type="hidden" name="bookId" value="{{ $bookId ?? ''}}">
                     </div>
                     <div class="form-group">
@@ -287,50 +286,66 @@
 
 
 <script>
-  $("#addSlidParent1").on("change", function() {
-    $('body').find('#parrentId1').val($(this).val());
-  });
+    
+    if (window.location.href.includes('coverage')) {
+        $(document).find('.covearge_active').addClass("menuactive");
+    }
+    if (window.location.href.includes('upload_covarage_file')) {
+        $(document).find('.plus_menu').addClass("menuactive");
+    }
+
+    var path = window.location.href;
+    $(".menu-item").each(function() {
+        if (this.href === path) {
+            $(this).addClass("menuactive");
+        }
+    });
+
+
+    $("#addSlidParent1").on("change", function() {
+        $('body').find('#parrentId1').val($(this).val());
+    });
 </script>
 <script type="text/javascript">
-  Dropzone.options.dropzone = {
-    maxFilesize: 12,
-    renameFile: function(file) {
-      var dt = new Date();
-      var time = dt.getTime();
-      return time + file.name;
-    },
-    acceptedFiles: ".jpeg,.jpg,.png,.gif,.pdf",
-    addRemoveLinks: true,
-    timeout: 5000,
-    removedfile: function(file) {
-      var name = file.upload.filename;
-      $.ajax({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+    Dropzone.options.dropzone = {
+        maxFilesize: 12,
+        renameFile: function(file) {
+            var dt = new Date();
+            var time = dt.getTime();
+            return time + file.name;
         },
-        type: 'POST',
-        url: '{{ route("book.fileDestroy") }}',
-        data: {
-          filename: name
+        acceptedFiles: ".jpeg,.jpg,.png,.gif,.pdf",
+        addRemoveLinks: true,
+        timeout: 5000,
+        removedfile: function(file) {
+            var name = file.upload.filename;
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                type: 'POST',
+                url: '{{ route("book.fileDestroy") }}',
+                data: {
+                    filename: name
+                },
+                success: function(data) {
+                    toastr.success('Image Remove Successfully');
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
+            var fileRef;
+            return (fileRef = file.previewElement) != null ?
+                fileRef.parentNode.removeChild(file.previewElement) : void 0;
         },
-        success: function(data) {
-          toastr.success('Image Remove Successfully');
-        },
-        error: function(e) {
-          console.log(e);
+        success: function(file, response) {},
+        error: function(file, response) {
+            return false;
         }
-      });
-      var fileRef;
-      return (fileRef = file.previewElement) != null ?
-        fileRef.parentNode.removeChild(file.previewElement) : void 0;
-    },
-    success: function(file, response) {},
-    error: function(file, response) {
-      return false;
-    }
-  };
-  $('#add_files_btn1').on('click', function() {
-    toastr.success('Image Upload Successfully');
-    location.reload();
-  });
+    };
+    $('#add_files_btn1').on('click', function() {
+        toastr.success('Image Upload Successfully');
+        location.reload();
+    });
 </script>

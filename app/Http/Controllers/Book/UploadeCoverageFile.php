@@ -8,6 +8,13 @@ use App\Http\Controllers\Controller;
 
 class UploadeCoverageFile extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
+    
     public function index($bookId = '') 
     {
         $allSections = BookSections::where('name', '!=', 'Front Matter')->where('book_id', $bookId)->get();

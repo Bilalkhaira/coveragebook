@@ -9,6 +9,10 @@ use App\Models\BookBacklink;
 
 class BackLinkController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
     public function index($bookId = '')
     {
         $book = Book::find($bookId);
