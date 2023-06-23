@@ -217,7 +217,7 @@
                                 <div class="col-md-12">
                                     @if(substr($sectionSlide->file_name, strpos($sectionSlide->file_name, ".") + 1) == 'pdf')
 
-                                    <object data="{{ asset('img/files/'.$sectionSlide->file_name) }}" type="application/pdf" width="100%" height="335px">
+                                    <object data="{{ asset('img/files/'.$sectionSlide->file_name) }}" type="application/pdf" width="100%" height="250px">
                                         <p>Unable to display PDF file. <a href="{{ asset('img/files/'.$sectionSlide->file_name) }}">Download</a> instead.</p>
                                     </object>
                                     @else
@@ -227,7 +227,12 @@
                             </div>
                             <div class="row edit">
                                 <div class="col-md-8" style="overflow: hidden;">
-                                    <p>{{ $sectionSlide->name ?? $sectionSlide->file_name }}</p>
+
+                                    @if($sectionSlide->name)
+                                    <p>{{ \Illuminate\Support\Str::limit(\Illuminate\Support\Str::words($sectionSlide->name, 5), 50, '...') }}</p>
+                                    @else
+                                    <p>{{ \Illuminate\Support\Str::limit(\Illuminate\Support\Str::words($sectionSlide->file_name, 1), 100, '...') }}</p>
+                                    @endif
                                 </div>
                                 <div class="col-md-4 text-right">
                                     <a href="{{ route('book.editSlide', [$sectionSlide->id, $bookId] ) }}"><i class="icon fa fa-edit"></i></a>
@@ -339,12 +344,13 @@
                                     <img src="{{ asset('img/fontCover/11.png' ?? '' )}}" alt="" width="100%">
                                     @endif
 
+                                </div>
+                                <div class="col-md-12 text_bottom">
                                     @if(!empty($sectionLink->description))
                                     <p>{{ \Illuminate\Support\Str::limit(\Illuminate\Support\Str::words($sectionLink->description, 15), 100, '...') }} </p>
                                     @endif
-
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12 btn_bottom">
                                     <a class="btn btn-outline-primary btn-sm" href="{{ $sectionLink->links ?? ''}}" target="_blank">read More</a>
                                 </div>
                             </div>

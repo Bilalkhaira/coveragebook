@@ -298,6 +298,17 @@ body {
     padding: 1px 4px;
     border-radius: 10px;
 }
+.coverage_grid_vieww{
+    position: relative;
+}
+.btn_bottom{
+    position: absolute;
+    bottom: 3%;
+}
+.text_bottom{
+    position: absolute;
+    bottom: 10%;
+}
 
 .anchorTag {
     color: black;
